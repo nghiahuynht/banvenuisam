@@ -1,0 +1,19 @@
+12/4/2024 4:14:40 PM: /TicketOrder/SaleOrderAction      
+RootFolder: F:\Projects\OnGIT\LangBiang\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":36,"SubNum":1,"SubOrderCode":"LB1000412240005","CreatedBy":"admin","CardNum":null}
+[Exception]: System.NullReferenceException: Object reference not set to an instance of an object.
+   at WebApp.Controllers.TicketOrderController.CreateQRCode(Int64 orderId) in F:\Projects\OnGIT\LangBiang\Langbiang_Web\WebApp\Controllers\TicketOrderController.cs:line 203
+
+
+12/4/2024 4:24:36 PM: /TicketOrder/SaleOrderAction      
+RootFolder: F:\Projects\OnGIT\LangBiang\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":37,"SubNum":1,"SubOrderCode":"LB500412240028","CreatedBy":"admin","CardNum":null}
+[Exception]: System.NullReferenceException: Object reference not set to an instance of an object.
+   at WebApp.Controllers.TicketOrderController.CreateQRCode(Int64 orderId) in F:\Projects\OnGIT\LangBiang\Langbiang_Web\WebApp\Controllers\TicketOrderController.cs:line 203
+
+
+12/4/2024 4:32:46 PM: /TicketOrder/SaleOrderAction      
+RootFolder: F:\Projects\OnGIT\LangBiang\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":39,"SubNum":1,"SubOrderCode":"LB1000412240007","CreatedBy":"admin","CardNum":null}
+
+

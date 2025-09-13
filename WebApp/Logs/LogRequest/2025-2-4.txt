@@ -1,0 +1,43 @@
+2/4/2025 10:40:32 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":5272,"SubNum":1,"SubOrderCode":"VE-NGAY0402250213","CreatedBy":"adminlbl","CardNum":"0005272"}
+
+
+2/4/2025 10:44:23 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+
+
+2/4/2025 10:44:40 AM: /TicketOrder/ChangePaymentStatusOrder      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":5279,"SubNum":1,"SubOrderCode":"VE-DEM0402250003","CreatedBy":"adminlbl","CardNum":"0005279"}
+
+
+2/4/2025 10:44:44 AM: /ConDao/SendNoti      
+Before call api url: /gm/api/v1.0/zns/get-token
+Input: {"OAId":859331931254348594,"AppId":4534628161010948186}
+RequestUri: https://oauth.gamanjsc.com/gm/api/v1.0/zns/get-token
+ResponseCode: OK
+Response: {"Code":200,"Message":{"Message":"Thành công","ExMessage":null},"Data":{"AccessToken":"4uhuDFs_b2yOZ_WtzR-I9no6-JRtgP1I7kgJIxQ6v5Oai8eHciU2MYpsYpYYW85q1kgAAEgvbajdZAefrCUJJMEnZrFHvPqYUwkNK_BiZ0rUWUDYryx-03g6_LkaoT0rGAJUM_Nco4DYWDOdrlE_NNBAjY7ygTuwKDxmNhonsKTKnRedrg6iEd_ck5tnij9PHkBUCQhGq6i_i_0laFZTCmgNp7c5ni0-5Q2Y8V7qoc0KjC8BckBCJ2wjp2-TzSz8DS7JBQs1s7S7wzW_wexFN7owrnFhYijBKFlKKhoSxpWk_e8WbRoAPdlCYNxo_kerTxhePF_LvnXKZlv2vjhI1qs1qXt3oTbcQedwVVdcz0n5WS5wuDBNDdNYo4Ror_m_Vxx89UdgrJH-sjTlrOkq9p38gZwClC1zUdBT0Lef-gMMA0","ExpireIn":86400,"ExpireDate":"05/02/2025 08:53:58"},"IsSuccess":true,"IsNotFound":false,"IsNoContent":false,"IsConflict":false}
+
+
+2/4/2025 10:44:44 AM: /ConDao/SendNoti      
+Before call api url: /message/template
+Input: {"mode":null,"phone":"","template_id":"328629","template_data":{"company_name":"Lang Bian","customer_name":"Mặc định khách lẻ","ticket_code":"VE-DEM0402250003","price":"185,000","quantity":"1","total":"185,000","order_date":"04/02/2025 10:45:19","visit_date":"04/02/2025","qr":"5279","code":"langbian","place_visit":"Vé tham quan và giao lưu cồng chiên, từ 16h đến 21h"},"tracking_id":"j8jdoNuVnHHCq6tAk8PBanbIJWlWyRsm3gHQWUG7pec"}
+access_token: 4uhuDFs_b2yOZ_WtzR-I9no6-JRtgP1I7kgJIxQ6v5Oai8eHciU2MYpsYpYYW85q1kgAAEgvbajdZAefrCUJJMEnZrFHvPqYUwkNK_BiZ0rUWUDYryx-03g6_LkaoT0rGAJUM_Nco4DYWDOdrlE_NNBAjY7ygTuwKDxmNhonsKTKnRedrg6iEd_ck5tnij9PHkBUCQhGq6i_i_0laFZTCmgNp7c5ni0-5Q2Y8V7qoc0KjC8BckBCJ2wjp2-TzSz8DS7JBQs1s7S7wzW_wexFN7owrnFhYijBKFlKKhoSxpWk_e8WbRoAPdlCYNxo_kerTxhePF_LvnXKZlv2vjhI1qs1qXt3oTbcQedwVVdcz0n5WS5wuDBNDdNYo4Ror_m_Vxx89UdgrJH-sjTlrOkq9p38gZwClC1zUdBT0Lef-gMMA0
+RequestUri: https://business.openapi.zalo.me/message/template
+ResponseCode: OK
+Response: {"error":-108,"message":"Phone number invalid"}
+
+
+2/4/2025 1:42:10 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+
+
+2/4/2025 1:51:53 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+
+
+2/4/2025 1:53:18 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+
+

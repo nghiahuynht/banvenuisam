@@ -1,0 +1,196 @@
+﻿@model DAL.Models.Ticket.SoatveReportFilter
+@{
+    ViewData["Title"] = "Báo cáo soát vé";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using DAL.Entities
+@section styles{
+    <link href="~/plugins/datepicker/datepicker3.css" rel="stylesheet" />
+    <link href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="~/plugins/datatables-fixedcolumns/css/fixedColumns.bootstrap4.css" rel="stylesheet" />
+    <style>
+        .datepicker table tr td.disabled,
+        .datepicker table tr td.disabled:hover {
+            background-color: #e6d2d2;
+        }
+    </style>
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>@(ViewData["Title"])</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">@(ViewData["Title"])</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<section class="content">
+    @Html.AntiForgeryToken()
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-sm-3">
+                    <label>Tuyến thăm quan</label>
+                    <select class="form-control" id="ddl-zone">
+                        <option value="All">Tất cả</option>
+                        @{
+                            var lstZone = (List<GateList>)ViewBag.LstAllGateList;
+                            foreach (var opt in lstZone)
+                            {
+                                if (opt.ParentCode == null)
+                                {
+                                    <option value="@opt.GateCode">@opt.GateName</option>
+                                }
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-sm-3">
+                    <label>Điểm soát vé</label>
+                    <select class="form-control" id="ddl-gate">
+                        <option value="All">Tất cả</option>
+                        
+                    </select>
+                </div>
+                <div class="col-sm-3">
+                    <label>Trạng thái soát vé</label>
+                    <select class="form-control" id="status-scan">
+                        <option value="All">
+                            Tất cả
+                        </option>
+                        <option value="ThanhCong">Thành công</option>
+                        <option value="ThatBai">Thất bại</option>
+                    </select>
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <label>Từ ngày</label>
+                    <div class="input-group date" id="FromDateRP">
+                        <input type="text" id="FromDate" value="@(Model.FromDate)" class="form-control">
+                        <span class="input-group-addon group-date-icon"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label>Đến ngày</label>
+                    <div class="input-group date" id="ToDateRP">
+                        <input type="text" id="ToDate" value="@(Model.ToDate)" class="form-control">
+                        <span class="input-group-addon group-date-icon"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label>Mã vé/Mã tra cứu</label>
+                    <input type="text" class="form-control" id="keyword">
+                </div>
+
+                <div class="col-sm-3">
+                    <input type="button" value="OK" class="btn btn-primary btn-filter" id="btn-search" />
+                    &nbsp;
+                    @*<button class="btn btn-sm btn-success btn-filter" id="btn-export-excel"><i class="fa fa-download"></i>&nbsp;Export excel</button>*@
+                </div>
+
+            </div>
+        </div>
+        <div class="card-body ">
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table table-bordered table-hover dataTable" id="table-soatve" width="100%">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Mã vé</th>
+                                <th>SL mua</th>
+                                <th>Mã tra cứu</th>
+                                <th>Ngày soát vé</th>
+                                <th>Ngày mua vé</th>
+                                <th>Tuyến thăm quan</th>
+                                <th>Điểm soát vé</th>
+                                <th>Kết quả soát vé</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</section>
+@section scripts{
+    <script src="~/plugins/datatable/jquery.datatable.js"></script>
+    <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+    <script src="~/plugins/datatables-fixedcolumns/js/dataTables.fixedColumns.js"></script>
+    <script src="~/plugins/datepicker/bootstrap-datepicker.js"></script>
+
+    <script>
+        var tableId = "#table-soatve";
+        var ajaxURL = "/Ticket/GetSoatVeReport";
+        var columnData = [
+            { "data": "stt" },
+            { "data": "ticketCode" },
+            { "data": "slBan" },
+            { "data": "subOrderCode" },
+            { "data": "ngaySoatVe" },
+            {
+                "data": "ngayMuaVe"
+            },
+            { "data": "diaDiem" },
+            { "data": "gate" },
+            { "data": "resultScan" }
+        ];
+        $(document).ready(function () {
+            $(".date").datepicker({
+                format: "dd/mm/yyyy"
+            }).on('changeDate', function (e) {
+                $(this).datepicker('hide');
+            });
+            GetSoatVeRP();
+            $(document).keypress(function (e) {
+                if (e.which == 13) {
+                    GetSoatVeRP();
+                }
+            });
+
+            $("#btn-search").click(function () {
+                GetSoatVeRP();
+
+            });
+        });
+        function GetSoatVeRP() {
+            var dataSearch = {
+                ZoneCode: $("#ddl-zone").val(),
+                GateCode: $("#ddl-gate").val(),
+                StatusScan: $("#status-scan").val(),
+                FromDate: ConverFormatDate($("#FromDate").val()),
+                ToDate: ConverFormatDate($("#ToDate").val()),
+                Keyword: $("#keyword").val(),
+            };
+            GenrateDataTableSearch(tableId, ajaxURL, columnData, dataSearch, 10,"vé đã soát");
+
+        }
+
+        // load gate by zone
+        $('#ddl-zone').change(function () {
+            debugger
+        var parentCode = $(this).val();
+        var lstGate = @Html.Raw(Json.Serialize(ViewBag.LstAllGateList)); // Chuyển đổi dữ liệu từ ViewBag thành một mảng JavaScript.
+        var filteredGateList = lstGate.filter(x => x.parentCode == parentCode);
+        var ddlGate = $('#ddl-gate');
+        ddlGate.empty(); // Xóa tất cả các tùy chọn hiện có.
+        ddlGate.append($('<option>').text('Tất cả').attr('value', 'All')); // Thêm tùy chọn mặc định.
+        $.each(filteredGateList, function (index, item) { // Thêm các tùy chọn mới từ danh sách cổng đã lọc.
+            ddlGate.append($('<option>').text(item.gateName).attr('value', item.gateCode));
+        });
+    });
+
+    </script>
+}

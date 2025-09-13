@@ -1,0 +1,170 @@
+7/3/2025 10:08:48 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":2262,"SubNum":1,"SubOrderCode":"BD-15-Doan0307250043","CreatedBy":"admin","CardNum":"4002262"}
+
+
+7/3/2025 10:15:05 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":2263,"SubNum":1,"SubOrderCode":"BD-15-Doan0307250044","CreatedBy":"admin","CardNum":"4002263"}
+
+
+7/3/2025 10:22:58 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":2264,"SubNum":1,"SubOrderCode":"GiuXe_150307250005","CreatedBy":"admin","CardNum":"4002264"}
+
+
+7/3/2025 10:23:39 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":2265,"SubNum":1,"SubOrderCode":"BD-15-Le0307250073","CreatedBy":"admin","CardNum":"4002265"}
+SubCode: {"SubId":2266,"SubNum":2,"SubOrderCode":"BD-15-Le0307250074","CreatedBy":"admin","CardNum":"4002266"}
+SubCode: {"SubId":2267,"SubNum":3,"SubOrderCode":"BD-15-Le0307250075","CreatedBy":"admin","CardNum":"4002267"}
+
+
+7/3/2025 10:49:02 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":2268,"SubNum":2,"SubOrderCode":"GiuXe_150307250006","CreatedBy":"admin","CardNum":"4002268"}
+
+
+7/3/2025 10:49:12 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":2269,"SubNum":3,"SubOrderCode":"BD-15-Doan0307250045","CreatedBy":"admin","CardNum":"4002269"}
+
+
+7/3/2025 10:50:52 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":2270,"SubNum":1,"SubOrderCode":"BD-15-Le0307250076","CreatedBy":"admin","CardNum":"4002270"}
+SubCode: {"SubId":2271,"SubNum":2,"SubOrderCode":"BD-15-Le0307250077","CreatedBy":"admin","CardNum":"4002271"}
+
+
+7/3/2025 11:02:27 AM: /      
+[Exception]: System.Data.SqlClient.SqlException (0x80131904): A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server) ---> System.ComponentModel.Win32Exception (1326): The user name or password is incorrect
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, Boolean applyTransientFaultHandling, String accessToken)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnection(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.Enumerator.BufferlessMoveNext(DbContext _, Boolean buffer)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.Enumerator.MoveNext()
+   at Microsoft.EntityFrameworkCore.Query.Internal.LinqOperatorProvider._TrackEntities[TOut,TIn](IEnumerable`1 results, QueryContext queryContext, IList`1 entityTrackingInfos, IList`1 entityAccessors)+MoveNext()
+   at Microsoft.EntityFrameworkCore.Query.Internal.LinqOperatorProvider.ExceptionInterceptor`1.EnumeratorExceptionInterceptor.MoveNext()
+   at System.Collections.Generic.List`1.AddEnumerable(IEnumerable`1 enumerable)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at DAL.Service.TicketService.GetAllTicket() in D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\DAL\Service\TicketService.cs:line 141
+ClientConnectionId:00000000-0000-0000-0000-000000000000
+Error Number:1326,State:0,Class:20
+
+7/3/2025 11:17:35 AM: /Ticket/GetSaleHistory      
+[Exception]: System.InvalidCastException: Unable to cast object of type 'System.DateTime' to type 'System.String'.
+   at System.Data.SqlClient.SqlBuffer.get_String()
+   at System.Data.SqlClient.SqlDataReader.GetString(Int32 i)
+   at lambda_method(Closure , DbDataReader )
+   at Microsoft.EntityFrameworkCore.Storage.Internal.TypedRelationalValueBufferFactory.Create(DbDataReader dataReader)
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncQueryingEnumerable`1.AsyncEnumerator.BufferlessMoveNext(DbContext _, Boolean buffer, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncQueryingEnumerable`1.AsyncEnumerator.MoveNext(CancellationToken cancellationToken)
+   at System.Linq.AsyncEnumerable.SelectEnumerableAsyncIterator`2.MoveNextCore(CancellationToken cancellationToken) in D:\a\1\s\Ix.NET\Source\System.Interactive.Async\Select.cs:line 106
+   at System.Linq.AsyncEnumerable.AsyncIterator`1.MoveNext(CancellationToken cancellationToken) in D:\a\1\s\Ix.NET\Source\System.Interactive.Async\AsyncIterator.cs:line 98
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncLinqOperatorProvider.ExceptionInterceptor`1.EnumeratorExceptionInterceptor.MoveNext(CancellationToken cancellationToken)
+   at System.Linq.AsyncEnumerable.Aggregate_[TSource,TAccumulate,TResult](IAsyncEnumerable`1 source, TAccumulate seed, Func`3 accumulator, Func`2 resultSelector, CancellationToken cancellationToken) in D:\a\1\s\Ix.NET\Source\System.Interactive.Async\Aggregate.cs:line 120
+   at DAL.Service.TicketService.GetSaleHistory(SaleHistoryFilterModel filter, Boolean isExcel) in D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\DAL\Service\TicketService.cs:line 421
+
+7/3/2025 11:17:42 AM: /Ticket/GetSaleHistory      
+[Exception]: System.InvalidCastException: Unable to cast object of type 'System.DateTime' to type 'System.String'.
+   at System.Data.SqlClient.SqlBuffer.get_String()
+   at System.Data.SqlClient.SqlDataReader.GetString(Int32 i)
+   at lambda_method(Closure , DbDataReader )
+   at Microsoft.EntityFrameworkCore.Storage.Internal.TypedRelationalValueBufferFactory.Create(DbDataReader dataReader)
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncQueryingEnumerable`1.AsyncEnumerator.BufferlessMoveNext(DbContext _, Boolean buffer, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncQueryingEnumerable`1.AsyncEnumerator.MoveNext(CancellationToken cancellationToken)
+   at System.Linq.AsyncEnumerable.SelectEnumerableAsyncIterator`2.MoveNextCore(CancellationToken cancellationToken) in D:\a\1\s\Ix.NET\Source\System.Interactive.Async\Select.cs:line 106
+   at System.Linq.AsyncEnumerable.AsyncIterator`1.MoveNext(CancellationToken cancellationToken) in D:\a\1\s\Ix.NET\Source\System.Interactive.Async\AsyncIterator.cs:line 98
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncLinqOperatorProvider.ExceptionInterceptor`1.EnumeratorExceptionInterceptor.MoveNext(CancellationToken cancellationToken)
+   at System.Linq.AsyncEnumerable.Aggregate_[TSource,TAccumulate,TResult](IAsyncEnumerable`1 source, TAccumulate seed, Func`3 accumulator, Func`2 resultSelector, CancellationToken cancellationToken) in D:\a\1\s\Ix.NET\Source\System.Interactive.Async\Aggregate.cs:line 120
+   at DAL.Service.TicketService.GetSaleHistory(SaleHistoryFilterModel filter, Boolean isExcel) in D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\DAL\Service\TicketService.cs:line 421
+
+7/3/2025 11:18:56 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":2272,"SubNum":2,"SubOrderCode":"GiuXe_150307250007","CreatedBy":"admin","CardNum":"4002272"}
+
+
+7/3/2025 11:20:15 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":2273,"SubNum":1,"SubOrderCode":"GiuXe_300307250002","CreatedBy":"admin","CardNum":"4002273"}
+
+
+7/3/2025 11:44:03 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":2274,"SubNum":1,"SubOrderCode":"BD-15-Le0307250078","CreatedBy":"admin","CardNum":"4002274"}
+
+
+7/3/2025 4:41:53 PM: /Ticket/GetSaleReport      
+[Exception]: System.Data.SqlClient.SqlException (0x80131904): Procedure or function sp_ReportSaleByUserWeb has too many arguments specified.
+   at System.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__122_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot)
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.EntityFrameworkCore.Storage.Internal.RelationalCommand.ExecuteAsync(IRelationalConnection connection, DbCommandMethod executeMethod, IReadOnlyDictionary`2 parameterValues, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncQueryingEnumerable`1.AsyncEnumerator.BufferlessMoveNext(DbContext _, Boolean buffer, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncQueryingEnumerable`1.AsyncEnumerator.MoveNext(CancellationToken cancellationToken)
+   at System.Linq.AsyncEnumerable.SelectEnumerableAsyncIterator`2.MoveNextCore(CancellationToken cancellationToken) in D:\a\1\s\Ix.NET\Source\System.Interactive.Async\Select.cs:line 106
+   at System.Linq.AsyncEnumerable.AsyncIterator`1.MoveNext(CancellationToken cancellationToken) in D:\a\1\s\Ix.NET\Source\System.Interactive.Async\AsyncIterator.cs:line 98
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncLinqOperatorProvider.ExceptionInterceptor`1.EnumeratorExceptionInterceptor.MoveNext(CancellationToken cancellationToken)
+   at System.Linq.AsyncEnumerable.Aggregate_[TSource,TAccumulate,TResult](IAsyncEnumerable`1 source, TAccumulate seed, Func`3 accumulator, Func`2 resultSelector, CancellationToken cancellationToken) in D:\a\1\s\Ix.NET\Source\System.Interactive.Async\Aggregate.cs:line 120
+   at DAL.Service.TicketService.GetSaleReport(SaleReportFilterModel filter) in D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\DAL\Service\TicketService.cs:line 462
+ClientConnectionId:d88cf5a9-8d4c-499c-9f5f-569149802052
+Error Number:8144,State:2,Class:16
+
+7/3/2025 4:42:03 PM: /Ticket/GetSaleReport      
+[Exception]: System.Data.SqlClient.SqlException (0x80131904): Procedure or function sp_ReportSaleByUserWeb has too many arguments specified.
+   at System.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__122_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot)
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.EntityFrameworkCore.Storage.Internal.RelationalCommand.ExecuteAsync(IRelationalConnection connection, DbCommandMethod executeMethod, IReadOnlyDictionary`2 parameterValues, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncQueryingEnumerable`1.AsyncEnumerator.BufferlessMoveNext(DbContext _, Boolean buffer, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncQueryingEnumerable`1.AsyncEnumerator.MoveNext(CancellationToken cancellationToken)
+   at System.Linq.AsyncEnumerable.SelectEnumerableAsyncIterator`2.MoveNextCore(CancellationToken cancellationToken) in D:\a\1\s\Ix.NET\Source\System.Interactive.Async\Select.cs:line 106
+   at System.Linq.AsyncEnumerable.AsyncIterator`1.MoveNext(CancellationToken cancellationToken) in D:\a\1\s\Ix.NET\Source\System.Interactive.Async\AsyncIterator.cs:line 98
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncLinqOperatorProvider.ExceptionInterceptor`1.EnumeratorExceptionInterceptor.MoveNext(CancellationToken cancellationToken)
+   at System.Linq.AsyncEnumerable.Aggregate_[TSource,TAccumulate,TResult](IAsyncEnumerable`1 source, TAccumulate seed, Func`3 accumulator, Func`2 resultSelector, CancellationToken cancellationToken) in D:\a\1\s\Ix.NET\Source\System.Interactive.Async\Aggregate.cs:line 120
+   at DAL.Service.TicketService.GetSaleReport(SaleReportFilterModel filter) in D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\DAL\Service\TicketService.cs:line 462
+ClientConnectionId:d88cf5a9-8d4c-499c-9f5f-569149802052
+Error Number:8144,State:2,Class:16
+
+7/3/2025 4:42:07 PM: /Ticket/GetSaleReport      
+[Exception]: System.Data.SqlClient.SqlException (0x80131904): Procedure or function sp_ReportSaleByUserWeb has too many arguments specified.
+   at System.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__122_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot)
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.EntityFrameworkCore.Storage.Internal.RelationalCommand.ExecuteAsync(IRelationalConnection connection, DbCommandMethod executeMethod, IReadOnlyDictionary`2 parameterValues, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncQueryingEnumerable`1.AsyncEnumerator.BufferlessMoveNext(DbContext _, Boolean buffer, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncQueryingEnumerable`1.AsyncEnumerator.MoveNext(CancellationToken cancellationToken)
+   at System.Linq.AsyncEnumerable.SelectEnumerableAsyncIterator`2.MoveNextCore(CancellationToken cancellationToken) in D:\a\1\s\Ix.NET\Source\System.Interactive.Async\Select.cs:line 106
+   at System.Linq.AsyncEnumerable.AsyncIterator`1.MoveNext(CancellationToken cancellationToken) in D:\a\1\s\Ix.NET\Source\System.Interactive.Async\AsyncIterator.cs:line 98
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncLinqOperatorProvider.ExceptionInterceptor`1.EnumeratorExceptionInterceptor.MoveNext(CancellationToken cancellationToken)
+   at System.Linq.AsyncEnumerable.Aggregate_[TSource,TAccumulate,TResult](IAsyncEnumerable`1 source, TAccumulate seed, Func`3 accumulator, Func`2 resultSelector, CancellationToken cancellationToken) in D:\a\1\s\Ix.NET\Source\System.Interactive.Async\Aggregate.cs:line 120
+   at DAL.Service.TicketService.GetSaleReport(SaleReportFilterModel filter) in D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\DAL\Service\TicketService.cs:line 462
+ClientConnectionId:86c58565-eb1e-4dd2-ae15-db786a378aa4
+Error Number:8144,State:2,Class:16
+

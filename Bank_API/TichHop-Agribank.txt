@@ -1,0 +1,51 @@
+============= cURL gửi ArgiBank=========================
+
+API 1: Đăng nhập lấy token từ GAMAN
+
+
+curl --location 'https://103.27.236.167:9005/api/User/Login' \
+--header 'accept: */*' \
+--header 'Content-Type: application/json-patch+json' \
+--data-raw '{
+  "userName": "agribank",
+  "password": "Agri@667788"
+}'
+
+
+
+API 2: Lấy thông tin đơn hàng từ GAMAN
+
+curl --location 'https://103.27.236.167:9005/api/Payment/GetOrderInforByCode?orderCode=GANHDA0000111' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiIyMDUyIiwiVXNlck5hbWUiOiJhZ3JpYmFuayIsIm5iZiI6MTc0MTg1MTc3MiwiZXhwIjoxNzQxODYyNTcyLCJpYXQiOjE3NDE4NTE3NzJ9.mECpHS1EPHFXk8YZndwCJClhINEi6iS8Yxnb711oa3k'
+
+
+
+
+API 3: Báo có về cho GAMAN
+
+
+curl --location 'https://103.27.236.167:9005/api/Payment/UpdatePaymentStatus' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiIyMDUyIiwiVXNlck5hbWUiOiJhZ3JpYmFuayIsIm5iZiI6MTc0MTg1MTc3MiwiZXhwIjoxNzQxODYyNTcyLCJpYXQiOjE3NDE4NTE3NzJ9.mECpHS1EPHFXk8YZndwCJClhINEi6iS8Yxnb711oa3k' \
+--header 'Content-Type: application/json' \
+--data '{
+    "orderCode":"GANHDA0000111",
+    "paymentAmount":40000,
+    "paymentDateTime":"2025/03/13 15:30:12"
+}'
+
+
+
+
+Mô tả các errorCode
+
+0: 	success (thanh cong)
+400:	Status400BadRequest
+401:	Status401Unauthorized
+204:	Status204NoContent
+302:	Status302Found
+305:  	Hủy bill
+
+
+
+
+

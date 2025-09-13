@@ -1,0 +1,228 @@
+﻿@model DAL.Entities.Ticket
+@using DAL.Entities
+@{
+    ViewData["Title"] = "Bán vé";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styles{
+    <link href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="~/plugins/datatables-fixedcolumns/css/fixedColumns.bootstrap4.css" rel="stylesheet" />
+    <style>
+        
+        label {
+            position: absolute;
+            font-size: 1rem;
+            //left: 10px;
+            top: 0%;
+            transform: translateY(-50%);
+            background-color: white;
+            color: gray;
+            padding: 0 0.3rem;
+            margin: 0 0.5rem;
+            transition: .1s ease-out;
+            transform-origin: left top;
+            pointer-events: none;
+        }
+
+        input, select {
+            font-size: 1rem;
+            outline: none;
+            border: 1px solid gray;
+            border-radius: 5px;
+            padding: 1rem 0.7rem;
+            color: gray;
+            transition: 0.1s ease-out;
+        }
+
+            input:focus, select:focus {
+                border-color: #6200EE;
+            }
+
+                input:focus + label, select:focus + label {
+                    color: #6200EE;
+                    top: 0;
+                    transform: translateY(-50%) scale(.9);
+                }
+
+            input:not(:placeholder-shown) + label, select:not(:placeholder-shown) + label {
+                top: 0;
+                transform: translateY(-50%) scale(.9);
+            }
+    </style>
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>@(ViewData["Title"])</h1>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6" style="padding-right:5px; width: 100%">
+                    <table class="table table-bordered table-hover dataTable" id="table-ticket" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Mã Ticket</th>
+                                <th>Mô tả</th>
+                                <th>Giá vé</th>
+                                <th>Loại In</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="col-md-6" style="margin-top:6px">
+                    <div class="form-group row">
+                        <div class="col-md-12 form-outline">
+                            <div id="divCustomerType" style="border: 1px solid #dee2e6; width: 100%">
+                                
+                                <select class="form-control" id="CustomerCode" name="CustomerCode" style="margin: 15px; width:95% ">
+                                    @{
+                                        var lstCustomer = (List<Customer>)ViewBag.LstCustomer;
+                                        foreach (var item in lstCustomer)
+                                        {
+                                            <option value="@item.CustomerCode">@item.CustomerName</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <label class="form-label" for="divCustomerType">Chọn khách hàng</label>
+
+                        </div>
+                    </div>
+                    <div class="form-group row" style=" margin: 0px; margin-top: 20px">
+                        <div class="col-md-6 form-outline" style=" padding: 0px; padding-right: 20px">
+                            <div id="divTicketType" style="border: 1px solid #dee2e6; width: 100%">
+                                <select disabled  class="form-control" id="LoaiInCode" name="LoaiInCode" style="margin: 15px; width:90% ">
+                                    @{
+                                        var LstLoaiIn = (List<LoaiIn>)ViewBag.LstLoaiIn;
+                                        foreach (var item in LstLoaiIn)
+                                        {
+                                            <option value="@item.Code">@item.Description</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <label class="form-label" for="divTicketType">KIỂU IN</label>
+                        </div>
+                        <div class="col-md-6 form-outline" style=" padding: 0px; padding-left: 20px">
+                            <div id="divNumberTicket" style="border: 1px solid #dee2e6; width: 100% ">
+                                <input type="number" min="1" value="1" class="form-control" id="QuantityTicket" style="margin: 15px; width:90% " />
+                            </div>
+                            <label class="form-label" for="divNumberTicket" style="left: 20px">SỐ LƯỢNG</label>
+                        </div>
+                    </div>
+                    <div class="form-group row" style=" margin-top: 40px">
+                        <div class="col-md-3 row">
+                            <label style="font-weight: bold; font-size: 20px">Tổng tiền: </label>
+                        </div>
+                        <div class="col-md-6 row">
+                            <label style="color: #5ba513; font-weight: bold; font-size: 20px" id="TotalTicket">0</label>
+                        </div>
+
+                    </div>
+                    <div class="form-group row" style=" margin-top: 40px">
+                        <input disabled type="button" style="background-color:blueviolet; color:white; width:100%; margin-left: 20%; margin-right:20%" value="BÁN VÉ" class="btn btn-default btn-filter" id="btn-sales" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</section>
+
+@section scripts{
+    <script src="~/plugins/datatable/jquery.datatable.js"></script>
+    <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+    <script src="~/plugins/datatables-fixedcolumns/js/dataTables.fixedColumns.js"></script>
+
+    <script>
+        var tableId = "#table-ticket";
+        var ajaxURL = "/Ticket/SearchTicket";
+        var ticketCode = "";
+        var price = 0;
+        var columnData = [
+            { "data": "id", visible: false },
+            { "data": "code" },
+            { "data": "description" },
+            { "data": "price" },
+            { "data": "loaiIn", visible: false }
+        ];
+        $(document).ready(function () {
+            LoadTicket();
+            $("#QuantityTicket").on("change", function (e) {
+                var num = parseInt($(this).val());
+                if (num < 1) {
+                    $(this).val(1);
+                }
+                if (price != 0)
+                    $("#TotalTicket").text(getTotal().toLocaleString());
+            });
+            $('#table-ticket tbody').on('click', 'tr', function (e) {
+                $("#btn-sales").removeAttr('disabled');
+                $(this).siblings().css("background-color", "");
+                $(this).css("background-color", "#dee2e6");
+                var currentRow = $(tableId).DataTable().row(this).data();
+                ticketCode = currentRow.code;
+                price = currentRow.price;
+                var loaiIn = currentRow.loaiIn;
+                $("#LoaiInCode").val(loaiIn);
+                $("#TotalTicket").text(getTotal().toLocaleString());
+            });
+            $("#btn-sales").click(function () {
+                SaveTicket();
+            });
+
+        })
+        function getTotal() {
+            var num = parseInt($("#QuantityTicket").val());
+            return price * num;
+        }
+        function LoadTicket() {
+
+            var dataSearch = {
+                BranchId: 0,
+                Keyword: ""
+            };
+            GenrateDataTableSearch(tableId, ajaxURL, columnData, dataSearch, 10);
+        }
+        function SaveTicket() {
+            var objData =
+                {
+                    CustomerCode: $("#CustomerCode").val(),
+                    LoaiInCode:$("#LoaiInCode").val(),
+                    Quantity: parseInt($("#QuantityTicket").val()),
+                    TicketCode: ticketCode
+                };
+            
+            $.ajax({
+                type: "POST",
+                contentType: 'application/json; charset=utf-8',
+                url: "/Ticket/SaveTicketOrder",
+                dataType: 'json',
+                data: JSON.stringify(objData),
+                beforeSend: function () {
+                },
+                success: function (res) {
+                    if (res.isSuccess === true) {
+                        bootbox.alert(AlertSuccess("Lưu dữ liệu thành công"), function () {
+                        });
+                    } else {
+                        bootbox.alert(AlertFail(res.errorMessage));
+                    }
+
+                }
+            });
+
+        }
+    </script>
+}

@@ -1,0 +1,319 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="zalo-platform-site-verification" content="K8Ey6vAkQI1kdCm7dxLCMLI5cr-uyqa3CZap" />
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    @{
+        ViewData["Title"] = "KHU DU LỊCH QUỐC GIA NÚI SAM";
+    }
+    <title>@(ViewData["Title"])</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    @*<link href="~/Template-Landing-ConDao/assets/img/favicon.png" rel="icon">
+        <link href="~/Template-Landing-ConDao/assets/img/apple-touch-icon.png" rel="apple-touch-icon">*@
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Bangers|Cinzel:400,700,900|Lato:100,300,400,700,900|Lobster|Lora:400,700|Mansalva|Muli:200,300,400,600,700,800,900|Open+Sans:300,400,600,700,800|Oswald:200,300,400,500,600,700|Roboto:100,300,400,500,700,900&display=swap" rel="stylesheet" />
+    <link href="~/plugins/fontawesome-free/css/all.css" rel="stylesheet" />
+    <!-- Vendor CSS Files -->
+    <link href="~/Template-Landing-ConDao/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Template-Landing-ConDao/assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+    <link href="~/Template-Landing-ConDao/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="~/Template-Landing-ConDao/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="~/Template-Landing-ConDao/assets/vendor/venobox/venobox.css" rel="stylesheet">
+    <link href="~/Template-Landing-ConDao/assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="~/Template-Landing-ConDao/assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+    <!-- Template Main CSS File -->
+    <link href="~/Template-Landing-ConDao/assets/css/style.css" rel="stylesheet">
+    <style>
+        #header {
+ 
+            background: #37517e;
+            color: #fff;
+        }
+
+            #header .logo a {
+                color: #fff;
+            }
+
+        #hero {
+            margin-top: 12px;
+        }
+    </style>
+    <!-- =======================================================
+    * Template Name: Arsha - v2.3.1
+    * Template URL: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
+</head>
+
+<body>
+    <header id="header" class="fixed-top ">
+        <div class="container d-flex align-items-center">
+
+            <h1 class="logo mr-auto"><a href="#">@(ViewData["Title"])</a></h1>
+            <!-- Uncomment below if you prefer to use an image logo -->
+            <!-- <a href="index.html" class="logo mr-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+            <nav class="nav-menu d-none d-lg-block">
+                <ul>
+                    <li class="active"><a href="#">Trang chủ</a></li>
+                    <li><a href="#about">Giới thiệu</a></li>
+                    <li><a href="#services">Ảnh đẹp</a></li>
+                    <li><a href="#">Hotline: <b style="color:red">02573778085</b></a> </li>
+                </ul>
+            </nav><!-- .nav-menu -->
+
+            <a href="/home/index" class="get-started-btn scrollto">Đăng nhập</a>
+
+
+        </div>
+    </header><!-- End Header -->
+
+    <section class="inner-page">
+        @RenderBody()
+    </section>
+    <!-- ======= Footer ======= -->
+    <footer id="footer" style="background-color: #fff; color: #37517e; border-top: 1px solid #e2e2e2; border-bottom: 1px solid #e2e2e2;">
+
+        <div class=" footer-bottom clearfix" style="padding-left: 40px; padding-right:40px">
+            <div class="row">
+                <div class="col-6">
+                    <div class="text-left">
+                        <span>Tên đơn vị: @(ViewData["Title"])</span>
+                    </div>
+                    <div class="text-left">
+                        <span>Đường số 4, KDC chợ Vĩnh Đông, P. Núi Sam, TP. Châu Đốc, tỉnh An Giang</span>
+                    </div>
+                    <div class="text-left" style="color: #37517e">
+                        <span>Email: banqlkdlqgns@angiang.gov.vn</span>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="text-right">
+                        <span> Hệ thống được phát triển và vận hành bởi: Công ty cổ phần <strong>GAMAN</strong></span>
+                    </div>
+                    <div class="text-right">
+                        <span>
+                            Số 02 tòa nhà Hiệp Thành City, N5 Hoa Đào, P. Hiệp Thành, Q. 12, TP. HCM<br />
+                            www.gamanjsc.com – www.dvci.vn
+                        </span>
+                    </div>
+                    <div class="text-right">
+                        <span>Hotline: <a rel="noopener noreferrer" href="tel:0977 209 040" style="font-weight: bold; color: #0070c0; text-decoration: none;">0977 209 040</a> – Email: info@gamanjsc.com</span>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </footer><!-- End Footer -->
+
+
+    <div class="modal fade" id="partnerRegistrationModal" tabindex="-1" role="dialog" aria-labelledby="partnerRegistrationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <form id="partnerForm">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="partnerRegistrationModalLabel">Đăng ký đối tác</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <!-- Tên -->
+                                <div class="form-group">
+                                    <label for="name">Tên <strong style="color:red">*</strong></label>
+                                    <input type="text" class="form-control" id="PartnerName" name="PartnerName" required>
+                                </div>
+                                <!-- Số điện thoại -->
+                                <div class="form-group">
+                                    <label for="phone">Số điện thoại <strong style="color:red">*</strong></label>
+                                    <input type="text" class="form-control" id="PhoneNumber" name="PhoneNumber" required>
+                                </div>
+                                <!-- Địa chỉ -->
+                                <div class="form-group">
+                                    <label for="address">Địa chỉ <strong style="color:red">*</strong></label>
+                                    <input type="text" class="form-control" id="Address" name="Address" required>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <!-- Số tài khoản ngân hàng -->
+                                <div class="form-group">
+                                    <label for="bankAccount">Số tài khoản ngân hàng <strong style="color:red">*</strong></label>
+                                    <input type="text" class="form-control" id="BankAccount" name="BankAccount" required>
+                                </div>
+                                <!-- Tên ngân hàng -->
+                                <div class="form-group">
+                                    <label for="bankName">Tên ngân hàng <strong style="color:red">*</strong></label>
+                                    <input type="text" class="form-control" id="BankName" name="BankName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="idFront">Tải ảnh căn cước <strong style="color:red">*</strong></label>
+                                    <div class="row">
+                                        <!-- Ảnh căn cước mặt trước -->
+                                        <div class="col-md-6 text-center">
+                                            <div class="custom-file-upload">
+                                                <input type="file" class="file-input" id="idFront" name="idFront" accept=".png, .jpg, .jpeg" required>
+                                                <label for="idFront" class="file-label">Mặt trước</label>
+                                            </div>
+                                            <!-- Thêm thẻ img để xem trước ảnh mặt trước -->
+                                            <img id="previewFront" class="img-preview" src="" alt="Xem trước mặt trước" style="display: none;">
+                                        </div>
+
+                                        <!-- Ảnh căn cước mặt sau -->
+                                        <div class="col-md-6 text-center">
+                                            <div class="custom-file-upload">
+                                                <input type="file" class="file-input" id="idBack" name="idBack" accept=".png, .jpg, .jpeg" required>
+                                                <label for="idBack" class="file-label">Mặt sau</label>
+                                            </div>
+                                            <!-- Thêm thẻ img để xem trước ảnh mặt sau -->
+                                            <img id="previewBack" class="img-preview" src="" alt="Xem trước mặt sau" style="display: none;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                        <input type="button" value="Đăng ký" class="btn btn-primary" id="btn-confirm" onclick="submitForm()" style="margin-right:5px;" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
+    <div id="preloader"></div>
+
+    <!-- Vendor JS Files -->
+    <script src="~/Template-Landing-ConDao/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Template-Landing-ConDao/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Template-Landing-ConDao/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+    <script src="~/Template-Landing-ConDao/assets/vendor/php-email-form/validate.js"></script>
+    <script src="~/Template-Landing-ConDao/assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+    <script src="~/Template-Landing-ConDao/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="~/Template-Landing-ConDao/assets/vendor/venobox/venobox.min.js"></script>
+    <script src="~/Template-Landing-ConDao/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+    <script src="~/Template-Landing-ConDao/assets/vendor/aos/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <!-- Template Main JS File -->
+    <script src="~/Template-Landing-ConDao/assets/js/main.js"></script>
+
+    @RenderSection("scripts", required: false)
+
+</body>
+
+</html>
+
+<script src="~/js/jquery.validate.js"></script>
+<script>
+    function showModalRegisterPartner() {
+        $('#partnerRegistrationModal').modal("show")
+    }
+
+    // Hàm để xem trước ảnh
+    function readURL(input, previewId) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                // Hiển thị ảnh xem trước
+                var previewElement = document.getElementById(previewId);
+                previewElement.src = e.target.result;
+                previewElement.style.display = "block"; // Hiển thị thẻ img
+            }
+
+            reader.readAsDataURL(input.files[0]); // Đọc dữ liệu ảnh
+        }
+    }
+
+    // Bắt sự kiện khi người dùng chọn ảnh
+    document.getElementById("idFront").addEventListener("change", function () {
+        readURL(this, "previewFront");
+    });
+
+    document.getElementById("idBack").addEventListener("change", function () {
+        readURL(this, "previewBack");
+    });
+
+
+    function submitForm() {
+        var valid = ValidPartner();
+        if (valid) {
+            var formData = new FormData(document.getElementById("partnerForm"));
+            $.ajax({
+                type: "POST",
+                url: "/Partner/RegisterPartner",
+                data: formData,
+                contentType: false, // Bắt buộc
+                processData: false, // Bắt buộc
+                headers: {
+                    'RequestVerificationToken': TokenHeaderValue() // Nếu có bảo mật chống CSRF
+                },
+                success: function (response) {
+
+                    if (response.isSuccess) {
+                        if (response.valueReturn == -2) {
+                            toastr.error("Đăng ký thất bại: SĐT hoặc tên đối tác đã có trong hệ thống ");
+                        }
+                        else {
+                            $('#partnerRegistrationModal').modal("hide")
+                            toastr.success("Đăng ký thành công");
+                        }
+
+                    } else {
+                        toastr.error("Đăng ký thất bại: " + response.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert("Đã xảy ra lỗi: " + error);
+                }
+            });
+        }
+
+    }
+
+    function ValidPartner() {
+        debugger;
+        var resutlValid = $("#partnerForm").validate({
+            rules: {
+                "PartnerName": "required",
+                "PhoneNumber": "required",
+                "Address": "required",
+                "BankAccount": "required",
+                "BankName": "required",
+                "idBack": "required",
+                "idFront": "required",
+            },
+            messages: {
+                "PartnerName": "Thông tin bắt buộc!",
+                "PhoneNumber": "Thông tin bắt buộc!",
+                "Address": "Thông tin bắt buộc!",
+                "BankAccount": "Thông tin bắt buộc!",
+                "BankName": "Thông tin bắt buộc!",
+                "idBack": "Thông tin bắt buộc!",
+                "idFront": "Thông tin bắt buộc!",
+            }
+        }).form();
+        return resutlValid;
+    }
+</script>

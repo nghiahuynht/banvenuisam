@@ -1,0 +1,16 @@
+12/2/2024 2:41:12 PM: /TicketOrder/SaleOrderAction      
+RootFolder: F:\Projects\OnGIT\LangBiang\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":3,"SubNum":1,"SubOrderCode":"LB500212240001","CreatedBy":"admin","CardNum":"11111114"}
+
+
+12/2/2024 3:55:35 PM: /condao/SaveOrder      
+{"OrderId":0,"FullName":"Dương Liên Đình","PhoneNumber":"0977019146","Email":"liendinh@gmail.com","Quantity":1,"TicketCode":"LB50","AgencyName":"","TaxCode":"","TaxAddress":"","VisitDate":"2024-12-02T00:00:00","GateCode":null}
+
+12/2/2024 3:55:35 PM: /condao/SaveOrder      
+{"Id":0,"TicketCode":"LB50","CustomerCode":"ONLKD1T4N3GW","CustomerName":"Dương Liên Đình","Price":50000.00,"Quanti":1,"Total":50000.00,"CreatedDate":null,"CreatedBy":null,"MaHDDT":null,"CustomerType":"Ve_Le","BienSoXe":null,"SaleChannelId":1,"PaymentStatus":0,"PaymentType":null,"PaymentDate":null,"PaymentValue":null,"PaymentId":0,"UpdatedDate":null,"UpdatedBy":null,"PaymentFee":0.0,"VisitDate":"2024-12-02T00:00:00","GateName":"Vé trẻ em","ObjType":1}
+
+12/2/2024 3:56:12 PM: /condao/SaveOrder      
+RequestURL: /ConDao/SaveOrder
+Input: {"OrderId":0,"FullName":"Dương Liên Đình","PhoneNumber":"0977019146","Email":"liendinh@gmail.com","Quantity":1,"TicketCode":"LB50","AgencyName":"","TaxCode":"","TaxAddress":"","VisitDate":"2024-12-02T00:00:00","GateCode":null}
+
+

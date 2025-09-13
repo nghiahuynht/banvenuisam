@@ -1,0 +1,179 @@
+﻿@model DAL.Entities.Ticket
+@using DAL.Entities
+@using DAL.Models.Ticket
+@{
+    ViewData["Title"] = "Thông tin Vé";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>@(ViewData["Title"])</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item">
+                        <input type="button" value="Lưu" class="btn bg-primary" id="btn-save" />
+                    </li>
+
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+    <div class="card">
+        <div class="card-body">
+            <form class="form-horizontal" id="form-ticket">
+                @Html.HiddenFor(x => x.Id)
+                @Html.HiddenFor(x => x.CreatedBy)
+                @Html.HiddenFor(x => x.CreatedDate)
+                @Html.HiddenFor(x => x.UpdatedBy)
+                @Html.HiddenFor(x => x.UpdatedDate)
+                @Html.HiddenFor(x => x.IsDeleted)
+     
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Mã Vé *</label>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(x => x.Code, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Loại in</label>
+                            <div class="col-md-9">
+                                <select class="form-control" id="LoaiIn" name="LoaiIn">
+                                    @{
+                                        var LstTicketType = (List<LoaiIn>)ViewBag.LstLoaiIn;
+                                        foreach (var item in LstTicketType)
+                                        {
+                                            string loaiIn = Model != null && !string.IsNullOrEmpty(Model.LoaiIn) ? Model.LoaiIn : "";
+                                            string selected = item.Code == loaiIn ? "selected='selected'" : string.Empty;
+                                            <option value="@item.Code" @(selected)>@item.Description</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Giá vé *</label>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(x => x.Price, new { @class = "form-control", @type = "number" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Mô tả</label>
+                            <div class="col-md-9">
+                                @Html.TextAreaFor(x => x.Description, new { @class = "form-control", @rows = "5" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Điểm bán vé</label>
+                            <div class="col-md-9">
+                                <select class="form-control" id="Area" name="Area">
+                                    @{
+                                        var LstArea= (List<Area>)ViewBag.LstArea;
+                                        foreach (var item in LstArea)
+                                        {
+                                            string selectedArrea = item.Code == Model.Area ? "selected='selected'" : string.Empty;
+                                            <option value="@item.Code" @(selectedArrea)>@item.Name</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Mẫu biên lai</label>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(x => x.MauSoBienLai, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Kí hiệu</label>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(x => x.KyHieu, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        
+
+                    </div>
+
+                </div>
+
+
+            </form>
+
+        </div>
+    </div>
+
+
+
+</section>
+
+@section scripts{
+    <script src="~/js/jquery.validate.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#btn-save").click(function () {
+                SaveTicket();
+            });
+        })
+        function ValidTicket() {
+            var resutlValid = $("#form-ticket").validate({
+                rules: {
+                    "Code": "required",
+                    "Price": "required",
+                    "TicketGroup": "required",
+                },
+                messages: {
+                    "Code": "Thông tin bắt buộc!",
+                    "Price": "Thông tin bắt buộc!",
+                    "TicketGroup": "Thông tin bắt buộc!",
+                }
+            }).form();
+            return resutlValid;
+        }
+        function SaveTicket() {
+            var valid = ValidTicket();
+            if (valid) {
+                var saveData = FormToObject("#form-ticket", "");
+                saveData.LoaiIn = $("#LoaiIn").val();
+                saveData.Area = $("#Area").val();
+                $.ajax({
+                    type: "POST",
+                    contentType: 'application/json; charset=utf-8',
+                    url: "/Ticket/SaveTicket",
+                    dataType: 'json',
+                    data: JSON.stringify(saveData),
+                    beforeSend: function () {
+
+                    },
+                    success: function (res) {
+                        if (res.isSuccess === true) {
+                            bootbox.alert(AlertSuccess("Lưu dữ liệu thành công"), function () {
+                                location.href = "/Ticket/TicketDetail/" + res.valueReturn;
+                            });
+                        } else {
+                            bootbox.alert(AlertFail(res.errorMessage));
+                        }
+
+                    }
+                });
+
+
+            }
+
+
+
+        }
+    </script>
+}

@@ -1,0 +1,330 @@
+﻿@model DAL.Models.Ticket.SaleHistoryFilterModel
+@{
+    ViewData["Title"] = "Báo cáo bán vé theo loại khách hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using DAL.Entities
+@using DAL.Models.Ticket
+@section styles{
+    <link href="~/plugins/datepicker/datepicker3.css" rel="stylesheet" />
+    <link href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="~/plugins/datatables-fixedcolumns/css/fixedColumns.bootstrap4.css" rel="stylesheet" />
+    <style>
+        .datepicker table tr td.disabled,
+        .datepicker table tr td.disabled:hover {
+            background-color: #e6d2d2;
+        }
+    </style>
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>@(ViewData["Title"])</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">@(ViewData["Title"])</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<section class="content">
+    @Html.AntiForgeryToken()
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+
+                <div class="col-sm-2">
+                    <label>Nhân viên</label>
+                    <select class="form-control" id="ddl-employee">
+
+                        @{
+                            var lstUser = (List<UserInfo>)ViewBag.LstUser;
+                            if (lstUser.Count() > 1) // lớn hơn 1 là admin
+                            {
+                                <option value="">Tất cả</option>
+                            }
+                            foreach (var user in lstUser)
+                            {
+                                <option value="@user.UserName">@user.FullName</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <label>Từ ngày</label>
+                    <div class="input-group date" id="FromDatePK">
+                        <input type="text" id="FromDate" value="@(Model.FromDate)" class="form-control">
+                        <span class="input-group-addon group-date-icon"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label>Đến ngày</label>
+                    <div class="input-group date" id="ToDatePK">
+                        <input type="text" id="ToDate" value="@(Model.ToDate)" class="form-control">
+                        <span class="input-group-addon group-date-icon"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label>Mã vé</label>
+                    <select class="form-control" id="txt-ticketcode">
+                        <option value="All">Tất cả</option>
+                        @{
+                            var lstTickets = (List<Ticket>)ViewBag.LstAllTicket;
+                            foreach (var ticket in lstTickets)
+                            {
+                                <option value="@(ticket.Code)">@(ticket.Description)</option>
+                            }
+                        }
+                    </select>
+
+
+                </div>
+                <div class="col-sm-2">
+                    <label>Hình thức</label>
+                    <div class="input-group" id="">
+                        <select class="form-control" id="PaymentType">
+                            <option value="All" selected>Tất cả</option>
+                            <option value="TM">Tiền mặt</option>
+                            <option value="CK">Chuyển khoản</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="col-sm-2">
+                    <label>Từ khóa</label>
+                    <input type="text" class="form-control" placeholder="Mã tra cứu/mã KH/ tên KH" id="txt-keyword" />
+                </div>
+
+                <div class="col-sm-2">
+                    <input type="button" value="OK" class="btn btn-primary btn-filter" id="btn-search" />
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card-body ">
+
+
+
+
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="col-sm-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-green"><i class="fa fa-flag"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Tổng số lượng vé bán</span>
+                                <span class="info-box-number" id="counter-SL-TrenVe">0</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-green"><i class="fa fa-flag"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Tổng số lượng đơn hàng</span>
+                                <span class="info-box-number" id="counter-SL-InRa">0</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-green"><i class="fa fa-flag"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Tổng doanh số bán</span>
+                                <span class="info-box-number" id="counter-doanhso">0</span>
+                            </div>
+                        </div>
+                    </div>
+ 
+                </div>
+                <div class="col-sm-8">
+                    <table class="table table-bordered table-hover dataTable" id="table-salebycusttype" width="100%">
+                        <thead>
+                            <tr>
+                                <th width="40px">STT</th>
+                                <th>Loại khách hàng</th>
+                                <th width="100px">Số lượng</th>
+                                <th width="150px">Thành tiền</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+
+              
+            </div>
+          
+
+        </div>
+    </div>
+</section>
+@section scripts{
+    <script src="~/plugins/datatable/jquery.datatable.js"></script>
+    <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+    <script src="~/plugins/datatables-fixedcolumns/js/dataTables.fixedColumns.js"></script>
+    <script src="~/plugins/datepicker/bootstrap-datepicker.js"></script>
+
+    <script>
+        var tableId = "#table-salebycusttype";
+        var ajaxURL = "/Report/GetReportSaleByCustType";
+        var columnData = [
+
+            { "data": "stt" },
+            { "data": "custTypeName" },
+
+            {
+                "data": "quantiSale", "render": function (data, type, row, meta) {
+                    return RenderNumerFormat(data);
+                }
+            },
+            {
+                "data": "totalSale", "render": function (data, type, row, meta) {
+                    return RenderNumerFormat(data);
+                }
+            },
+
+
+
+
+        ];
+        $(document).ready(function () {
+            $("#btn-export-excel").click(function () {
+                ExportExcel();
+            });
+            $(".date").datepicker({
+                format: "dd/mm/yyyy"
+            }).on('changeDate', function (e) {
+                $(this).datepicker('hide');
+            });
+
+
+            $(document).keypress(function (e)
+            {
+                if (e.which == 13) {
+                    GetCounterFilter();
+                }
+            });
+
+
+            GetCounterFilter();
+            $("#btn-search").click(function () {
+                GetCounterFilter();
+            });
+
+
+
+            $("#ddl-sale-chanel").change(function () {
+                GetAllUserforDDL($(this).val());
+
+            });
+
+
+        });
+
+
+        function RenderNumerFormat(data) {
+            var res = "";
+            if (data !== undefined) {
+                res = data.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+            }
+            return "<div style='width:100%;text-align:right;'>" + res + "</div>";
+        }
+        function GetReportByCustType() {
+
+            var dataSearch = {
+                SaleChanelId: 0,
+                GateCode: $("#ddl-gatecode").val(),
+                UserName: $("#ddl-employee").val(),
+                FromDate: ConverFormatDate($("#FromDate").val()),
+                ToDate: ConverFormatDate($("#ToDate").val()),
+                TicketCode: $("#txt-ticketcode").val(),
+                Keyword: $("#txt-keyword").val(),
+                PaymentType: $("#PaymentType").val(),
+            };
+            GenrateDataTableSearch(tableId, ajaxURL, columnData, dataSearch, 10,"vé");
+
+        }
+
+        function ExportExcel() {
+            var dataSearch = {
+                SaleChanelId: 0,
+                GateCode: $("#ddl-gatecode").val(),
+                UserName: $("#ddl-employee").val(),
+                FromDate: ConverFormatDate($("#FromDate").val()),
+                ToDate: ConverFormatDate($("#ToDate").val()),
+                TicketCode: $("#txt-ticketcode").val(),
+                Keyword: $("#txt-keyword").val(),
+            };
+
+            var dataSearch = JSON.stringify(dataSearch);
+            location.href = "/ticket/ExportGetSaleHistory?filter=" + dataSearch;
+        }
+
+        function GetAllUserforDDL(chanelId) {
+            let htmlUserOption = "<option value=''>Tất cả</option>";
+
+            if (chanelId == "2") {
+                $.ajax({
+                    type: "GET",
+                    url: "/Account/GetListAllUserInfo",
+                    success: function (res) {
+
+                        if (res !== null && res.length > 0)
+                        {
+                            $.each(res, function (i, item)
+                            {
+                                htmlUserOption = htmlUserOption + "<option value='" + item.userName + "' >" + item.fullName + "</option>"
+                            });
+                            $("#ddl-employee").html(htmlUserOption);
+                        }
+
+                    }
+                });
+            } else {
+                htmlUserOption = "<option value=''>Tất cả</option>";
+                $("#ddl-employee").html(htmlUserOption);
+            }
+
+
+        }
+
+        function GetCounterFilter()
+        {
+
+            var dataSearch = {
+                SaleChanelId: 0,
+                GateCode: $("#ddl-gatecode").val(),
+                UserName: $("#ddl-employee").val(),
+                FromDate: ConverFormatDate($("#FromDate").val()),
+                ToDate: ConverFormatDate($("#ToDate").val()),
+                TicketCode: $("#txt-ticketcode").val(),
+                Keyword: $("#txt-keyword").val(),
+                PaymentType: $("#PaymentType").val(),
+            };
+
+            $.ajax({
+                type: "POST",
+                contentType: 'application/json; charset=utf-8',
+                url: "/Ticket/GetSaleReportCounter",
+                dataType: 'json',
+                headers: {
+                    'RequestVerificationToken': TokenHeaderValue()
+                },
+                data: JSON.stringify(dataSearch),
+                success: function (res) {
+                    $("#counter-SL-TrenVe").html(res.totalQuantiOnTicket);
+                    $("#counter-SL-InRa").html(res.totalQuantiPrint);
+                    $("#counter-doanhso").html(res.totalVAT);
+                    GetReportByCustType();
+                }
+            });
+        }
+
+
+    </script>
+}

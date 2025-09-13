@@ -1,0 +1,74 @@
+﻿@using DAL
+@model DAL.Models.ConDao.OrderResultViewModel
+@{
+    Layout = null;
+}
+@{
+    string ngayinve = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss ");
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông tin vé</title>
+    <link href="~/css/bootstrap.css" rel="stylesheet" />
+    <style>
+
+        body {
+            font-size: 15pt;
+            font-family: 'font-family: Arial, sans-serif';
+            margin: 0;
+            padding: 0px;
+        }
+
+        #frame-print {
+            width: 21cm;
+            height: 29.7cm;
+            margin: 5mm 10mm 5mm 10mm;
+        }
+       
+    </style>
+</head>
+<body>
+    <div id="frame-print">
+        <div class="text-center">
+            <h4>@(Model.TicketOrder.CustomerCode)</h4>
+            <span>Mã khách hàng: @(Model.Customer.CustomerName)</span><br />
+            <span>Ngày: @(Model.TicketOrder.CreatedDate.HasValue ? Model.TicketOrder.CreatedDate.Value.ToString("dd/MM/yyyy") : string.Empty)</span>
+        </div>
+        <hr />
+        <div class="row">
+
+            @{
+                if (Model.ListSubCode.Any())
+                {
+                    foreach (var item in Model.ListSubCode)
+                    {
+                        //string uuQRValue = item.UUID.HasValue ? item.UUID.Value.ToString() : "";
+                        //string scanCode = string.Format(@"lbl{0}", uuQRValue.Substring(0, 8));
+                        string scanCode = Helper.GenMaDon(item.Id);
+                        <div class="col-sm-2">
+                            <div class="border" style="padding:2px;margin-bottom:15px;">
+                                <div class="text-center">
+                                    <label style="font-size:11pt;">@(scanCode)</label>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                }
+                else
+                {
+                    <h5>Không tìm thấy QR in</h5>
+                }
+
+            }
+
+
+        </div>
+    </div>
+
+</body>
+</html>

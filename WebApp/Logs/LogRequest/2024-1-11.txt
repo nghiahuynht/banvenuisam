@@ -1,0 +1,5 @@
+1/11/2024 10:26:16 PM: /api/SePayWebHook/PaymenTran      
+RootFolder: F:\Projects\OnSVN\HeThongBanVe\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":7356,"SubNum":1,"SubOrderCode":"Doan251101240003","CreatedBy":"Online"}
+
+

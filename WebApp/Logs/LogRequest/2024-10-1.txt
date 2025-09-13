@@ -1,0 +1,10 @@
+10/1/2024 11:02:06 AM: /TicketOrder/SaleOrderAction      
+RootFolder: F:\Projects\OnSVN\Lanbiang\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":8,"SubNum":1,"SubOrderCode":"LB1000110240001","CreatedBy":"admin","CardNum":"11111117"}
+
+
+10/1/2024 11:16:41 AM: /TicketOrder/SaleOrderAction      
+RootFolder: F:\Projects\OnSVN\Lanbiang\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":9,"SubNum":1,"SubOrderCode":"LB500110240001","CreatedBy":"admin","CardNum":"11111116"}
+
+

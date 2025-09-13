@@ -1,0 +1,25 @@
+3/17/2025 10:10:10 PM: /SoatVe/GetReportCheckin      
+[Exception]: System.InvalidCastException: Object cannot be cast from DBNull to other types.
+   at System.DBNull.System.IConvertible.ToInt16(IFormatProvider provider)
+   at DAL.Service.SoatVeService.ReportCheckin(SaleHistoryFilterModel filter, Boolean isExcel) in D:\Projects\OnGit\GanhDaDia\GanhDaDia_Web\DAL\Service\SoatVeService.cs:line 284
+
+3/17/2025 10:10:55 PM: /SoatVe/GetReportCheckin      
+[Exception]: System.InvalidCastException: Object cannot be cast from DBNull to other types.
+   at System.DBNull.System.IConvertible.ToInt16(IFormatProvider provider)
+   at DAL.Service.SoatVeService.ReportCheckin(SaleHistoryFilterModel filter, Boolean isExcel) in D:\Projects\OnGit\GanhDaDia\GanhDaDia_Web\DAL\Service\SoatVeService.cs:line 284
+
+3/17/2025 10:11:10 PM: /SoatVe/GetReportCheckin      
+[Exception]: System.InvalidCastException: Object cannot be cast from DBNull to other types.
+   at System.DBNull.System.IConvertible.ToInt16(IFormatProvider provider)
+   at DAL.Service.SoatVeService.ReportCheckin(SaleHistoryFilterModel filter, Boolean isExcel) in D:\Projects\OnGit\GanhDaDia\GanhDaDia_Web\DAL\Service\SoatVeService.cs:line 284
+
+3/17/2025 10:11:31 PM: /SoatVe/GetReportCheckin      
+[Exception]: System.InvalidCastException: Object cannot be cast from DBNull to other types.
+   at System.DBNull.System.IConvertible.ToInt16(IFormatProvider provider)
+   at DAL.Service.SoatVeService.ReportCheckin(SaleHistoryFilterModel filter, Boolean isExcel) in D:\Projects\OnGit\GanhDaDia\GanhDaDia_Web\DAL\Service\SoatVeService.cs:line 284
+
+3/17/2025 10:12:00 PM: /SoatVe/GetReportCheckin      
+[Exception]: System.InvalidCastException: Object cannot be cast from DBNull to other types.
+   at System.DBNull.System.IConvertible.ToInt16(IFormatProvider provider)
+   at DAL.Service.SoatVeService.ReportCheckin(SaleHistoryFilterModel filter, Boolean isExcel) in D:\Projects\OnGit\GanhDaDia\GanhDaDia_Web\DAL\Service\SoatVeService.cs:line 284
+

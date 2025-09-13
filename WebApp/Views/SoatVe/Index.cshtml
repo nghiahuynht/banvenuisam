@@ -1,0 +1,208 @@
+﻿
+@{
+    ViewData["Title"] = "Soát vé";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .title-scan {
+        font-size: 14pt;
+        font-weight: normal;
+    }
+    .result-success {
+        color: green;
+    }
+
+    .result-error {
+        color: #ff0000;
+    }
+
+    .scan-result {
+        width: 100%;
+        height: auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        background: #fff;
+    }
+
+
+
+    .content-scan {
+        font-size: 17pt;
+        font-weight: bold;
+    }
+
+    #alert-error {
+        display: none;
+    }
+
+    #row-spiner {
+        display: none;
+    }
+
+    #row-scan-display {
+        display: none;
+    }
+</style>
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-sm-4">
+                    <select class="form-control" id="txt-zone">
+                        @{
+                            var lstGate = (List<DAL.Models.ComboBoxModel>)ViewBag.GateList;
+                            if (lstGate.Count > 1)
+                            {
+                                <option value="">Chọn cổng cần soát vé</option>
+                                foreach (var item in lstGate)
+                                {
+                                    <option value="@(item.Value)">@(item.Text)</option>
+                                }
+                            }
+                        }
+
+
+                    </select>
+                </div>
+                <div class="col-sm-8">
+                    <input type="text" onblur="scanTicket()" autofocus class="form-control" placeholder="Click vào đây và quét" id="txt-scanvalue" name="txt-scanvalue" />
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row" style="margin-top:10px;" id="row-scan-display">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                    <div class="scan-result">
+                        <div class="title-scan">Kết quả quét: &nbsp;<span class="content-scan" id="res_result"></span></div>
+                        <div class="title-scan">Mã vé: &nbsp; <span class="content-scan" id="res_ticketCode"></span></div>
+                        <div class="title-scan">Ngày xuất: &nbsp;<span class="content-scan" id="res_date"></span></div>
+                        <div class="title-scan">Số lượng: &nbsp;<span class="content-scan" id="res_Quanti"></span></div>
+                        <div class="title-scan">Loại vé: &nbsp;<span class="content-scan" id="res_ticketType"></span></div>
+                        <div class="title-scan">Địa điểm: &nbsp;<span class="content-scan" id="res_zone"></span></div>
+
+    
+                    </div>
+                    <div style="width:100%;margin-top:5px; text-align:center;">
+                        <input type="button" value="Tiếp tục quét" class="btn btn-success" id="btn-ok" />
+                    </div>
+                </div>
+                <div class="col-sm-4"></div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+@section scripts{ 
+    <script>
+        $(document).ready(function ()
+        {
+            $("#btn-ok").click(function () {
+                $("#row-scan-display").hide();
+                $("#txt-scanvalue").focus();
+            });
+        });
+
+
+        function scanTicket() {
+            $("#row-spiner").show();
+            $("#row-scan-display").hide();
+
+
+            setTimeout(function () {
+
+                var valiScan = validateScan();
+                if (valiScan !== "ok") {
+                    $("#row-scan-display").show();
+                    $("#row-spiner").hide();
+                    $("#alert-error").html(valiScan);
+                    $("#alert-error").show();
+                } else {
+                    $.ajax({
+                        type: "GET",
+                        contentType: 'application/json; charset=utf-8',
+                        url: "/SoatVe/ScanAction?ticketCode=" + $("#txt-scanvalue").val() + "&gateCode=" + $("#txt-zone").val(),
+                        success: function (result) {
+                            if (result != null && (result.error == null || result.error == "") && result.validscan == "ThanhCong") {
+                                $("#res_ticketCode").html(result.ticketCode);
+                                $("#res_date").html(result.saleDate);
+                                $("#res_Quanti").html(result.quanti);
+                                $("#res_ticketType").html(result.ticketType);
+                                $("#res_result").html(result.resultScan);
+                                $("#res_result").removeClass("result-error");
+                                $("#res_result").addClass("result-success");
+                                $("#res_zone").html(result.zoneName);
+                                $("#alert-error").hide();
+                                const audiotype1 = new Audio("/mp3/thanhcong.mp3");
+                                audiotype1.play();
+
+                            } else {
+                                $("#res_ticketCode").html(result.ticketCode);
+                                $("#res_date").html(result.saleDate);
+                                $("#res_Quanti").html(result.quanti);
+                                $("#res_ticketType").html(result.ticketType);
+                                $("#res_result").html(result.resultScan);
+                                $("#res_result").removeClass("result-success");
+                                $("#res_result").addClass("result-error");
+                                $("#res_zone").html(result.zoneName);
+                                $("#alert-error").html(result.error);
+                                if (result.error != null && result.error != "") {
+                                    $("#alert-error").show();
+                                }
+                                const audiotype1 = new Audio("/mp3/thatbai.mp3");
+                                audiotype1.play();
+
+                            }
+                            $("#row-scan-display").show();
+                            $("#row-spiner").hide();
+                            $("#txt-scanvalue").val("");
+                        },
+                        error: function (request, status, error) {
+                            $("#res_ticketCode").html($("#txt-scanvalue").val());
+                            $("#row-scan-display").show();
+                            $("#row-spiner").hide();
+                            $("#alert-error").html(error);
+                            $("#alert-error").show();
+                            $("#txt-scanvalue").val("");
+                            const audiotype1 = new Audio("/mp3/thatbai.mp3");
+                            audiotype1.play();
+                        }
+
+
+                    });
+                }
+
+
+
+
+
+            }, 200);
+
+
+
+
+
+
+
+
+        }
+
+        function validateScan() {
+            var valid = "error";
+            var scanValue = $("#txt-scanvalue").val();
+            var zone = $("#txt-zone").val();
+            if (scanValue != null && scanValue == "") {
+                valid = "Giá trị quét không hợp lệ";
+            } else if (zone != null && zone == "") {
+                valid = "Chưa xác định tuyến quét";
+            } else {
+                valid = "ok";
+            }
+            return valid;
+        }
+
+
+
+    </script>
+}

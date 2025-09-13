@@ -1,0 +1,165 @@
+﻿@{
+    ViewData["Title"] = "Danh mục nhóm hàng hóa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styles{
+
+    <link href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>@(ViewData["Title"])</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">@(ViewData["Title"])</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+
+                <div class="col-sm-2">
+                    <label>Tìm theo tên danh mục</label>
+                    <input type="text" class="form-control" id="txtkeyword" />
+                </div>
+                <div class="col-sm-2">
+                    <input type="button" value="Tìm" class="btn btn-default btn-filter" id="btn-search" />
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body ">
+            <div class="text-right">
+                <button class="btn btn-sm btn-primary" id="btn-add-category"><i class="fa fa-plus-circle"></i>&nbsp;Tạo mới</button>
+            </div>
+            <div id="div-load-category-table">
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+
+<div class="modal fade show" id="modal-category-detail" aria-modal="true" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Thông tin nhóm hàng hóa</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="form-category" class="form-horizontal" method="post" enctype="multipart/form-data"></form>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" id="btn-save-category">Lưu</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+
+
+@section scripts{
+    <script src="~/js/jquery.validate.js"></script>
+    <script>
+        $(document).ready(function () {
+            SearchCategory();
+            $("#btn-search").click(function () {
+                SearchCategory();
+            });
+
+            $("#btn-add-category").click(function () {
+                OpenCategoryDetail(null);
+            });
+
+            $("#btn-save-category").click(function () {
+                var valid = ValidateCategory();
+                if (valid) {
+                    SaveCategory();
+                }
+            });
+
+
+        });
+
+        function SearchCategory() {
+            var keyword = $("#txtkeyword").val();
+            ShowWaiting();
+            $("#div-load-category-table").load("/category/_PartialCategorySearch?keyword=" + keyword, function () {
+                HideWaiting();
+            });
+
+        }
+
+        function OpenCategoryDetail(categoryId) {
+            ShowWaiting();
+            $("#form-category").load("/category/_PartialCategoryDetail?categoryId=" + categoryId, function () {
+                HideWaiting();
+                $("#modal-category-detail").modal();
+            });
+        }
+
+
+        function ValidateCategory() {
+            var resutlValid = $("#form-category").validate({
+                rules: {
+                    "Category.Name": "required",
+                },
+                messages: {
+                    "Category.Name": "Bạn chưa điền tên danh mục",
+                }
+            }).form();
+            return resutlValid;
+        }
+
+
+        function SaveCategory() {
+            var modelObject = FormToObject("#form-category", "Category.");
+            modelObject.Type = 1;// category product
+            $.ajax({
+                type: "POST",
+                contentType: 'application/json; charset=utf-8',
+                url: "/Category/SaveCategory",
+                dataType: 'json',
+                data: JSON.stringify(modelObject),
+                success: function (result) {
+                    $('#modal-category-detail').modal("hide");
+                    SearchCategory();
+                }
+            });
+        }
+        function DeleteCategory(categoryId) {
+            var conf = confirm("Bạn có chắc muốn xóa danh mục này?");
+            if (conf == true) {
+                $.ajax({
+                    type: "POST",
+                    contentType: 'application/json; charset=utf-8',
+                    url: "/Category/DeleteCategory/" + categoryId,
+                    dataType: 'json',
+                    success: function (result) {
+                        SearchCategory();
+                    }
+                });
+            }
+        }
+
+    </script>
+}

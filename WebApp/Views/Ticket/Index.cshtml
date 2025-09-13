@@ -1,0 +1,174 @@
+﻿@{
+    ViewData["Title"] = "Danh sách Vé";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using DAL.Entities
+@using DAL.Models.Ticket
+@section styles{
+
+    <link href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="~/plugins/datatables-fixedcolumns/css/fixedColumns.bootstrap4.css" rel="stylesheet" />
+
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>@(ViewData["Title"])</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/Home">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">@(ViewData["Title"])</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<section class="content">
+    @Html.AntiForgeryToken()
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-sm-2">
+                    <label>Điểm bán vé</label>
+                    <select class="form-control" id="ddl-area">
+                        <option value="">Tất cả</option>
+                        @{
+                            var lstArea = (List<Area>)ViewBag.LstArea;
+                            foreach (var opt in lstArea)
+                            {
+                                <option value="@opt.Code">@opt.Name</option>
+                            }
+                        }
+                    </select>
+                </div>
+                
+                <div class="col-sm-4">
+                    <label>Tìm theo mã vé</label>
+                    <input type="text" class="form-control" id="txtkeyword" />
+                </div>
+                <div class="col-sm-2">
+                    <input type="button" value="Tìm" class="btn btn-primary btn-filter" id="btn-search" />
+                </div>
+                <div class="col-sm-2">
+                    <div class="text-right">
+                        <a class="btn btn-sm btn-primary btn-filter" href="/Ticket/TicketDetail"><i class="fa fa-plus-circle"></i>&nbsp;Thêm mới</a>
+                        @*<button class="btn btn-sm btn-success"><i class="fa fa-download"></i>&nbsp;Export excel</button>
+                <button class="btn btn-sm btn-success"><i class="fa fa-upload"></i>&nbsp;Import excel</button>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body ">
+
+            
+            <table class="table table-bordered table-hover dataTable" id="table-ticket" width="100%">
+                <thead>
+                    <tr>
+                        <th>Mã vé</th>
+                        <th>Giá vé</th>
+                        <th>Mô tả</th>
+                        <th>Điểm bán vé</th>
+                        <th>Ký hiệu</th>
+                        <th>Mẫu biên lai</th>
+                        <th></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    </section>
+@section scripts{
+    <script src="~/plugins/datatable/jquery.datatable.js"></script>
+    <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+    <script src="~/plugins/datatables-fixedcolumns/js/dataTables.fixedColumns.js"></script>
+
+
+    <script>
+        var tableId = "#table-ticket";
+        var ajaxURL = "/Ticket/SearchTicket";
+        var columnData = [
+            { "data": "code" },
+            {
+                "data": "price", "render": function (data, type, row, meta) {
+                    return RenderNumerFormat(data);
+                }
+            },
+            { "data": "description" },
+            { "data": "areaName" },
+            { "data": "kyHieu" },
+            { "data": "mauSoBienLai" },
+            {
+                "data": "id", "render": function (data, type, row, meta) {
+                    return RenderTableAction(data);
+                }
+            },
+
+
+        ];
+        $(document).ready(function () {
+
+            SearchTicket();
+            $("#btn-search").click(function () {
+                SearchTicket();
+            });
+        });
+        function RenderTableAction(ticketId) {
+            var html = "<div class='div-table-action'>" +
+                "<i class='fa fa-edit' onclick='GotoTicketDetail(" + ticketId + ")'></i>&nbsp;" +
+                "<i class='fa fa-trash' onclick='DeleteTicket(" + ticketId + ")'></i>" +
+                        "</div>";
+            return html;
+        }
+
+        function RenderNumerFormat(data) {
+            var res = "";
+            if (data !== undefined) {
+                res = data.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+            }
+            return "<div style='width:100%;text-align:right;'>" + res + "</div>";
+        }
+
+        function GotoTicketDetail(ticketId) {
+            location.href = "/Ticket/TicketDetail/" + ticketId;
+        }
+        function SearchTicket() {
+
+            var dataSearch = {
+                Area: $("#ddl-area").val(),
+                Keyword: $("#txtkeyword").val()
+            };
+            GenrateDataTableSearch(tableId, ajaxURL, columnData, dataSearch, 10,"vé");
+
+        }
+        
+        function DeleteTicket(ticketId) {
+            bootbox.confirm("Bạn có chắc muốn xóa vé này?", function (confi) {
+                    if (confi)
+                    {
+                        $.ajax({
+                            type: "POST",
+                            contentType: 'application/json; charset=utf-8',
+                            url: "/Ticket/DeleteTicket/" + ticketId,
+                            dataType: 'json',
+                            headers: {
+                                'RequestVerificationToken': TokenHeaderValue()
+                            },
+                            success: function (res) {
+                                if (res.isSuccess === true) {
+                                    SearchTicket();
+                                } else {
+                                    bootbox.alert(AlertFail(res.errorMessage));
+                                }
+
+                            }
+                        });
+                    }
+             });
+        }
+
+    </script>
+}

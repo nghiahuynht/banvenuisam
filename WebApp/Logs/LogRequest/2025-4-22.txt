@@ -1,0 +1,29 @@
+4/22/2025 2:38:16 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\GanhDaDia\GanhDaDia_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":2,"SubNum":2,"SubOrderCode":"BD-15-Doan2204250001","CreatedBy":"admin","CardNum":"4000002"}
+
+
+4/22/2025 3:04:25 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\GanhDaDia\GanhDaDia_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":3,"SubNum":1,"SubOrderCode":"BD-15-Le2204250001","CreatedBy":"admin","CardNum":"4000003"}
+SubCode: {"SubId":4,"SubNum":2,"SubOrderCode":"BD-15-Le2204250002","CreatedBy":"admin","CardNum":"4000004"}
+
+
+4/22/2025 3:39:07 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\GanhDaDia\GanhDaDia_Web\WebApp\wwwroot\QRCode\{0}.jpg
+
+
+4/22/2025 3:41:59 PM: /TicketOrder/ChangePaymentStatusOrder      
+QRCodeFolder: D:\Projects\OnGit\GanhDaDia\GanhDaDia_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":5,"SubNum":3,"SubOrderCode":"BD-15-Doan2204250002","CreatedBy":"admin","CardNum":"4000005"}
+
+
+4/22/2025 3:47:03 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\GanhDaDia\GanhDaDia_Web\WebApp\wwwroot\QRCode\{0}.jpg
+
+
+4/22/2025 3:47:28 PM: /TicketOrder/ChangePaymentStatusOrder      
+QRCodeFolder: D:\Projects\OnGit\GanhDaDia\GanhDaDia_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":6,"SubNum":5,"SubOrderCode":"BD-15-Doan2204250003","CreatedBy":"admin","CardNum":"4000006"}
+
+

@@ -1,0 +1,64 @@
+﻿@model List<DAL.Entities.Category>
+
+<table class="table table-bordered dataTable">
+    <thead>
+        <tr>
+            <th width="5%">#</th>
+            <th>Nhóm hàng</th>
+            <th width="5%"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            if (Model.Any())
+            {
+                int sttParent = 1;
+                foreach (var nhomCha in Model.Where(x => x.Parent == 0))
+                {
+
+                    <tr>
+                        <td>@(sttParent)</td>
+                        <td>@(nhomCha.Name)</td>
+                        <td>
+                            <div class='div-table-action'>
+                                <i class='fa fa-edit' onclick="OpenCategoryDetail(@(nhomCha.Id))"></i>&nbsp;
+                                <i class='fa fa-trash' onclick="DeleteCategory(@(nhomCha.Id))"></i>
+                            </div>
+                        </td>
+                    </tr>
+
+                    var lstNhomChild = Model.Where(x => x.Parent == nhomCha.Id).ToList();
+                    int sttCon = 1;
+                    foreach (var nhomCon in lstNhomChild)
+                    {
+                        string sttConDis = sttParent + "." + sttCon;
+                        <tr>
+                            <td>@(sttConDis)</td>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@(nhomCon.Name)</td>
+                            <td>
+                                <div class='div-table-action'>
+                                    <i class='fa fa-edit' onclick="OpenCategoryDetail(@(nhomCon.Id))"></i>&nbsp;
+                                    <i class='fa fa-trash' onclick="DeleteCategory(@(nhomCon.Id))"></i>
+                                </div>
+                            </td>
+                        </tr>
+                        sttCon++;
+                    }
+                    sttParent++;
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="3" style="text-align:center;">
+                        <span>Không tìm thấy dữ liệu</span>
+                    </td>
+                </tr>
+                        
+            }
+
+
+
+        }
+    </tbody>
+</table>

@@ -1,0 +1,40 @@
+﻿@model DAL.Models.PermissionMenu.PermisionRoleMenuViewModel
+<table class="table table-bordered dataTable">
+    <thead>
+        <tr>
+            <th width="50">#</th>
+            <th>Menu</th>
+            <th width="50"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int noParent = 0;
+            foreach (var menu in Model.LstMenu.Where(x => x.Parent == 0))
+            {
+                noParent++;
+                
+                <tr class="bg-gray-light">
+                    <td>@(noParent)</td>
+                    <td>@(menu.Name)</td>
+                    <td class="dt-center"></td>
+                </tr>
+
+                int noChild = 0;
+
+                foreach (var child in Model.LstMenu.Where(x => x.Parent == menu.Id))
+                {
+                    noChild++;
+                    string noChildText = noParent + "." + noChild;
+                    string checkedTextChild = Model.LstMenuRole.Any(x => x.MenuId == child.Id) ? "checked='checked'" : string.Empty;
+                    <tr>
+                        <td class="dt-center">@(noChildText)</td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@(child.Name)</td>
+                        <td class="dt-center"><input onclick="UpdatePermissionMenu(@(child.Id))" class="child_@(child.Id)" type="checkbox" @(checkedTextChild) /></td>
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+       
+</table>

@@ -1,0 +1,27 @@
+10/7/2023 11:22:39 AM: /Ticket/GetSoatVeReport      
+[Exception]: System.InvalidCastException: Object cannot be cast from DBNull to other types.
+   at System.DBNull.System.IConvertible.ToInt16(IFormatProvider provider)
+   at DAL.Service.TicketService.GetSoatVeReport(SoatveReportFilter filter) in F:\Projects\OnSVN\HeThongBanVe\DAL\Service\TicketService.cs:line 533
+
+10/7/2023 12:12:03 PM: /condao/SaveOrder      
+RootFolder: F:\Projects\OnSVN\HeThongBanVe\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":19,"SubNum":1,"SubOrderCode":"Doan50-07102023-00006","CreatedBy":"Online"}
+
+
+10/7/2023 12:12:43 PM: /TicketOrder/ChangeStatusOrder      
+Before call api url: /api/token
+Input: {"api_key":"0e1e2ce0583dce7b5b6d6e69c0f47ff2130b2677","api_secert":"7c19fbf1b673ae1c296e92ac5bc3e55a4fa44304"}
+RequestUri: http://auth2.voip24h.vn/api/token
+ResponseCode: OK
+Response: {"error":null,"data":{"status":200,"message":"Success","response":{"status":"1000","message":"Success","data":{"IsToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjoieDk4OE9UbFozN2VndHZvTFFCUlR2dmtMWUJoZ1FVOHMxcEdtaGlmVDVaXC9ZemRHVkkyOHlTV0UwYUVwZHU3U0NzdEpxbkxzeUJ4WFlZSTRQXC9Tc0ZmMDJKYjEyU2p2OGl4RlVcLzIxaUEzVmhuMktMK1hzVnJDd2x6UkczYmtNTFpjcUcyd3k1dmxSTGE0TTZHY1AxZnQwVFZGbkc2Z0ZUeUN1U2JJcHpFWldyeitmRFpRTXpnQytqcDA1UndxaVV0N21rb1ZSOCs1OVB1RFRaV1wvY25OemJJaGlOMEVGQmZxSkFkakxsS2xPR1hRbnlmUHJ0ZVczeFRTYXlidFRvU2dwSnF1aXNIeUNER09IUlwvVHNVU28zQVc0RDFEMEJVVEdseEIxYkZlSk01WStoZUg4ZUV4SHNFQitqbDJ4TkEzZlVrWnZ4T3RlczNtQmtxVEFVbTR2enNuQ1U3eHdBVUViTThjS1BjY3o0Tmt2XC8rekdrZ2tPK3JTNzVNRGJxOEFsdklkMStxYXo0czh6M0RXOFJnSTN5bldZUStjbjhUcjJVUzBienRmbFp5aVwvUVl2QzVNbENIQW9GZDJONENVYVwvcWFheFlYdlJ1d29XS2d5UzB5Y3FUTnp6bjV6blFUTEJobitBbk54NExyR1JrNGFYUlcwSEc2OUd1SjhEMW5PK1FweEVNVW82YmJMek1IbU5BREtrYU5VS1VwcndHeENIdzhnTzB1YncwRVJTY0lcL0RhOUE2ajBGXC82eUNvdE5oQlNjeWlnZDRCc1ZjVGJsYkV5emtHTjU5NkNKTnh3VHZsVGZJVTJJYTd5RlVtbG05ZWRxS1VKODZGZ3RiZUF0S2pCUitPWWdvcHZVNytOVXJVSFNzXC9xVVpYbXl6cFBGUUxLc3BRdkpZSzFwUHJvY1NObEdldjRRZ0lnMGpKQTFGMEtcL3NcL0NTWUJvenhiTE9oZVpiU1RqZmxxRXc2Wm94YStwcUZMbVk3ODFvSEN5c2hTN01zNHJRSGwrMk5TWlNcL0k1WEQ3Ym9SVHhiY3hRZDdRY29ocjE5NzJCUlh3TEVFckttSllpQkZCTHBkRHZYYTBhUm9oWERVNFhNQmxaTVFETlNkYVlyQ3k2b1BReFR6Sm1FYjJrRWNDOGpoRXNTYVBuMUFDQTdCOUQrUkJXOW5rUHR5b2dyUEZjdXMrWkpKRG5YZ0hEOEt1ZGRsbjhuWmZIV2o4aWxQa2s5Z1NjSVJMaFwva3k4QlwvUWhROTlid3dPc3V0ejMybEwwWWtTaW9ueTd6T3pcL2JsRm9LV2tsMlwvRlVkV1R1bDhpMU84dk9zSUJGVnJiWnZ3N250YnlTTWFmVWhRSm1JbVZYRG5FdUlEdWZuRVFheEJQWXh2OHJ0WDFIOEZobTM5Y05MWGhnbEdcL253UG5VS0JwVDBkVTl4U0ZcL1NPVnpxbGRNNTNaS2dUWiJ9.3u546lkOT84tD13XFFKJ2INBv844fSWLpnasC7F9zGw","Createat":"2023-10-07 12:12:44","Expried":"2023-10-08 12:12:44","IsLonglive":false}}},"trace_id":"6520e8cc1ddd27e62760a77a"}
+
+
+10/7/2023 12:12:43 PM: /TicketOrder/ChangeStatusOrder      
+Before call api url: /zns/api/create
+Input: {"CampaignID":"Thông báo từ BQLDVCI","TemplateID":"651b80637d6dcbe070c62cc9","Param":{"ma_khach_hang":"Lý Thế Dân","ma_tra_cuu":"Doan50-07102023-00006","price":"50,000","so_luong":1,"date":"07/10/2023 12:11:45","qr":"https://localhost:44377/QRCode/19.jpg","phone":null}}
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjoieDk4OE9UbFozN2VndHZvTFFCUlR2dmtMWUJoZ1FVOHMxcEdtaGlmVDVaXC9ZemRHVkkyOHlTV0UwYUVwZHU3U0NzdEpxbkxzeUJ4WFlZSTRQXC9Tc0ZmMDJKYjEyU2p2OGl4RlVcLzIxaUEzVmhuMktMK1hzVnJDd2x6UkczYmtNTFpjcUcyd3k1dmxSTGE0TTZHY1AxZnQwVFZGbkc2Z0ZUeUN1U2JJcHpFWldyeitmRFpRTXpnQytqcDA1UndxaVV0N21rb1ZSOCs1OVB1RFRaV1wvY25OemJJaGlOMEVGQmZxSkFkakxsS2xPR1hRbnlmUHJ0ZVczeFRTYXlidFRvU2dwSnF1aXNIeUNER09IUlwvVHNVU28zQVc0RDFEMEJVVEdseEIxYkZlSk01WStoZUg4ZUV4SHNFQitqbDJ4TkEzZlVrWnZ4T3RlczNtQmtxVEFVbTR2enNuQ1U3eHdBVUViTThjS1BjY3o0Tmt2XC8rekdrZ2tPK3JTNzVNRGJxOEFsdklkMStxYXo0czh6M0RXOFJnSTN5bldZUStjbjhUcjJVUzBienRmbFp5aVwvUVl2QzVNbENIQW9GZDJONENVYVwvcWFheFlYdlJ1d29XS2d5UzB5Y3FUTnp6bjV6blFUTEJobitBbk54NExyR1JrNGFYUlcwSEc2OUd1SjhEMW5PK1FweEVNVW82YmJMek1IbU5BREtrYU5VS1VwcndHeENIdzhnTzB1YncwRVJTY0lcL0RhOUE2ajBGXC82eUNvdE5oQlNjeWlnZDRCc1ZjVGJsYkV5emtHTjU5NkNKTnh3VHZsVGZJVTJJYTd5RlVtbG05ZWRxS1VKODZGZ3RiZUF0S2pCUitPWWdvcHZVNytOVXJVSFNzXC9xVVpYbXl6cFBGUUxLc3BRdkpZSzFwUHJvY1NObEdldjRRZ0lnMGpKQTFGMEtcL3NcL0NTWUJvenhiTE9oZVpiU1RqZmxxRXc2Wm94YStwcUZMbVk3ODFvSEN5c2hTN01zNHJRSGwrMk5TWlNcL0k1WEQ3Ym9SVHhiY3hRZDdRY29ocjE5NzJCUlh3TEVFckttSllpQkZCTHBkRHZYYTBhUm9oWERVNFhNQmxaTVFETlNkYVlyQ3k2b1BReFR6Sm1FYjJrRWNDOGpoRXNTYVBuMUFDQTdCOUQrUkJXOW5rUHR5b2dyUEZjdXMrWkpKRG5YZ0hEOEt1ZGRsbjhuWmZIV2o4aWxQa2s5Z1NjSVJMaFwva3k4QlwvUWhROTlid3dPc3V0ejMybEwwWWtTaW9ueTd6T3pcL2JsRm9LV2tsMlwvRlVkV1R1bDhpMU84dk9zSUJGVnJiWnZ3N250YnlTTWFmVWhRSm1JbVZYRG5FdUlEdWZuRVFheEJQWXh2OHJ0WDFIOEZobTM5Y05MWGhnbEdcL253UG5VS0JwVDBkVTl4U0ZcL1NPVnpxbGRNNTNaS2dUWiJ9.3u546lkOT84tD13XFFKJ2INBv844fSWLpnasC7F9zGw
+RequestUri: http://graph.voip24h.vn/zns/api/create
+ResponseCode: OK
+Response: {"error":null,"data":{"status":200,"message":"Success","response":{"status":2260,"message":"Số điện thoại trống","data":[],"meta":{"limit":1,"offset":0,"total":1},"trace_id":"6520e8cd7d6dcb6d0fc62fb0"}},"trace_id":"6520e8cd9ac00ad22ff1c071"}
+
+

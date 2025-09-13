@@ -1,0 +1,331 @@
+﻿@using DAL.Entities
+@{
+    ViewData["Title"] = "Khuyến Mãi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styles{
+    <link href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="~/plugins/datatables-fixedcolumns/css/fixedColumns.bootstrap4.css" rel="stylesheet" />
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>@(ViewData["Title"])</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">@(ViewData["Title"])</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+    @Html.AntiForgeryToken()
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-sm-3">
+                    <label>Tìm theo mã</label>
+                    <input type="text" class="form-control" id="txtkeyword" />
+                </div>
+                <div class="col-sm-2">
+                    <input type="button" value="Tìm" class="btn btn-primary btn-filter" onclick="LoadPromotion()" id="btn-search" />
+                </div>
+                <div class="col-sm-2">
+                    <div class="text-right">
+                        <a class="btn btn-sm btn-primary btn-filter" onclick="showModalThemKM()" url="#"><i class="fa fa-plus-circle"></i>&nbsp;Thêm mới</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body ">
+
+            <table class="table table-bordered table-hovers dataTable" id="table-promotion" width="100%">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Mã KM</th>
+                        <th>Giá trị</th>
+                        <th>Loại khuyến mại</th>
+                        <th>Ngày tạo</th>
+                        <th></th>
+
+                    </tr>
+                </thead>
+            </table>
+
+        </div>
+    </div>
+</section>
+
+<!-- Modal -->
+<div class="modal fade" id="promotionCodeModal" tabindex="-1" role="dialog" aria-labelledby="promotionCodeModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="promotionCodeModalLabel">Tạo mã khuyến mãi</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Form start -->
+                <form id="promotionForm">
+                    <div class="form-group">
+                        <label for="promotionCode">Mã khuyến mãi</label>
+                        <input type="text" class="form-control" name="promotionCode" id="promotionCode" placeholder="Nhập mã khuyến mãi" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Loại khuyến mãi</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="IsPercent" id="discountPercentage" value="percent" checked>
+                            <label class="form-check-label" for="discountPercentage">Khuyến mãi phần trăm</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="IsPercent" id="discountFixed" value="fixed">
+                            <label class="form-check-label" for="discountFixed">Mã khuyến mãi</label>
+                        </div>
+                    </div>
+
+                    <!-- Phần trăm giảm giá -->
+                    <div class="form-group" id="percentageDiscountGroup">
+                        <label for="percentageDiscount">Phần trăm giảm giá (%)</label>
+                        <input type="number" class="form-control" name="PercentValue" id="PercentValue" placeholder="Nhập phần trăm giảm" min="0" max="100">
+                    </div>
+
+                    <!-- Số tiền giảm giá -->
+                    <div class="form-group" id="fixedDiscountGroup" style="display: none;">
+                        <label for="fixedDiscount">Số tiền giảm (VNĐ)</label>
+                        <input type="number" class="form-control" name="PromotionValue" id="PromotionValue" placeholder="Nhập số tiền giảm" min="0">
+                    </div>
+                </form>
+                <!-- Form end -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" onclick="ThemMoiMaKM()">Lưu mã khuyến mãi</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script src="~/plugins/datatable/jquery.datatable.js"></script>
+    <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+    <script src="~/plugins/datatables-fixedcolumns/js/dataTables.fixedColumns.js"></script>
+    <script src="~/js/jquery.validate.js"></script>
+
+    <script>
+        var tableId = "#table-promotion";
+        var ajaxURL = "/Promotion/SearchPromotion";
+        var columnData = [
+            { "data": "id", visible: false },
+            { "data": "code" },
+            {
+                "data": "price", "render": function (data, type, row, meta) {
+                    if (row.isPercent == true) {
+                        return row.percentValue + "%";
+
+                    }
+                    else {
+                        return RenderNumerFormat(data);
+                    }
+                }
+            },
+            {
+                "data": "isPercent", "render": function (data, type, row, meta) {
+                    if (data == true) {
+                        return "Khuyến mại phần trăm"
+                    }
+                    else {
+                        return "Mã khuyến mại"
+                    }
+                }
+            },
+            {
+                "data": "createdDate"
+            },
+            {
+                "data": "id", "render": function (data, type, row, meta) {
+                    return RenderTableAction(data);
+                }
+            },
+
+        ];
+        $(document).ready(function () {
+            LoadPromotion();
+            $("#btn-sales").click(function () {
+                SavePromtion();
+            });
+
+        })
+
+        $('input[name="IsPercent"]').change(function () {
+            if ($('#discountPercentage').is(':checked')) {
+                $('#percentageDiscountGroup').show();
+                $('#fixedDiscountGroup').hide();
+            } else {
+                $('#percentageDiscountGroup').hide();
+                $('#fixedDiscountGroup').show();
+            }
+        });
+
+        function RenderTableAction(Id) {
+            var html = "<div class='div-table-action'>" +
+               
+                "<i class='fa fa-trash' onclick='DeletePromotion(" + Id + ")'></i>" +
+                "</div>";
+            return html;
+        }
+
+        function LoadPromotion() {
+
+            var dataSearch = {
+                Keyword: $("#txtkeyword").val()
+            };
+            GenrateDataTableSearch(tableId, ajaxURL, columnData, dataSearch, 10);
+        }
+        function SavePromotion() {
+            var objData =
+            {
+                CustomerCode: $("#CustomerCode").val(),
+                LoaiInCode: $("#LoaiInCode").val(),
+                Quantity: parseInt($("#QuantityPromotion").val()),
+                PromotionCode: promotionCode
+            };
+
+            $.ajax({
+                type: "POST",
+                contentType: 'application/json; charset=utf-8',
+                url: "/Promotion/SaveTicketOrder",
+                dataType: 'json',
+                data: JSON.stringify(objData),
+                beforeSend: function () {
+                },
+                success: function (res) {
+                    if (res.isSuccess === true) {
+                        bootbox.alert(AlertSuccess("Lưu dữ liệu thành công"), function () {
+                        });
+                    } else {
+                        bootbox.alert(AlertFail(res.errorMessage));
+                    }
+
+                }
+            });
+
+        }
+
+        function showModalThemKM() {
+            $('#promotionCodeModal').modal('show')
+        }
+
+        // validate
+        function ValidMaKM() {
+            var resutlValid = $("#promotionForm").validate({
+                rules: {
+                    "promotionCode": "required",
+                    "PercentValue": {
+                        required: function () {
+                            return $("#discountPercentage").is(":checked"); // Only required if 'Khuyễn mãi phần trăm' is checked
+                        },
+                        number: true,
+                        min: 0,
+                        max: 100
+                    },
+                    "PromotionValue": {
+                        required: function () {
+                            return $("#promotionValueRadio").is(":checked"); // Only required if 'Mã khuyễn mãi' is checked
+                        },
+                        number: true,
+                        min: 0
+                    }
+                },
+                messages: {
+                    "promotionCode": "Thông tin bắt buộc!",
+                    "PercentValue": {
+                        required: "Vui lòng nhập phần trăm giảm!",
+                        number: "Vui lòng nhập số hợp lệ!",
+                        min: "Giá trị phải lớn hơn hoặc bằng 0!",
+                        max: "Giá trị phải nhỏ hơn hoặc bằng 100!"
+                    },
+                    "PromotionValue": {
+                        required: "Vui lòng nhập số tiền khuyến mãi!",
+                        number: "Vui lòng nhập số hợp lệ!",
+                        min: "Giá trị phải lớn hơn hoặc bằng 0!"
+                    }
+                }
+            }).form();
+            return resutlValid;
+        }
+
+        // Khi người dùng click nút lưu
+        function ThemMoiMaKM() {
+            if (ValidMaKM() == true) {
+                var dataPost = {
+                    Id: 0,
+                    PromotionCode: $('#promotionCode').val(),
+                    PromotionValue: $('#PromotionValue').val(),
+                    PercentValue: $('#PercentValue').val(),
+                    IsPercent: $('input[name="IsPercent"]:checked').val() == 'percent' ? true : false,
+                }
+
+                // call ajax
+                $.ajax({
+                    type: "POST",
+                    contentType: 'application/json; charset=utf-8', // Định dạng nội dung là JSON
+                    url: "/Promotion/CreatePromotion",
+                    dataType: 'json',
+                    headers: {
+                        'RequestVerificationToken': TokenHeaderValue() // Nếu có bảo mật chống CSRF
+                    },
+                    data: JSON.stringify(dataPost),
+                    beforeSend: function () {
+
+                    },
+                    success: function (result) {
+
+                        if (result.isSuccess) {
+                            $('#promotionCodeModal').modal('hide')
+                            LoadPromotion();
+                        }
+                        else {
+                            bootbox.alert(AlertFail("Thất bại"));
+                        }
+                    }
+
+                });
+            }
+
+
+        };
+
+        function DeletePromotion(Id) {
+            bootbox.confirm("Bạn có chắc muốn xóa mã khuyến mãi này?", function (confi) {
+                if (confi) {
+                    $.ajax({
+                        type: "GET",
+                        contentType: 'application/json; charset=utf-8',
+                        url: "/Promotion/DeletePromotion/" + Id,
+                        dataType: 'json',
+                        success: function (res) {
+                            if (res.isSuccess === true) {
+                                LoadPromotion();
+                            } else {
+                                bootbox.alert(AlertFail(res.errorMessage));
+                            }
+
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+}

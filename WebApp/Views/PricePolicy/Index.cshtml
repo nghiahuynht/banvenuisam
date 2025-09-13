@@ -1,0 +1,240 @@
+﻿
+@{
+    ViewData["Title"] = "Bảng giá theo đối tượng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using DAL.Entities
+@section styles{
+
+    <link href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="~/plugins/datatables-fixedcolumns/css/fixedColumns.bootstrap4.css" rel="stylesheet" />
+
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>@(ViewData["Title"])</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">@(ViewData["Title"])</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-sm-6">
+                    <label>Mã vé/dịch vụ</label>
+                    <select class="form-control" id="ddl-ticketcode">
+                        <option value="">Tất cả</option>
+                        @{
+                            var lstTicket = (List<Ticket>)ViewBag.TicketList;
+                            foreach (var item in lstTicket)
+                            {
+                                <option value="@item.Code">@(item.Description)</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <input type="button" value="Tìm" class="btn btn-primary btn-filter" id="btn-search" />
+                </div>
+                <div class="col-sm-4">
+                    <div class="text-right">
+                        <button class="btn btn-sm btn-primary btn-filter" id="btn-open-modal-detail"><i class="fa fa-plus-circle"></i>&nbsp;Thêm mới</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body ">
+
+            <table class="table table-bordered table-hover dataTable" id="table-price-policy" width="100%">
+                <thead>
+                    <tr>
+                        <th>Mã vé</th>
+                        <th>Loại khách hàng</th>
+                        <th>Đối tượng</th>
+                        <th>Giá</th>
+                        <th>Ngày cập nhật</th>
+                        <th>Người cập nhật</th>
+                        <th></th>
+                    </tr>
+                </thead>
+            </table>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modal-price-policy" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Bảng giá khách hàng</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Form start -->
+                <form id="form-price-policy" class="form-horizontal"></form>
+                <!-- Form end -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" onclick="SavePricePolicy()">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts{
+    <script src="~/plugins/datatable/jquery.datatable.js"></script>
+    <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+    <script src="~/plugins/datatables-fixedcolumns/js/dataTables.fixedColumns.js"></script>
+    <script src="~/js/jquery.validate.js"></script>
+
+    <script>
+
+        var tableId = "#table-price-policy";
+        var ajaxURL = "/PricePolicy/SearchPricePolicy";
+        var columnData = [
+            { "data": "ticketCode" },
+            { "data": "customerTypeName" },
+            { "data": "customerForm" },
+            {
+                "data": "price", "render": function (data, type, row, meta) {
+                    return RenderNumerFormat(data);
+                }
+            },
+            {
+                "data": "updatedDate", "render": function (data, type, row, meta) {
+                    return RenderDateComlumnGrid(data);
+                }
+            },
+            { "data": "updatedBy" },
+            {
+                "data": "id", "render": function (data, type, row, meta) {
+                    return RenderTableAction(data);
+                }
+            },
+
+
+        ];
+        $(document).ready(function () {
+
+            SearchPricePolicy();
+            $("#btn-search").click(function () {
+                SearchPricePolicy();
+            });
+
+
+            $("#btn-open-modal-detail").click(function () {
+                OpenPricePolicyDetail(0);
+            });
+
+        });
+        function RenderTableAction(id) {
+            var html = "<div class='div-table-action'>" +
+                "<i class='fa fa-edit' onclick='OpenPricePolicyDetail(" + id+")' ></i>&nbsp;" +
+                    "<i class='fa fa-trash' onclick='DeletePricePolicy(" + id + ")'></i>" +
+                "</div>";
+            return html;
+        }
+
+        function SearchPricePolicy() {
+
+            var dataSearch = {
+                TicketCode: $("#ddl-ticketcode").val()
+            };
+            debugger;
+            GenrateDataTableSearch(tableId, ajaxURL, columnData, dataSearch, 10, "giá");
+
+        }
+
+        function DeletePricePolicy(itemId) {
+            bootbox.confirm("Bạn có chắc muốn xóa giá này?", function (confi) {
+                if (confi) {
+                    $.ajax({
+                        type: "POST",
+                        contentType: 'application/json; charset=utf-8',
+                        url: "/PricePolicy/DeletePricePolicy?id=" + itemId,
+                        dataType: 'json',
+                        success: function (res) {
+                            if (res.isSuccess === true) {
+                                SearchPricePolicy();
+                            } else {
+                                bootbox.alert(AlertFail(res.errorMessage));
+                            }
+
+                        }
+                    });
+                }
+            });
+        }
+
+
+        function OpenPricePolicyDetail(Id) {
+            ShowWaiting();
+            $("#form-price-policy").load("/PricePolicy/_PartialPricePolicy?id=" + Id, function () {
+                HideWaiting();
+                $("#modal-price-policy").modal();
+            });
+        }
+
+        function ValidateSave() {
+            var resutlValid = $("#form-price-policy").validate({
+                rules: {
+                    "TicketCode": "required",
+                    "CustomerType": "required",
+                    "CustomerForm": "required"
+                },
+                messages: {
+                    "TicketCode": "Thông tin bắt buộc",
+                    "CustomerType": "Thông tin bắt buộc",
+                    "CustomerForm": "Thông tin bắt buộc"
+                }
+            }).form();
+            return resutlValid;
+        }
+
+
+        function SavePricePolicy() {
+
+            var valid = ValidateSave();
+            if (valid ==true) {
+                var modelObject = FormToObject("#form-price-policy", null);
+                modelObject.Type = 1;// category product
+                $.ajax({
+                    type: "POST",
+                    contentType: 'application/json; charset=utf-8',
+                    url: "/PricePolicy/SavePricePolicy",
+                    dataType: 'json',
+                    data: JSON.stringify(modelObject),
+                    success: function (result) {
+                        $("#modal-price-policy").modal("hide");
+                        SearchPricePolicy();
+                    }
+                });
+            }
+
+
+           
+        }
+       
+    </script>
+}
+

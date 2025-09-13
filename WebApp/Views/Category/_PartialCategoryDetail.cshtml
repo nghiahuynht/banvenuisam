@@ -1,0 +1,46 @@
+﻿@model DAL.Models.Category.CategoryDetailViewModel
+@Html.HiddenFor(x => x.Category.Id)
+@Html.HiddenFor(x => x.Category.CreatedBy)
+@Html.HiddenFor(x => x.Category.CreatedDate)
+@Html.HiddenFor(x => x.Category.UpdatedBy)
+@Html.HiddenFor(x => x.Category.UpdatedDate)
+@Html.HiddenFor(x => x.Category.IsActive)
+@Html.HiddenFor(x => x.Category.IsDeleted)
+<div class="form-group">
+    <div class="row">
+        <label class="col-md-3 control-label">Tên loại hàng *</label>
+        <div class="col-md-9">
+            @Html.TextBoxFor(x => x.Category.Name, new { @class = "form-control" })
+        </div>
+    </div>
+
+</div>
+<div class="form-group">
+    <div class="row">
+        <label class="col-md-3 control-label">Danh mục cha</label>
+        <div class="col-md-9">
+            <select class="form-control" id="Category_Parent" name="Category.Parent">
+                <option value="0"></option>
+                @{
+                    foreach (var item in Model.ListParent.Where(x => x.Parent == 0))
+                    {
+                        string selected = item.Id == Model.Category.Parent ? "selected='selected'" : string.Empty;
+                        <option value="@(item.Id)" @(selected)>@item.Name</option>
+                        var lstChild = Model.ListParent.Where(x => x.Parent == item.Id);
+                        foreach (var child in lstChild)
+                        {
+                            string selectedChild = child.Id == Model.Category.Parent ? "selected='selected'" : string.Empty;
+                            <option value="@(child.Id)" @(selectedChild)>&nbsp;&nbsp;&nbsp;&nbsp;@child.Name</option>
+                        }
+
+
+                    }
+                }
+            </select>
+        </div>
+    </div>
+
+
+</div>
+
+

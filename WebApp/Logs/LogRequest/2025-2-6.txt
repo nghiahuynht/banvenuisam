@@ -1,0 +1,35 @@
+2/6/2025 9:46:00 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+
+
+2/6/2025 9:47:38 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+
+
+2/6/2025 10:48:39 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+
+
+2/6/2025 11:02:31 AM: /TicketOrder/ChangePaymentStatusOrder      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":6901,"SubNum":1,"SubOrderCode":"Combo30602250001","CreatedBy":"adminlbl","CardNum":"0006901"}
+SubCode: {"SubId":6902,"SubNum":2,"SubOrderCode":"Combo30602250002","CreatedBy":"adminlbl","CardNum":"0006902"}
+
+
+2/6/2025 11:02:35 AM: /ConDao/SendNoti      
+Before call api url: /gm/api/v1.0/zns/get-token
+Input: {"OAId":859331931254348594,"AppId":4534628161010948186}
+RequestUri: https://oauth.gamanjsc.com/gm/api/v1.0/zns/get-token
+ResponseCode: OK
+Response: {"Code":200,"Message":{"Message":"Thành công","ExMessage":null},"Data":{"AccessToken":"AwqFDQSGtoeWg0yshn3P8YIX3ZUj1j1eO-PNSvWmymP2trTRYWw167tA9NYZTOG5ICzR7RXnYLrXeWCvwdYlJW6wULRL2gTENyS2BRWOqtKteMOIsr71NLowJm6LKfWUNvytUw5wX3H_m5LEjGg513BYCKlW1va7QluRNfaSiZHJmHakXtgoRbxU4Ywf6w9gMUKF3h4Fesf1jXfnjdQfCZse3IolQxXiTQaOTeP_ip08f6GjqcxILoQGRZ7yQyClDfGGPkeinI1WwX10ZbQtG06RDHtgP91Y88mP1CLYgc8oXYayp4EAUKAUMWs_V_9eOPzW2R5To4DQ-NijYaFJHWFwM0JD1iu4IlzBVQCb-6Gnu6OE-bpgTm7WGmhh9fqV2zvMU-GSr0KrsceQnMBPT3QlSnBu7zHuludcBQ0AtIq","ExpireIn":86400,"ExpireDate":"06/02/2025 15:24:46"},"IsSuccess":true,"IsNotFound":false,"IsNoContent":false,"IsConflict":false}
+
+
+2/6/2025 11:02:35 AM: /ConDao/SendNoti      
+Before call api url: /message/template
+Input: {"mode":null,"phone":"","template_id":"328629","template_data":{"company_name":"Lang Bian","customer_name":"Mặc định khách lẻ","ticket_code":"Combo30602250001","price":"210,000","quantity":"2","total":"420,000","order_date":"06/02/2025 10:49:36","visit_date":"06/02/2025","qr":"6901","code":"langbian","place_visit":"Combo: tham quan + 1 phần ăn sáng"},"tracking_id":"7wFlpsSqYu1k1OZevix8X7DzNa7CSvVv6D1QNucQQlw"}
+access_token: AwqFDQSGtoeWg0yshn3P8YIX3ZUj1j1eO-PNSvWmymP2trTRYWw167tA9NYZTOG5ICzR7RXnYLrXeWCvwdYlJW6wULRL2gTENyS2BRWOqtKteMOIsr71NLowJm6LKfWUNvytUw5wX3H_m5LEjGg513BYCKlW1va7QluRNfaSiZHJmHakXtgoRbxU4Ywf6w9gMUKF3h4Fesf1jXfnjdQfCZse3IolQxXiTQaOTeP_ip08f6GjqcxILoQGRZ7yQyClDfGGPkeinI1WwX10ZbQtG06RDHtgP91Y88mP1CLYgc8oXYayp4EAUKAUMWs_V_9eOPzW2R5To4DQ-NijYaFJHWFwM0JD1iu4IlzBVQCb-6Gnu6OE-bpgTm7WGmhh9fqV2zvMU-GSr0KrsceQnMBPT3QlSnBu7zHuludcBQ0AtIq
+RequestUri: https://business.openapi.zalo.me/message/template
+ResponseCode: OK
+Response: {"error":-108,"message":"Phone number invalid"}
+
+

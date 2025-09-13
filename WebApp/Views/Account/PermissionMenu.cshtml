@@ -1,0 +1,104 @@
+﻿
+@{
+    ViewData["Title"] = "Vai trò quyền hạn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model List<DAL.Models.ComboBoxModel>
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>@(ViewData["Title"])</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"> <input type="button" value="Lưu" class="btn bg-primary" id="btn-save" /></li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-sm-2">
+                    <label>Vai trò</label>
+                    <select class="form-control" id="ddl-role">
+                        @{
+                            foreach (var opt in Model)
+                            {
+                                <option value="@opt.Value">@opt.Text</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body" id="div-load-permissiontable">
+
+        </div>
+    </div>
+</section>
+@section scripts{
+
+    <script>
+        var arrMenuRole = [];
+        $(document).ready(function () {
+            LoadPermissionTable();
+            $("#ddl-role").change(function () {
+                LoadPermissionTable();
+            });
+
+        });
+        function LoadPermissionTable() {
+            var roleCode = $("#ddl-role").val();
+            $("#div-load-permissiontable").load("/account/_PartialLstPermissionMenu?roleCode=" + roleCode);
+
+
+        }
+        //function CheckMenu(thatCheckBox, menuId) {
+        //    var roleCode = $("#ddl-role").val();
+        //    var checkedParent = $(thatCheckBox).is(":checked");
+        //    var objIndex = arrMenuRole.findIndex(x => x.RoleCode === roleCode && x.MenuId === menuId);
+        //    if (objIndex === -1)
+        //    {
+        //        if (checkedParent == true)
+        //        {
+        //            var objRole = { RoleCode: roleCode, MenuId: menuId };
+        //            arrMenuRole.push(objRole);
+        //        } 
+
+        //    } else {
+        //        arrMenuRole = arrMenuRole.filter(x => x.RoleCode === roleCode && x.MenuId !== menuId);
+        //    }
+        //}
+        function UpdatePermissionMenu(menuId) {
+            var model = {
+                RoleCode: $("#ddl-role").val(),
+                MenuId: menuId
+            };
+            $.ajax({
+                type: "POST",
+                contentType: 'application/json; charset=utf-8',
+                url: "/Account/UpdatePermissionMenu",
+                dataType: 'json',
+                data: JSON.stringify(model),
+                beforeSend: function () {
+
+                },
+                success: function (res) {
+                    if (res.isSuccess === false)
+                    {
+                        bootbox.alert(AlertFail(res.errorMessage));
+                        //bootbox.alert(AlertSuccess("Lưu dữ liệu thành công"), function () {
+                        //    LoadPermissionTable();
+                        //});
+                    } 
+
+                }
+            });
+        }
+    </script>
+}

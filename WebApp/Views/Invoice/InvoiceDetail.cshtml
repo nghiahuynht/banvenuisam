@@ -1,0 +1,726 @@
+﻿
+@{
+    ViewData["Title"] = Model.Invoice.Id != 0 ? "Đơn hàng: " + Model.Invoice.Code : "Thông tin đơn hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model DAL.Models.Invoice.InvoiceDetailViewModel
+
+@section styles{
+
+    <link href="~/plugins/datepicker/datepicker3.css" rel="stylesheet" />
+    <link href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+
+    <style>
+        #btn-add-todetail {
+            font-size: 9pt !important;
+        }
+        .text-display-money {
+            position:relative;
+            top:6px;
+        }
+    </style>
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>@(ViewData["Title"])</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item">
+                        <input type="button" value="Lưu" class="btn btn-primary" id="btn-save" />&nbsp;
+                        <input type="button" value="Hủy" class="btn btn-danger" id="btn-cancel" />&nbsp;
+                        <input type="button" value="In" class="btn btn-default" id="btn-print" />
+                    </li>
+
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<section class="content">
+    <div class="col-sm-12">
+        <div class="card card-primary card-outline card-tabs">
+            <div class="card-header p-0 pt-1 border-bottom-0">
+                <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="invoice-info-tab" data-toggle="pill" href="#invoice-info-tab-content" role="tab" aria-controls="custom-tabs-three-home" aria-selected="true">THÔNG TIN ĐƠN HÀNG</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="invoice-detail-tab" data-toggle="pill" href="#invoice-detail-tab-content" role="tab" aria-controls="custom-tabs-three-home" aria-selected="true">CHI TIẾT ĐƠN HÀNG</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="invoice-history-payment-tab" data-toggle="pill" href="#invoice-history-payment-tab-content" role="tab" aria-controls="custom-tabs-three-messages" aria-selected="false">LỊCH SỬ THANH TOÁN</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " id="invoice-output-tab" data-toggle="pill" href="#invoice-output-tab-content" role="tab" aria-controls="custom-tabs-three-profile" aria-selected="false">PHIẾU XUẤT KHO LIÊN QUAN</a>
+                    </li>
+
+
+                </ul>
+            </div>
+            <div class="card-body">
+                <div class="tab-content" id="custom-tabs-three-tabContent">
+                    <div class="tab-pane fade active show" id="invoice-info-tab-content" role="tabpanel" aria-labelledby="custom-tabs-three-home-tab">
+                        <form class="form-horizontal" id="form-invoice">
+                            @Html.HiddenFor(x => x.Invoice.Id)
+                            @Html.HiddenFor(x => x.Invoice.ObjId)
+                            @Html.HiddenFor(x => x.Invoice.InvoiceStatus)
+                            @Html.HiddenFor(x => x.Invoice.InvoiceType)
+                            @Html.HiddenFor(x => x.Invoice.StaffCode)
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-md-3 col-form-label">Mã đơn hàng *</label>
+                                        <div class="col-md-9">
+                                            @Html.TextBoxFor(x => x.Invoice.Code, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group row">
+                                        <label class="col-md-3 col-form-label">Khách hàng *</label>
+                                        <div class="col-md-9">
+                                            @{
+                                                string displayObj = string.Empty;
+                                                string phoneObj = string.Empty;
+                                                string addressObj = string.Empty;
+                                                if (Model.Invoice.ObjId.HasValue)
+                                                {
+                                                    displayObj = string.Format("{0}-{1}", Model.ObjSelected.Code, Model.ObjSelected.Name);
+                                                    phoneObj = Model.ObjSelected.Phone;
+                                                    addressObj = Model.ObjSelected.Address;
+
+                                                }
+                                            }
+                                            <input type="text" id="txt-autocomplete-obj" value="@(displayObj)" class="form-control" name="txt-autocomplete-obj" autocomplete="off" autofocus placeholder="Tìm theo mã hoặc tên">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-3 col-form-label">Điện thoại</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" disabled="disabled" id="txt-objphone" value="@(phoneObj)" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-md-3 col-form-label">Địa chỉ</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" disabled="disabled" id="txt-objaddress" value="@(addressObj)" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-md-3 col-form-label">Ngày</label>
+                                        <div class="col-md-9">
+                                            <div class="input-group date">
+                                                <input type="text" id="Invoice_InvoiceDate" name="Invoice.InvoiceDate" value="@(Model.Invoice.InvoiceDate.HasValue?Model.Invoice.InvoiceDate.Value.ToString("dd/MM/yyyy"):DateTime.Now.ToString("dd/MM/yyyy"))" class="form-control">
+                                                <span class="input-group-addon group-date-icon"><i class="far fa-calendar-alt"></i></span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-3 col-form-label">Nhân viên sale *</label>
+                                        <div class="col-md-9">
+                                            @{
+                                                string displayStaff = string.Empty;
+
+                                                if (!string.IsNullOrEmpty(Model.Invoice.StaffCode))
+                                                {
+                                                    displayStaff = string.Format("{0}-{1}", Model.StaffSelected.UserName, Model.StaffSelected.FullName);
+
+
+                                                }
+                                            }
+                                            <input type="text" id="txt-autocomplete-staff" value="@(displayStaff)" class="form-control" name="txt-autocomplete-staff" autocomplete="off" autofocus placeholder="Tìm theo mã hoặc tên">
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-3 col-form-label">Tình trạng</label>
+                                        <div class="col-md-9">
+                                            @{
+                                                if (Model.Invoice.InvoiceStatus == DAL.Contanst.InvoiceStatus_ConNo)
+                                                {
+                                                    <span class="badge badge-primary badge-status">Đơn nợ</span>
+                                                }
+                                                else if (Model.Invoice.InvoiceStatus == DAL.Contanst.InvoiceStatus_DaThanhToan)
+                                                {
+                                                    <span class="badge badge-success badge-status">Đã thanh toán</span>
+                                                }
+                                                else if (Model.Invoice.InvoiceStatus == DAL.Contanst.InvoiceStatus_Huy)
+                                                {
+                                                    <span class="badge badge-danger badge-status">Hủy</span>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-3 col-form-label">Ghi chú</label>
+                                        <div class="col-md-9">
+                                            @Html.TextAreaFor(x => x.Invoice.Note, new { @class = "form-control", @rows = "4" })
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </form>
+
+
+
+
+                    </div>
+                    <div class="tab-pane fade " id="invoice-detail-tab-content" role="tabpanel" aria-labelledby="custom-tabs-three-profile-tab">
+                        <table id="table-invoice-detail" class="table table-bordered" width="100%">
+                            <thead>
+                                <tr>
+                                    <td colspan="10">
+                                        <div class="input-group mb-12">
+                                            <input type="text" id="txt-product-autocomplete" name="txt-product-autocomplete" class="form-control rounded-0" autocomplete="off" autofocus>
+                                            <span class="input-group-append">
+                                                <button type="button" class="btn btn-primary" id="btn-add-todetail"><i class="fa fa-plus"></i></button>
+                                            </span>
+                                        </div>
+                                        <input type="hidden" id="hid-product-selected-autocomplete" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>InvoiceId</th>
+                                    <th>ProductId</th>
+                                    <th>Mã hàng</th>
+                                    <th style="width:40%;">Tên mặt hàng </th>
+                                    <th>Đơn vị</th>
+                                    <th>Số lượng</th>
+                                    <th>Giá</th>
+                                    <th>Thành tiền</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane fade " id="invoice-history-payment-tab-content" role="tabpanel" aria-labelledby="custom-tabs-three-profile-tab">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control rounded-0">
+                            <span class="input-group-append">
+                                <button type="button" class="btn btn-info btn-flat">Go!</button>
+                            </span>
+                        </div>
+                        Mauris tincidunt mi at erat gravida, eget tristique urna bibendum. Mauris pharetra purus ut ligula tempor, et vulputate metus facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Maecenas sollicitudin, nisi a luctus interdum, nisl ligula placerat mi, quis posuere purus ligula eu lectus. Donec nunc tellus, elementum sit amet ultricies at, posuere nec nunc. Nunc euismod pellentesque diam.
+                    </div>
+                    <div class="tab-pane fade" id="invoice-output-tab-content" role="tabpanel" aria-labelledby="custom-tabs-three-messages-tab">
+                        Morbi turpis dolor, vulputate vitae felis non, tincidunt congue mauris. Phasellus volutpat augue id mi placerat mollis. Vivamus faucibus eu massa eget condimentum. Fusce nec hendrerit sem, ac tristique nulla. Integer vestibulum orci odio. Cras nec augue ipsum. Suspendisse ut velit condimentum, mattis urna a, malesuada nunc. Curabitur eleifend facilisis velit finibus tristique. Nam vulputate, eros non luctus efficitur, ipsum odio volutpat massa, sit amet sollicitudin est libero sed ipsum. Nulla lacinia, ex vitae gravida fermentum, lectus ipsum gravida arcu, id fermentum metus arcu vel metus. Curabitur eget sem eu risus tincidunt eleifend ac ornare magna.
+                    </div>
+
+                </div>
+                
+            </div>
+            <div class="card-footer" style="background:#fff;">
+                <hr />
+                <div class="row">
+                    <div class="col-sm-2 text-right"><label class="col-form-label">Tổng</label></div>
+                    <div class="col-sm-2"><strong id="invoice-total" class="text-display-money number-divide">50,000,000</strong></div>
+                    <div class="col-sm-2 text-right"><label class="col-form-label">Chiết khấu</label></div>
+                    <div class="col-sm-2"><input type="text" value="0" class="form-control" id="txt-invoice-chietkhau" /></div>
+                    <div class="col-sm-2 text-right"><label class="col-form-label">VAT</label></div>
+                    <div class="col-sm-2"><input type="text" value="10" class="form-control" id="txt-invoice-vat" /></div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-sm-2 text-right"><label class="col-form-label">Tổng sau thuế</label></div>
+                    <div class="col-sm-2"><strong id="invoice-total-afterVAT" class="text-primary text-display-money number-divide"  >50,000,000</strong></div>
+                    <div class="col-sm-2 text-right"><label class="col-form-label">Đã thanh toán</label></div>
+                    <div class="col-sm-2"><strong class="text-success text-display-money number-divide">0</strong></div>
+                    <div class="col-sm-2 text-right"><label class="col-form-label">Còn nợ</label></div>
+                    <div class="col-sm-2"><strong id="invoice-owe" class="text-danger text-display-money number-divide">50,000,000</strong></div>
+                </div>
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+</section>
+@section scripts{
+    <script src="~/js/jquery.validate.js"></script>
+    <script src="~/plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script src="~/plugins/datatable/jquery.datatable.js"></script>
+    <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+    <script src="~/plugins/custom-thousands-separator/dist/number-divider.js"></script>
+
+    <script>
+
+        var arrInvoiceDetail = [];
+
+        $(document).ready(function () {
+
+            $(".date").datepicker({
+                format: "dd/mm/yyyy"
+            }).on('changeDate', function (e) {
+                $(this).datepicker('hide');
+            });
+
+
+            $("#btn-save").click(function () {
+                SaveInvoice();
+            })
+
+            $("#btn-add-todetail").click(function () {
+                PickupItemToInvoiceDetail();
+            });
+
+            
+            if ($("#Invoice_Id").val() !== "0")
+            {
+                GetInvoiceItemDetail()
+            }
+
+            AutoCompleteSearchObj();
+            AutoCompleteSearchStaff();
+            AutoCompleteSearchProduct();
+
+
+
+        });
+
+
+
+
+        function AutoCompleteSearchObj() {
+            var urlAutoComplete = "/Invoice/SearhObjAutoComplete";
+            var invoiceType = $("#Invoice_InvoiceType").val();
+
+            $("#txt-autocomplete-obj").typeahead({
+                hint: true,
+                highlight: true,
+                minLength: 3,
+                source: function (request, response) {
+                    $.ajax({
+                        url: urlAutoComplete,
+                        data: JSON.stringify({ Keyword: request, Type: invoiceType }),
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            items = [];
+                            map = {};
+                            $.each(data, function (i, item) {
+                                var displayList = "<table style='width:100%;' width='100%'> " +
+                                    "<tbody><tr>" +
+                                    "<td style='text-align:left;width:10%;'>" + item.code + "</td>" +
+                                    "<td style='text-align:left;width:40%;'>" + item.name + "</td>" +
+                                    "<td style='text-align:left;width:20%;'>" + item.phone + "</td>" +
+                                    "<td style='text-align:left;width:30%;'>" + item.address + "</td>" +
+                                    "</tr></tbody>" +
+                                    "</table>";
+                                map[displayList] = {
+                                    id: item.id,
+                                    code: item.code,
+                                    name: item.name,
+                                    phone: item.phone,
+                                    address: item.address
+                                };
+                                items.push(displayList);
+                            });
+                            response(items);
+                            $(".dropdown-menu").css("height", "auto");
+                        },
+                        error: function (response) {
+                            alert(response.responseText);
+                        },
+                        failure: function (response) {
+                            alert(response.responseText);
+                        }
+
+                    });
+                },
+                updater: function (item) {
+
+                    $("#Invoice_ObjId").val(map[item].id);
+                    $("#txt-objphone").val(map[item].phone);
+                    $("#txt-objaddress").val(map[item].address);
+
+
+
+                    return map[item].code + "-" + map[item].name;
+                },
+                afterSelect: function (item) {
+                    // event after selected
+
+                }
+
+            });
+
+
+
+
+
+        }
+
+
+        function AutoCompleteSearchStaff() {
+            var urlAutoComplete = "/Invoice/SearhStaffAutoComplete";
+
+            $("#txt-autocomplete-staff").typeahead({
+                hint: true,
+                highlight: true,
+                minLength: 3,
+                source: function (request, response) {
+                    $.ajax({
+                        url: urlAutoComplete,
+                        data: JSON.stringify({ Keyword: request, Type: null }),
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            items = [];
+                            map = {};
+                            $.each(data, function (i, item) {
+                                var displayList = "<table style='width:50%;'> " +
+                                    "<tbody><tr>" +
+                                    "<td style='text-align:left;width:10%;'>" + item.userName + "</td>" +
+                                    "<td style='text-align:left;width:40%;'>" + item.fullName + "</td>" +
+                                    "</tr></tbody>" +
+                                    "</table>";
+                                map[displayList] = {
+                                    code: item.userName,
+                                    name: item.fullName,
+                                };
+                                items.push(displayList);
+                            });
+                            response(items);
+                            $(".dropdown-menu").css("height", "auto");
+                        },
+                        error: function (response) {
+                            alert(response.responseText);
+                        },
+                        failure: function (response) {
+                            alert(response.responseText);
+                        }
+
+                    });
+                },
+                updater: function (item) {
+
+                    $("#Invoice_StaffCode").val(map[item].code);
+                    return map[item].code + "-" + map[item].name;
+                },
+                afterSelect: function (item) {
+                    // event after selected
+
+                }
+
+            });
+
+
+
+
+
+        }
+
+
+        function AutoCompleteSearchProduct() {
+            var urlAutoComplete = "/Invoice/SearhProductAutoComplete";
+
+            $("#txt-product-autocomplete").typeahead({
+                hint: true,
+                highlight: true,
+                minLength: 3,
+                source: function (request, response) {
+                    $.ajax({
+                        url: urlAutoComplete,
+                        data: JSON.stringify({ Keyword: request, Type: null }),
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            items = [];
+                            map = {};
+                            $.each(data, function (i, item) {
+                                var displayList = "<div class='row' style='width:100%'>" +
+                                    "<div class='col-md-3'>" + item.productCode + "</div>" +
+                                    "<div class='col-md-6'>" + item.productName + "</div>" +
+                                    "<div  class='col-md-3'>" + item.unit + "</div>" +
+                                    "</div>";
+                                map[displayList] = {
+                                    id: item.id,
+                                    invoiceId: item.invoiceId,
+                                    productId: item.productId,
+                                    productCode: item.productCode,
+                                    productName: item.productName,
+                                    unit: item.unit,
+                                    price: item.price,
+                                    quanti: item.quanti,
+                                    total: item.total
+                                };
+                                items.push(displayList);
+                            });
+                            response(items);
+                            $(".dropdown-menu").css("height", "auto");
+                        },
+                        error: function (response) {
+                            alert(response.responseText);
+                        },
+                        failure: function (response) {
+                            alert(response.responseText);
+                        }
+
+                    });
+                },
+                updater: function (item) {
+                    $("#hid-product-selected-autocomplete").val(map[item].productId);
+                    return map[item].productCode + "-" + map[item].productName;
+                },
+
+
+            });
+
+
+
+
+
+        }
+
+
+
+
+        function SaveInvoice() {
+            var valid = ValidateInvoice();
+            if (valid) {
+                var invoice = FormToObject("#form-invoice", "Invoice.");
+                invoice.InvoiceDate = ConverFormatDate($("#Invoice_InvoiceDate").val());
+
+                var saveData = {
+                    Invoice: invoice,
+                    ObjSelected: null,
+                    StaffSelected: null,
+                    InvoiceDetails: arrInvoiceDetail
+                };
+
+
+
+
+
+                $.ajax({
+                    type: "POST",
+                    contentType: 'application/json; charset=utf-8',
+                    url: "/Invoice/SaveInvoice",
+                    dataType: 'json',
+                    data: JSON.stringify(saveData),
+                    beforeSend: function () {
+                        ShowWaiting();
+                    },
+                    success: function (res) {
+                        HideWaiting();
+                        if (res.isSuccess === true) {
+                            bootbox.alert(AlertSuccess("Lưu dữ liệu thành công"), function () {
+                                var invoiceType = $("Invoice_InvoiceType").val();
+                                location.href = "/invoice/invoicedetail/" + invoiceType + "/" + res.valueReturn;
+                            });
+                        } else {
+                            bootbox.alert(AlertFail(res.errorMessage));
+                        }
+
+                    }
+                });
+            }
+        }
+
+        function ValidateInvoice() {
+            var resutlValid = $("#form-invoice").validate({
+                rules: {
+                    "Invoice.Code": "required",
+                    "Invoice.InvoiceDate": "required",
+                    "txt-autocomplte-obj": "required"
+                },
+                messages: {
+                    "Invoice.Code": null,
+                    "Invoice.InvoiceDate": null,
+                    "txt-autocomplte-obj": null
+                }
+            }).form();
+            return resutlValid;
+        }
+
+
+        function LoadDataTableInvoiceDetail(arrData) {
+
+            $("#table-invoice-detail").DataTable({
+                data: arrData,
+                paging: false,
+                orderMulti: false,
+                lengthChange: false,
+                filter: false,
+                ordering: false,
+                info: false,
+                columns: [
+                    { "data": "id", "visible": false },
+                    { "data": "invoiceId", "visible": false },
+                    { "data": "productId", "visible": false },
+                    { "data": "productCode", "width": "10%" },
+                    { "data": "productName", "width": "40%" },
+                    { "data": "unit", "width": "10%" },
+                    {
+                        "data": "quanti", "width": "5%", "render": function (data, type, row, meta) {
+                            return RenderQuantiInvoiceDetail(data, row["productId"], false);
+                        }
+                    },
+                    {
+                        "data": "price", "width": "5%", "render": function (data, type, row, meta) {
+                            return RenderPriceInvoiceDetail(data, row["productId"], false);
+                        }
+                    },
+                    {
+                        "data": "total", "width": "15%", "render": function (data, type, row, meta) {
+                            return RenderTotalInvoiceDetail(data);
+                        }
+                    },
+                    {
+                        "data": "productId", "width": "5%", "render": function (data, type, row, meta) {
+                            return RenderDeleteInvoiceDetailBtn(data);
+                        }
+                    },
+                ],
+                fixedColumns: true,
+                destroy: true
+
+
+            });
+        }
+
+
+
+
+        function RenderQuantiInvoiceDetail(quanti, productId) {
+            return "<input type='number' id='txt-proc-quanti-" + productId + "' onblur='ScanUpdateInvoiceDetailRow(" + productId + ")' value='" + quanti + "' class='form-control number-divide' />";
+        }
+
+        function ScanUpdateInvoiceDetailRow(productId) {
+            var objIndex = arrInvoiceDetail.findIndex(x => x.productId === productId);
+            var quanti = parseInt($("#txt-proc-quanti-" + productId).val());
+            var price = parseFloat($("#txt-proc-price-" + productId).val());
+
+            arrInvoiceDetail[objIndex].price = Math.round(price);
+            arrInvoiceDetail[objIndex].quanti = quanti;
+            arrInvoiceDetail[objIndex].total = (quanti * price);
+            CalCulateInvoiceValue();
+        }
+
+
+        function RenderPriceInvoiceDetail(price, productId) {
+            return "<input type='text' class='form-control number-divide' id='txt-proc-price-" + productId + "' onblur='ScanUpdateInvoiceDetailRow(" + productId + ")' value='" + price + "' />";
+        }
+        function RenderTotalInvoiceDetail(total) {
+            return "<div style='width:100%;text-align:right;'><span class='number-divide' style='text-align:right;font-weight:normal;font-size:11pt;'>" + total + "</span></div>";
+        }
+        function RenderDeleteInvoiceDetailBtn(productI) {
+            return "<div class='div-table-action'><span class='fa fa-trash btn-delete' onclick='DeleteInvoiceDetailRow(" + productI + ")' ></span></div>";
+        }
+
+        function PickupItemToInvoiceDetail() {
+            var itemSelected = $("#hid-product-selected-autocomplete").val();
+            $.ajax({
+                type: "GET",
+                contentType: 'application/json; charset=utf-8',
+                url: "/Invoice/PickupProductToInvoiceDetail?productId=" + itemSelected,
+                success: function (res) {
+
+                   
+                    ResetAutocomplteProduct();
+
+                    var objIndex = arrInvoiceDetail.findIndex(x => x.productId === parseInt(itemSelected));
+                    if (objIndex === -1) {
+
+                        arrInvoiceDetail.push(res);
+
+                    } else {
+                        var newQuanti = (arrInvoiceDetail[objIndex].quanti + 1);
+                        arrInvoiceDetail[objIndex].quanti = newQuanti;
+                        arrInvoiceDetail[objIndex].total = (newQuanti * arrInvoiceDetail[objIndex].price);
+                    }
+                    LoadDataTableInvoiceDetail(arrInvoiceDetail);
+                    CalCulateInvoiceValue();
+
+
+                }
+            });
+        }
+
+        function FormatNumberDevide() {
+            $('.number-divide').divide({
+                delimiter: ',',
+                divideThousand: true,
+                delimiterRegExp: /[\.\,\s]/g
+
+            });
+        }
+
+        function ResetAutocomplteProduct() {
+            $("#hid-product-selected-autocomplete").val(null);
+            $("#txt-product-autocomplete").val(null);
+
+        }
+
+
+        function CalCulateInvoiceValue() {
+
+            var totalBefVAT = 0;
+            var discountValue = 0;
+            var totalAfterDiscount = 0;
+            var vatValue = 0;
+            var totalAfterVAT = 0;
+            var totalDaThanhToan = 0;
+            var totalConNo = 0;
+
+            jQuery.each(arrInvoiceDetail, function (index, value)
+            {
+                totalBefVAT = totalBefVAT + arrInvoiceDetail[index].total;
+            });
+            discountValue = Math.round((totalBefVAT * parseFloat($("#txt-invoice-chietkhau").val()).toFixed(0)) / 100);
+            totalAfterDiscount = Math.round(totalBefVAT - discountValue);
+            vatValue = Math.round((totalAfterDiscount * parseFloat($("#txt-invoice-vat").val()).toFixed(0)) / 100);
+            totalAfterVAT = (totalAfterDiscount + vatValue)
+
+            totalConNo = totalAfterVAT - totalDaThanhToan;
+
+
+            $("#invoice-total").html(totalBefVAT);
+            $("#invoice-total-afterVAT").html(totalAfterVAT);
+            $("#invoice-owe").html(totalConNo);
+            FormatNumberDevide();
+            
+        }
+
+        function GetInvoiceItemDetail() {
+            var invoiceId = $("#Invoice_Id").val();
+            $.ajax({
+                type: "GET",
+                contentType: 'application/json; charset=utf-8',
+                url: "/Invoice/GetInvoiceItemDetail?invoiceId=" + invoiceId,
+                success: function (result) {
+
+                    arrInvoiceDetail = result;
+                    LoadDataTableInvoiceDetail(arrInvoiceDetail);
+                    CalCulateInvoiceValue();
+                }
+            });
+        }
+
+
+        function DeleteInvoiceDetailRow(productId) {
+            var objIndex = arrInvoiceDetail.findIndex(x => x.ProductId === parseInt(productId));
+            arrInvoiceDetail.splice(objIndex, 1);
+            LoadDataTableInvoiceDetail(arrInvoiceDetail);
+            CalCulateInvoiceValue();
+
+        }
+
+
+    </script>
+}

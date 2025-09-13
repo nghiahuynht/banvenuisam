@@ -1,0 +1,62 @@
+﻿@model List<DAL.Entities.Menu>
+
+<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+    <!-- Add icons to the links using the .nav-icon class
+         with font-awesome or any other icon font library -->
+
+
+    @{
+        if (Model.Any())
+        {
+            foreach (var menuParent in Model.Where(x => x.Parent == 0).OrderBy(x => x.Priority))
+            {
+                var lstChild = Model.Where(x => x.Parent == menuParent.Id).OrderBy(x => x.Priority);
+
+                <li class="nav-item menu-is-opening menu-open">
+                    <a href="@(menuParent.URL)" class="nav-link">
+                        <i class="nav-icon @(menuParent.MenuIcon)"></i>
+                        <p>
+                            @(menuParent.Name)
+                            @{
+                                if (lstChild.Any())
+                                {
+                                    <i class="right fas fa-angle-left"></i>
+                                }
+                            }
+                        </p>
+                    </a>
+                    @{
+
+                        if (lstChild.Any())
+                        {
+                            <ul class="nav nav-treeview " style="display: block;">
+
+                                @{
+                                    foreach (var menuChild in lstChild)
+                                    {
+                                        <li class="nav-item"><a href="@(menuChild.URL)" class="nav-link"><i class="far fa-circle nav-icon child-icon"></i><p>@(menuChild.Name)</p></a></li>
+                                    }
+                                }
+
+                            </ul>
+                        }
+
+
+
+                    }
+                </li>
+            }
+        }
+    }
+
+
+    <li class="nav-item">
+        <a href="/payoo/waitingpayment" target="_blank" class="nav-link" style="background:#b6ff00;">
+            <i class="nav-icon fa fa-eye" style="color:#555;"></i>
+            <p style="color:#555;">Trang thanh toán online</p>
+        </a>
+    </li>
+
+
+</ul>
+

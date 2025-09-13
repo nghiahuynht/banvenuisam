@@ -1,0 +1,191 @@
+﻿
+@{
+    ViewData["Title"] = "Thông tin sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model DAL.Models.Product.ProductViewModel
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>@(ViewData["Title"])</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item">
+                        <input type="button" value="Lưu" class="btn bg-primary" id="btn-save" />
+                    </li>
+
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<section class="content">
+    <div class="card">
+        <div class="card-body">
+            <form class="form-horizontal" id="form-product">
+                @Html.HiddenFor(x => x.Product.Id)
+                @Html.HiddenFor(x => x.Product.CreatedBy)
+                @Html.HiddenFor(x => x.Product.CreatedDate)
+                @Html.HiddenFor(x => x.Product.UpdatedBy)
+                @Html.HiddenFor(x => x.Product.UpdatedDate)
+                @Html.HiddenFor(x => x.Product.IsDeleted)
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Mã SP *</label>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(x => x.Product.Code, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Tên sản phẩm *</label>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(x => x.Product.Name, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Đơn vị *</label>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(x => x.Product.Unit, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Giá *</label>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(x => x.Product.Price, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Danh mục</label>
+                            <div class="col-md-9">
+                                <select class="form-control" id="Product_CategoryIds" name="Product.CategoryIds">
+                                    <option value=""></option>
+                                    @{
+                                        foreach (var item in Model.Categories.Where(x => x.Parent == 0))
+                                        {
+                                            string selected = item.Id.ToString() == Model.Product.CategoryIds ? "selected='selected'" : string.Empty;
+                                            <option value="@(item.Id)" @(selected)>@item.Name</option>
+                                            var lstChild = Model.Categories.Where(x => x.Parent == item.Id);
+                                            foreach (var child in lstChild)
+                                            {
+                                                string selectedChild = child.Id.ToString() == Model.Product.CategoryIds ? "selected='selected'" : string.Empty;
+                                                <option value="@(child.Id)" @(selectedChild)>&nbsp;&nbsp;&nbsp;&nbsp;@child.Name</option>
+                                            }
+
+
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Quy cách</label>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(x => x.Product.QuyCach, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Ghi chú</label>
+                            <div class="col-md-9">
+                                @Html.TextAreaFor(x => x.Product.Note, new { @class = "form-control", @rows = "3" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="offset-md-3">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="chk-product-active" @(Model.Product.IsActive ? "checked='checked'" : string.Empty)>
+                                    @Html.HiddenFor(x => x.Product.IsActive)
+                                    <label class="form-check-label">Đang hoạt động</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </form>
+
+        </div>
+    </div>
+
+
+
+</section>
+@section scripts{
+    <script src="~/js/jquery.validate.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $("#chk-product-active").change(function () {
+                var valueCheck = $(this).prop("checked");
+                $("#Product_IsActive").val(valueCheck);
+            });
+
+            $("#btn-save").click(function () {
+                SaveProduct();
+            });
+
+
+
+        })
+        function ValidProduct() {
+            var resutlValid = $("#form-product").validate({
+                rules: {
+                    "Product.Code": "required",
+                    "Product.Name": "required",
+                    "Product.Unit": "required",
+                    "Product.Price": "required",
+                },
+                messages: {
+                    "Product.Code": null,
+                    "Product.Name": null,
+                    "Product.Unit": null,
+                    "Product.Price": null,
+                }
+            }).form();
+            return resutlValid;
+        }
+        function SaveProduct() {
+            var valid = ValidProduct();
+            if (valid) {
+                var productData = FormToObject("#form-product", "Product.");
+
+                $.ajax({
+                    type: "POST",
+                    contentType: 'application/json; charset=utf-8',
+                    url: "/Product/SaveProduct",
+                    dataType: 'json',
+                    data: JSON.stringify(productData),
+                    beforeSend: function () {
+
+                    },
+                    success: function (res) {
+                        if (res.isSuccess === true) {
+                            bootbox.alert(AlertSuccess("Lưu dữ liệu thành công"), function () {
+                                location.href = "/Product/PRoductDetail/" + res.valueReturn;
+                            });
+                        } else {
+                            bootbox.alert(AlertFail(res.errorMessage));
+                        }
+
+                    }
+                });
+
+
+            }
+
+
+
+        }
+    </script>
+}

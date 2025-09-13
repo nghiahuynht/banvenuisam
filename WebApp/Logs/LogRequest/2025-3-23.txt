@@ -1,0 +1,11 @@
+3/23/2025 9:17:02 PM: /condao/SaveOrder      
+{"OrderId":0,"FullName":"fgfgfg","PhoneNumber":"078898980","Email":"","Quantity":1,"TicketCode":"VE40K","AgencyName":null,"TaxCode":null,"TaxAddress":null,"VisitDate":"2025-03-23T00:00:00","GateCode":null}
+
+3/23/2025 9:17:03 PM: /condao/SaveOrder      
+RequestURL: /ConDao/SaveOrder
+Input: {"OrderId":0,"FullName":"fgfgfg","PhoneNumber":"078898980","Email":"","Quantity":1,"TicketCode":"VE40K","AgencyName":null,"TaxCode":null,"TaxAddress":null,"VisitDate":"2025-03-23T00:00:00","GateCode":null}
+
+
+3/23/2025 9:17:59 PM: /condao/SaveOrder      
+{"OrderId":0,"FullName":"fgfgfg","PhoneNumber":"078898980","Email":"","Quantity":1,"TicketCode":"VE40K","AgencyName":null,"TaxCode":null,"TaxAddress":null,"VisitDate":"2025-03-23T00:00:00","GateCode":null}
+

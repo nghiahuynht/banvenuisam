@@ -1,0 +1,158 @@
+﻿
+@{
+    ViewData["Title"] = "Danh sách sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model List<DAL.Entities.Category>
+@section styles{
+
+    <link href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="~/plugins/datatables-fixedcolumns/css/fixedColumns.bootstrap4.css" rel="stylesheet" />
+
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>@(ViewData["Title"])</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">@(ViewData["Title"])</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-sm-2">
+                    <label>Nhóm hàng</label>
+                    <select class="form-control" id="ddl-category">
+                        <option value="0">Tất cả</option>
+                        @{
+                            foreach (var opt in Model)
+                            {
+                                <option value="@opt.Id">@opt.Name</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <label>Tìm theo mã/tên sp</label>
+                    <input type="text" class="form-control" id="txtkeyword" />
+                </div>
+                <div class="col-sm-2">
+                    <input type="button" value="Tìm" class="btn btn-default btn-filter" id="btn-search" />
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body ">
+            <div class="text-right">
+                <a class="btn btn-sm btn-primary" href="/product/productdetail"><i class="fa fa-plus-circle"></i>&nbsp;Tạo mới</a>
+                <button class="btn btn-sm btn-success"><i class="fa fa-download"></i>&nbsp;Export excel</button>
+                <button class="btn btn-sm btn-success"><i class="fa fa-upload"></i>&nbsp;Import excel</button>
+            </div>
+            <table class="table table-bordered table-hover dataTable" id="table-product" width="100%">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Mã SP</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Đơn vị</th>
+                        <th>Quy cách</th>
+                        <th>Giá</th>
+                        <th>Nhóm hàng</th>
+                        <th>Ghi chú</th>
+                        <th>Đang hoạt động</th>
+                        <th></th>
+                    </tr>
+                </thead>
+            </table>
+
+        </div>
+    </div>
+</section>
+@section scripts{
+    <script src="~/plugins/datatable/jquery.datatable.js"></script>
+    <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+    <script src="~/plugins/datatables-fixedcolumns/js/dataTables.fixedColumns.js"></script>
+
+
+    <script>
+        var tableId = "#table-product";
+        var ajaxURL = "/Product/SearchProduct";
+        var columnData = [
+            { "data": "id", visible: false },
+            { "data": "code" },
+            { "data": "name" },
+            { "data": "unit" },
+            { "data": "quyCach" },
+            { "data": "price" },
+            { "data": "categoryName" },
+            { "data": "note" },
+            { "data": "isActive" },
+            {
+                "data": "id", "render": function (data, type, row, meta) {
+                    return RenderTableAction(data);
+                }
+            },
+
+
+        ];
+        $(document).ready(function () {
+
+            SearchProduct();
+            $("#btn-search").click(function () {
+                SearchProduct();
+            });
+        });
+        function RenderTableAction(productId) {
+            var html = "<div class='div-table-action'>" +
+                            "<i class='fa fa-edit' onclick='GotoProductDetail(" + productId + ")'></i>&nbsp;" +
+                            "<i class='fa fa-trash' onclick='DeleteProduct(" + productId + ")'></i>" +
+                        "</div>";
+            return html;
+        }
+        function GotoProductDetail(productId) {
+            location.href = "/Product/ProductDetail/" + productId;
+        }
+        function SearchProduct() {
+
+            var dataSearch = {
+                CategoryId: $("#ddl-category").val(),
+                Keyword: $("#txtkeyword").val()
+            };
+            GenrateDataTableSearch(tableId, ajaxURL, columnData, dataSearch);
+
+        }
+
+        function DeleteProduct(productId) {
+          bootbox.confirm("Bạn có chắc muốn xóa sản phẩm này?", function (confi) {
+                if (confi)
+                {
+                    $.ajax({
+                        type: "POST",
+                        contentType: 'application/json; charset=utf-8',
+                        url: "/Product/DeleteProduct/" + productId,
+                        dataType: 'json',
+                        success: function (res) {
+                            if (res.isSuccess === true) {
+                                SearchProduct();
+                            } else {
+                                bootbox.alert(AlertFail(res.errorMessage));
+                            }
+
+                        }
+                    });
+                }
+            });
+        }
+
+    </script>
+}

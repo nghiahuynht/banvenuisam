@@ -1,0 +1,310 @@
+﻿
+@{
+    ViewData["Title"] = "Danh sách tuyến thăm quan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using DAL.Entities
+@section styles{
+
+    <link href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="~/plugins/datatables-fixedcolumns/css/fixedColumns.bootstrap4.css" rel="stylesheet" />
+
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>@(ViewData["Title"])</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">@(ViewData["Title"])</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-sm-10">
+                    <label>Tìm theo mã, tên tuyến</label>
+                    <input type="text" class="form-control" id="txtkeyword" />
+                </div>
+                <div class="col-sm-2">
+                    <input type="button" value="Tìm" class="btn btn-primary btn-filter" id="btn-search" />
+                </div>
+               
+            </div>
+        </div>
+
+        <div class="card-body ">
+
+            <table class="table table-bordered table-hover dataTable" id="table-GatePermission" width="100%">
+                <thead>
+                    <tr>
+                        <th>Mã tuyến</th>
+                        <th>Tên tuyến</th>
+                        <th>Nhân viên Soát vé</th>
+                        <th></th>
+                    </tr>
+                </thead>
+            </table>
+
+        </div>
+    </div>
+</section>
+
+<!--Modal phân quyền soát vè-->
+<div class="modal fade show" id="modal-Gate-Permisson" aria-modal="true" role="dialog">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <input style="display:none" id="txtGateCode" />
+                <h4 class="modal-title">Phân quyền soát vé</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-4"><label class="col-form-label">Nhân viên</label></div>
+                    <div class="col-sm-8">
+                        <select class="form-control selectpicker" id="txtUserName" data-style="btn-info" data-live-search="true">
+
+                            @{
+                                var customerList = (List<UserInfo>)ViewBag.UserList;
+                                if (customerList.Any())
+                                {
+                                    foreach (var cust in customerList)
+                                    {
+                                        <option value="@(cust.UserName)">@(cust.FullName)</option>
+                                    }
+                                }
+                            }
+
+
+                        </select>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-success" onclick="SavePermission()">Phân quyền</a>
+                <a class="btn btn-danger" onclick="HideModal('#modal-Gate-Permisson')">Đóng</a>
+
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<!--Modal Thêm Gate-->
+<div class="modal fade show" id="modal-Create-Gate" aria-modal="true" role="dialog">
+    <div class="modal-dialog  modal-lg ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Thêm Cổng</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="form-Create-Gate">
+                    <div class="row">
+                        <div class="col-sm-4"><label class="col-form-label">Mã cổng *</label></div>
+                        <div class="col-sm-8">
+                            <input class="form-control" name="GateCode" id="txtGateCodeCreate" />
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4"><label class="col-form-label">Tên cổng *</label></div>
+                        <div class="col-sm-8">
+                            <input class="form-control" name="GateName" id="txtGateNameCreate" />
+
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-success" onclick="CreateGate()">Thêm</a>
+                <a class="btn btn-danger" onclick="HideModal('#modal-Create-Gate')">Đóng</a>
+
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@section scripts{
+    <script src="~/plugins/datatable/jquery.datatable.js"></script>
+    <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+    <script src="~/plugins/datatables-fixedcolumns/js/dataTables.fixedColumns.js"></script>
+    <script src="~/js/jquery.validate.js"></script>
+
+    <script>
+        var tableId = "#table-GatePermission";
+        var ajaxURL = "/GatePermission/GetGatePermissionPaging";
+        var columnData = [
+            { "data": "gateCode" },
+            { "data": "gateName" },
+            { "data": "fullName" },
+            {
+                "data": "gateCode", "render": function (data, type, row, meta) {
+                    return RenderTableAction(data, (row.userName == null ? "" : row.userName));
+                }
+            },
+
+
+        ];
+        $(document).ready(function () {
+
+            SearchGatePermission();
+            $("#btn-search").click(function () {
+                SearchGatePermission();
+            });
+        });
+        function RenderTableAction(gateCode, userName) {
+            var html = "<div class='div-table-action'>" +
+                "<i class='fa fa-key' onclick=GotoPermission('" + gateCode + "','" + userName + "')></i>&nbsp;" +
+                //"<i class='fa fa-trash' onclick=DeleteGate('" + gateCode + "')></i>" +
+                "</div>";
+            return html;
+        }
+        function GotoPermission(gateCode, userName) {
+            //location.href = "/customer/customerdetail/" + customerId;
+            $("#modal-Gate-Permisson").modal();
+            $("#txtGateCode").val(gateCode)
+            $("#txtUserName").val(userName)
+        }
+        function SearchGatePermission() {
+
+            var dataSearch = {
+                //CustomerType: $("#ddl-customertype").val(),
+                //ProvinceCode: $("#ddl-province").val(),
+                Keyword: $("#txtkeyword").val(),
+                start: 0,
+                length: 20
+            };
+            GenrateDataTableSearch(tableId, ajaxURL, columnData, dataSearch,20,"tuyến");
+
+        }
+
+        function DeleteGate(gateCode) {
+            bootbox.confirm("Bạn có chắc muốn xóa cổng này?", function (confi) {
+                if (confi) {
+                    $.ajax({
+                        type: "Get",
+                        contentType: 'application/json; charset=utf-8',
+                        url: "/GatePermission/DeleteGate?gateCode=" + gateCode,
+
+                        success: function (res) {
+                            if (res.isSuccess === true) {
+                                SearchGatePermission();
+                            } else {
+                                bootbox.alert(AlertFail(res.errorMessage));
+                            }
+
+                        }
+                    });
+                }
+            });
+        }
+
+        function HideModal(modal) {
+            $(modal).modal('hide');
+            $("#txtGateCode").val("")
+        }
+
+        function SavePermission() {
+            var model = {
+                UserName: $("#txtUserName").val(),
+                GateCode: $("#txtGateCode").val()
+            };
+            $.ajax({
+                type: "POST",
+                contentType: 'application/json; charset=utf-8',
+                url: "/GatePermission/SaveGatePermission",
+                data: JSON.stringify(model),
+                success: function (res) {
+                    if (res.isSuccess === true) {
+                        $("#modal-Gate-Permisson").modal('hide');
+                        SearchGatePermission();
+                    } else {
+                        bootbox.alert(AlertFail(res.errorMessage));
+                    }
+
+                }
+            });
+        }
+
+        function ShowModalCreateGate() {
+            $("#txtGateNameCreate").val("");
+            $("#txtGateCodeCreate").val("");
+            $("#modal-Create-Gate").modal();
+        }
+
+        function CreateGate() {
+            var resutlValid = $("#form-Create-Gate").validate({
+                rules: {
+                    "GateCode": "required",
+                    "GateName": "required"
+                },
+                messages: {
+                    "GateCode": "Không được để trống !",
+                    "GateName": "Không được để trống !"
+                }
+            }).form();
+            if (resutlValid == true) {
+
+                var modelCreate = {
+                    GateName: $("#txtGateNameCreate").val(),
+                    GateCode: xoa_dau($("#txtGateCodeCreate").val())
+                };
+                $.ajax({
+                    type: "POST",
+                    contentType: 'application/json; charset=utf-8',
+                    url: "/GatePermission/CreateGate",
+                    data: JSON.stringify(modelCreate),
+                    success: function (res) {
+                        if (res.isSuccess === true) {
+                            $("#modal-Create-Gate").modal("hide");
+                            SearchGatePermission();
+                        } else {
+                            bootbox.alert(AlertFail(res.errorMessage));
+                        }
+
+                    }
+                });
+            }
+        }
+
+        //Hàm Xóa dấu
+        function xoa_dau(str) {
+            str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+            str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+            str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+            str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+            str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+            str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+            str = str.replace(/đ/g, "d");
+            str = str.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "A");
+            str = str.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, "E");
+            str = str.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "I");
+            str = str.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "O");
+            str = str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "U");
+            str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y");
+            str = str.replace(/Đ/g, "D");
+            str = str.replace(" ", "_");
+            return str;
+        }
+    </script>
+}

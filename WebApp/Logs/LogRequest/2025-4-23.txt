@@ -1,0 +1,70 @@
+4/23/2025 8:18:40 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\GanhDaDia\GanhDaDia_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":7,"SubNum":4,"SubOrderCode":"BD-15-Doan2304250001","CreatedBy":"admin","CardNum":"4000007"}
+
+
+4/23/2025 8:24:53 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\GanhDaDia\GanhDaDia_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":8,"SubNum":1,"SubOrderCode":"BD-15-Le2304250001","CreatedBy":"admin","CardNum":"4000008"}
+SubCode: {"SubId":9,"SubNum":2,"SubOrderCode":"BD-15-Le2304250002","CreatedBy":"admin","CardNum":"4000009"}
+SubCode: {"SubId":10,"SubNum":3,"SubOrderCode":"BD-15-Le2304250003","CreatedBy":"admin","CardNum":"4000010"}
+
+
+4/23/2025 8:26:26 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\GanhDaDia\GanhDaDia_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":11,"SubNum":1,"SubOrderCode":"BD-15-Le2304250004","CreatedBy":"admin","CardNum":"4000011"}
+SubCode: {"SubId":12,"SubNum":2,"SubOrderCode":"BD-15-Le2304250005","CreatedBy":"admin","CardNum":"4000012"}
+
+
+4/23/2025 8:38:51 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\GanhDaDia\GanhDaDia_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":13,"SubNum":1,"SubOrderCode":"BD-15-Le2304250006","CreatedBy":"admin","CardNum":"4000013"}
+SubCode: {"SubId":14,"SubNum":2,"SubOrderCode":"BD-15-Le2304250007","CreatedBy":"admin","CardNum":"4000014"}
+
+
+4/23/2025 8:39:21 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\GanhDaDia\GanhDaDia_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":15,"SubNum":1,"SubOrderCode":"BT-20-Le2304250001","CreatedBy":"admin","CardNum":"4000015"}
+SubCode: {"SubId":16,"SubNum":2,"SubOrderCode":"BT-20-Le2304250002","CreatedBy":"admin","CardNum":"4000016"}
+SubCode: {"SubId":17,"SubNum":3,"SubOrderCode":"BT-20-Le2304250003","CreatedBy":"admin","CardNum":"4000017"}
+
+
+4/23/2025 8:45:57 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\GanhDaDia\GanhDaDia_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":18,"SubNum":2,"SubOrderCode":"Xe15_BTang2304250001","CreatedBy":"admin","CardNum":"4000018"}
+
+
+4/23/2025 9:01:03 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\GanhDaDia\GanhDaDia_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":19,"SubNum":1,"SubOrderCode":"BT-20-Doan2304250001","CreatedBy":"admin","CardNum":"4000019"}
+SubCode: {"SubId":20,"SubNum":2,"SubOrderCode":"BT-20-Doan2304250002","CreatedBy":"admin","CardNum":"4000020"}
+
+
+4/23/2025 9:11:29 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\GanhDaDia\GanhDaDia_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":21,"SubNum":1,"SubOrderCode":"BT-20-Doan2304250003","CreatedBy":"admin","CardNum":"4000021"}
+SubCode: {"SubId":22,"SubNum":2,"SubOrderCode":"BT-20-Doan2304250004","CreatedBy":"admin","CardNum":"4000022"}
+
+
+4/23/2025 9:23:35 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\GanhDaDia\GanhDaDia_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":23,"SubNum":1,"SubOrderCode":"BT-20-Le2304250004","CreatedBy":"admin","CardNum":"4000023"}
+SubCode: {"SubId":24,"SubNum":2,"SubOrderCode":"BT-20-Le2304250005","CreatedBy":"admin","CardNum":"4000024"}
+
+
+4/23/2025 9:24:15 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\GanhDaDia\GanhDaDia_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":25,"SubNum":3,"SubOrderCode":"BT-20-Doan2304250005","CreatedBy":"admin","CardNum":"4000025"}
+
+
+4/23/2025 9:37:48 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\GanhDaDia\GanhDaDia_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":26,"SubNum":1,"SubOrderCode":"BD-15-Le2304250008","CreatedBy":"admin","CardNum":"4000026"}
+SubCode: {"SubId":27,"SubNum":2,"SubOrderCode":"BD-15-Le2304250009","CreatedBy":"admin","CardNum":"4000027"}
+SubCode: {"SubId":28,"SubNum":3,"SubOrderCode":"BD-15-Le2304250010","CreatedBy":"admin","CardNum":"4000028"}
+SubCode: {"SubId":29,"SubNum":4,"SubOrderCode":"BD-15-Le2304250011","CreatedBy":"admin","CardNum":"4000029"}
+SubCode: {"SubId":30,"SubNum":5,"SubOrderCode":"BD-15-Le2304250012","CreatedBy":"admin","CardNum":"4000030"}
+SubCode: {"SubId":31,"SubNum":6,"SubOrderCode":"BD-15-Le2304250013","CreatedBy":"admin","CardNum":"4000031"}
+SubCode: {"SubId":32,"SubNum":7,"SubOrderCode":"BD-15-Le2304250014","CreatedBy":"admin","CardNum":"4000032"}
+
+

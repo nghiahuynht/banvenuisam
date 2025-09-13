@@ -1,0 +1,25 @@
+1/26/2025 10:27:53 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":1,"SubNum":1,"SubOrderCode":"VE-NGAY2601250001","CreatedBy":"adminlbl","CardNum":"LBL1ABFBDDE"}
+
+
+1/26/2025 10:29:04 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":1,"SubNum":1,"SubOrderCode":"VE-NGAY2601250001","CreatedBy":"adminlbl","CardNum":"LBLEF25705C"}
+
+
+1/26/2025 10:32:23 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":1,"SubNum":1,"SubOrderCode":"VE-NGAY2601250001","CreatedBy":"adminlbl","CardNum":"LBLA71A80ED"}
+
+
+1/26/2025 10:36:01 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":1,"SubNum":1,"SubOrderCode":"VE-NGAY2601250001","CreatedBy":"adminlbl","CardNum":"LBL7D82EA64"}
+
+
+1/26/2025 10:41:30 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":1,"SubNum":1,"SubOrderCode":"VE-NGAY2601250001","CreatedBy":"adminlbl","CardNum":"LBLCF4DEFB0"}
+
+

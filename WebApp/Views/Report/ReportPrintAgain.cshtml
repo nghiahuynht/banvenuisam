@@ -1,0 +1,168 @@
+﻿
+@{
+    ViewData["Title"] = "Báo cáo in lại";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using DAL.Entities
+@using DAL.Models.Ticket
+@section styles{
+    <link href="~/plugins/datepicker/datepicker3.css" rel="stylesheet" />
+    <link href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="~/plugins/datatables-fixedcolumns/css/fixedColumns.bootstrap4.css" rel="stylesheet" />
+    <style>
+        .datepicker table tr td.disabled,
+        .datepicker table tr td.disabled:hover {
+            background-color: #e6d2d2;
+        }
+    </style>
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>@(ViewData["Title"])</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">@(ViewData["Title"])</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<section class="content">
+    @Html.AntiForgeryToken()
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+
+                <div class="col-sm-3">
+                    <label>Từ ngày</label>
+                    <div class="input-group date" id="FromDateWrapper">
+                        <input type="text" id="FromDate" value="@(DateTime.Now.AddDays(-7).ToString("dd/MM/yyyy"))" class="form-control">
+                        <span class="input-group-addon group-date-icon"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <label>Đến ngày</label>
+                    <div class="input-group date" id="ToDateWrapper">
+                        <input type="text" id="ToDate" value="@(DateTime.Now.ToString("dd/MM/yyyy"))" class="form-control">
+                        <span class="input-group-addon group-date-icon"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+
+                </div>
+                <div class="col-sm-3">
+                    <label>Hình thức</label>
+                    <div class="input-group" id="">
+                        <select class="form-control" id="PaymentType">
+                            <option value="All" selected>Tất cả</option>
+                            <option value="TM">Tiền mặt</option>
+                            <option value="CK">Chuyển khoản</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="col-sm-3">
+                    <input type="button" value="OK" class="btn btn-primary btn-filter" id="btn-search" />
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card-body ">
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table table-bordered table-hover dataTable" id="table-printagain" width="100%">
+                        <thead>
+                            <tr>
+                                <th width ="10%">Mã đơn</th>
+                                <th width="10%">Loại vé</th>
+                                <th width="10%">Số vé</th>
+                                <th width="20%">Tên khách</th>
+                                <th width="20%">Ngày in</th>
+                                <th width="20%">Người in</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section scripts{
+    <script src="~/plugins/datatable/jquery.datatable.js"></script>
+    <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+    <script src="~/plugins/datatables-fixedcolumns/js/dataTables.fixedColumns.js"></script>
+    <script src="~/plugins/datepicker/bootstrap-datepicker.js"></script>
+
+    <script>
+        var tableId = "#table-printagain";
+        var ajaxURL = "/Report/GetReportPrintAgainByFilter";
+        var columnData = [
+
+            { "data": "orderId" },
+            { "data": "ticketCode" },
+            { "data": "quanti" }, // số vé
+            { "data": "customerName" }, 
+            { "data": "createdDate" }, 
+            { "data": "createdBy" },
+
+
+        ];
+        $(document).ready(function () {
+
+            $(".date").datepicker({
+                format: "dd/mm/yyyy"
+            }).on('changeDate', function (e) {
+                $(this).datepicker('hide');
+            });
+
+            GetReportPrintAgain();
+
+
+
+
+            $("#btn-search").click(function () {
+                GetReportPrintAgain();
+            });
+
+
+
+
+
+        });
+
+
+        function RenderNumerFormat(data) {
+            var res = "";
+            if (data !== undefined) {
+                res = data.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+            }
+            return "<div style='width:100%;text-align:right;'>" + res + "</div>";
+        }
+        function GetReportPrintAgain() {
+
+            var dataSearch = {
+                FromDate: $("#FromDate").val(),
+                ToDate: $("#ToDate").val(),
+                ToDate: $("#ToDate").val(),
+                UserName: '', // Nếu cần truyền thêm
+                PaymentType: $("#PaymentType").val(), 
+                start: 0, // Phân trang nếu có
+                length: 10
+            };
+            GenrateDataTableSearch(tableId, ajaxURL, columnData, dataSearch, 10,"vé");
+
+        }
+
+       
+
+        
+
+        
+
+    </script>
+}

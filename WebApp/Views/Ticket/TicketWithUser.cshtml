@@ -1,0 +1,150 @@
+﻿@using DAL.Entities
+@{
+    ViewData["Title"] = "Phân quyền vé bán";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var dataLoaiVe = ViewBag.AllLoaiVe as List<Ticket> ?? new List<Ticket>();
+}
+@model List<DAL.Entities.UserInfo>
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>@(ViewData["Title"])</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"> <input type="button" value="Lưu" class="btn bg-primary" id="btn-save" onclick="saveTicketWithUser()" /></li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-sm-2">
+                    <label>Nhân viên</label>
+                    <select class="form-control" id="ddl-user">
+                        <option value="">Chọn nhân viên</option>
+                        @{
+                            foreach (var opt in Model)
+                            {
+                                <option value="@opt.Id">@opt.UserName</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-sm-8">
+                    <label>Danh sách vé</label>
+                    @foreach (var ve in dataLoaiVe)
+                    {
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="ticket_@ve.Id" value="@ve.Id" />
+                            <label class="form-check-label" for="ticket_@ve.Id">(@ve.Code) @ve.Description</label>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+
+@section scripts{
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        var arrayLoaiVeChecked = [];
+        $(document).ready(function () {
+
+            $(document).on('change', 'input[type="checkbox"][id^="ticket_"]', function () {
+                var ticketId = $(this).val();
+                
+                if ($(this).is(":checked")) {
+
+                    if (!arrayLoaiVeChecked.includes(ticketId)) {
+                        arrayLoaiVeChecked.push(ticketId);
+                    }
+                } else {
+
+                    arrayLoaiVeChecked = arrayLoaiVeChecked.filter(id => id !== ticketId);
+                }
+
+
+            });
+
+            //
+            $("#ddl-user").change(function () {
+                var userId = $(this).val();
+                
+                // Bỏ check tất cả checkbox hiện tại
+                arrayLoaiVeChecked = [];
+                $("input[type='checkbox'][id^='ticket_']").prop("checked", false);
+
+                if (!userId) return;
+
+                $.ajax({
+                    type: "GET",
+                    url: "/Ticket/GetTicketByUser?userId=" + userId,
+                    contentType: 'application/json; charset=utf-8',
+                    data: {  },
+                    success: function (res) {
+                       
+                        if (Array.isArray(res)) {
+                            res.forEach(function (ticket) {
+                                $("#ticket_" + ticket.ticketId).prop("checked", true);
+                                arrayLoaiVeChecked.push(ticket.ticketId.toString());
+                            });
+                        } else {
+                            toastr.error("Dữ liệu không hợp lệ", "Lỗi");
+                        }
+                    },
+                    error: function () {
+                        toastr.error("Không thể lấy danh sách vé", "Lỗi");
+                    }
+                });
+            });
+        });
+
+        function saveTicketWithUser() {
+            var userId = $("#ddl-user").val(); // bạn đang dùng id là ddl-role trong HTML
+
+            if (!userId) {
+                toastr.error("Vui lòng chọn nhân viên", "Lỗi", { positionClass: "toast-top-center" });
+                return;
+            }
+
+            var model = {
+                UserId: userId,
+                TicketIds: arrayLoaiVeChecked
+            };
+            $.ajax({
+                type: "POST",
+                contentType: 'application/json; charset=utf-8',
+                url: "/Ticket/SaveTicketUser",
+                dataType: 'json',
+                data: JSON.stringify(model),
+                beforeSend: function () {
+
+                },
+                success: function (res) {
+                  
+                    if (res.isSuccess === true) {
+                        toastr.success("Phân quyền vé bán hàng thành công", "Thành công", { positionClass: "toast-top-center" });
+                        //bootbox.alert(AlertSuccess("Lưu dữ liệu thành công"), function () {
+                        //    LoadPermissionTable();
+                        //});
+                    } else {
+                        bootbox.alert(AlertFail(res.errorMessage));
+                    }
+                    
+
+                }
+            });
+        }
+    </script>
+}

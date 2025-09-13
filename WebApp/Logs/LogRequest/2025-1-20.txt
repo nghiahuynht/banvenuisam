@@ -1,0 +1,191 @@
+1/20/2025 9:00:17 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":17,"SubNum":1,"SubOrderCode":"VE-NGAY2001250001","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":18,"SubNum":2,"SubOrderCode":"VE-NGAY2001250002","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":19,"SubNum":3,"SubOrderCode":"VE-NGAY2001250003","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":20,"SubNum":4,"SubOrderCode":"VE-NGAY2001250004","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":21,"SubNum":5,"SubOrderCode":"VE-NGAY2001250005","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":22,"SubNum":6,"SubOrderCode":"VE-NGAY2001250006","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":23,"SubNum":7,"SubOrderCode":"VE-NGAY2001250007","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":24,"SubNum":8,"SubOrderCode":"VE-NGAY2001250008","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":25,"SubNum":9,"SubOrderCode":"VE-NGAY2001250009","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":26,"SubNum":10,"SubOrderCode":"VE-NGAY2001250010","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":27,"SubNum":11,"SubOrderCode":"VE-NGAY2001250011","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":28,"SubNum":12,"SubOrderCode":"VE-NGAY2001250012","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":29,"SubNum":13,"SubOrderCode":"VE-NGAY2001250013","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":30,"SubNum":14,"SubOrderCode":"VE-NGAY2001250014","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":31,"SubNum":15,"SubOrderCode":"VE-NGAY2001250015","CreatedBy":"admin","CardNum":null}
+
+
+1/20/2025 9:44:42 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":32,"SubNum":1,"SubOrderCode":"VE-NGAY2001250016","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":33,"SubNum":2,"SubOrderCode":"VE-NGAY2001250017","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":34,"SubNum":3,"SubOrderCode":"VE-NGAY2001250018","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":35,"SubNum":4,"SubOrderCode":"VE-NGAY2001250019","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":36,"SubNum":5,"SubOrderCode":"VE-NGAY2001250020","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":37,"SubNum":6,"SubOrderCode":"VE-NGAY2001250021","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":38,"SubNum":7,"SubOrderCode":"VE-NGAY2001250022","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":39,"SubNum":8,"SubOrderCode":"VE-NGAY2001250023","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":40,"SubNum":9,"SubOrderCode":"VE-NGAY2001250024","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":41,"SubNum":10,"SubOrderCode":"VE-NGAY2001250025","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":42,"SubNum":11,"SubOrderCode":"VE-NGAY2001250026","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":43,"SubNum":12,"SubOrderCode":"VE-NGAY2001250027","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":44,"SubNum":13,"SubOrderCode":"VE-NGAY2001250028","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":45,"SubNum":14,"SubOrderCode":"VE-NGAY2001250029","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":46,"SubNum":15,"SubOrderCode":"VE-NGAY2001250030","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":47,"SubNum":16,"SubOrderCode":"VE-NGAY2001250031","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":48,"SubNum":17,"SubOrderCode":"VE-NGAY2001250032","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":49,"SubNum":18,"SubOrderCode":"VE-NGAY2001250033","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":50,"SubNum":19,"SubOrderCode":"VE-NGAY2001250034","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":51,"SubNum":20,"SubOrderCode":"VE-NGAY2001250035","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":52,"SubNum":21,"SubOrderCode":"VE-NGAY2001250036","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":53,"SubNum":22,"SubOrderCode":"VE-NGAY2001250037","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":54,"SubNum":23,"SubOrderCode":"VE-NGAY2001250038","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":55,"SubNum":24,"SubOrderCode":"VE-NGAY2001250039","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":56,"SubNum":25,"SubOrderCode":"VE-NGAY2001250040","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":57,"SubNum":26,"SubOrderCode":"VE-NGAY2001250041","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":58,"SubNum":27,"SubOrderCode":"VE-NGAY2001250042","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":59,"SubNum":28,"SubOrderCode":"VE-NGAY2001250043","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":60,"SubNum":29,"SubOrderCode":"VE-NGAY2001250044","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":61,"SubNum":30,"SubOrderCode":"VE-NGAY2001250045","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":62,"SubNum":31,"SubOrderCode":"VE-NGAY2001250046","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":63,"SubNum":32,"SubOrderCode":"VE-NGAY2001250047","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":64,"SubNum":33,"SubOrderCode":"VE-NGAY2001250048","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":65,"SubNum":34,"SubOrderCode":"VE-NGAY2001250049","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":66,"SubNum":35,"SubOrderCode":"VE-NGAY2001250050","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":67,"SubNum":36,"SubOrderCode":"VE-NGAY2001250051","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":68,"SubNum":37,"SubOrderCode":"VE-NGAY2001250052","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":69,"SubNum":38,"SubOrderCode":"VE-NGAY2001250053","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":70,"SubNum":39,"SubOrderCode":"VE-NGAY2001250054","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":71,"SubNum":40,"SubOrderCode":"VE-NGAY2001250055","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":72,"SubNum":41,"SubOrderCode":"VE-NGAY2001250056","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":73,"SubNum":42,"SubOrderCode":"VE-NGAY2001250057","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":74,"SubNum":43,"SubOrderCode":"VE-NGAY2001250058","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":75,"SubNum":44,"SubOrderCode":"VE-NGAY2001250059","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":76,"SubNum":45,"SubOrderCode":"VE-NGAY2001250060","CreatedBy":"admin","CardNum":null}
+
+
+1/20/2025 10:18:28 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":1,"SubNum":1,"SubOrderCode":"VE-NGAY2001250001","CreatedBy":"admin","CardNum":"11111112"}
+SubCode: {"SubId":2,"SubNum":2,"SubOrderCode":"VE-NGAY2001250002","CreatedBy":"admin","CardNum":"11111111"}
+SubCode: {"SubId":3,"SubNum":3,"SubOrderCode":"VE-NGAY2001250003","CreatedBy":"admin","CardNum":"11111114"}
+SubCode: {"SubId":4,"SubNum":4,"SubOrderCode":"VE-NGAY2001250004","CreatedBy":"admin","CardNum":"11111115"}
+SubCode: {"SubId":5,"SubNum":5,"SubOrderCode":"VE-NGAY2001250005","CreatedBy":"admin","CardNum":"11111120"}
+SubCode: {"SubId":6,"SubNum":6,"SubOrderCode":"VE-NGAY2001250006","CreatedBy":"admin","CardNum":"11111119"}
+SubCode: {"SubId":7,"SubNum":7,"SubOrderCode":"VE-NGAY2001250007","CreatedBy":"admin","CardNum":"11111118"}
+SubCode: {"SubId":8,"SubNum":8,"SubOrderCode":"VE-NGAY2001250008","CreatedBy":"admin","CardNum":"11111117"}
+SubCode: {"SubId":9,"SubNum":9,"SubOrderCode":"VE-NGAY2001250009","CreatedBy":"admin","CardNum":"11111116"}
+SubCode: {"SubId":10,"SubNum":10,"SubOrderCode":"VE-NGAY2001250010","CreatedBy":"admin","CardNum":"11111113"}
+
+
+1/20/2025 10:55:52 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":1,"SubNum":1,"SubOrderCode":"VE-NGAY2001250001","CreatedBy":"admin","CardNum":"LBLC3473789"}
+SubCode: {"SubId":2,"SubNum":2,"SubOrderCode":"VE-NGAY2001250002","CreatedBy":"admin","CardNum":"LBL49723736"}
+SubCode: {"SubId":3,"SubNum":3,"SubOrderCode":"VE-NGAY2001250003","CreatedBy":"admin","CardNum":"LBLDB38C4DA"}
+SubCode: {"SubId":4,"SubNum":4,"SubOrderCode":"VE-NGAY2001250004","CreatedBy":"admin","CardNum":"LBLCBFD0363"}
+SubCode: {"SubId":5,"SubNum":5,"SubOrderCode":"VE-NGAY2001250005","CreatedBy":"admin","CardNum":"LBL0DD0A64A"}
+SubCode: {"SubId":6,"SubNum":6,"SubOrderCode":"VE-NGAY2001250006","CreatedBy":"admin","CardNum":"LBLFA9EC67E"}
+SubCode: {"SubId":7,"SubNum":7,"SubOrderCode":"VE-NGAY2001250007","CreatedBy":"admin","CardNum":"LBL7B71403A"}
+SubCode: {"SubId":8,"SubNum":8,"SubOrderCode":"VE-NGAY2001250008","CreatedBy":"admin","CardNum":"LBL94D727F5"}
+SubCode: {"SubId":9,"SubNum":9,"SubOrderCode":"VE-NGAY2001250009","CreatedBy":"admin","CardNum":"LBLAB9E0F5A"}
+SubCode: {"SubId":10,"SubNum":10,"SubOrderCode":"VE-NGAY2001250010","CreatedBy":"admin","CardNum":"LBLCE65E82C"}
+
+
+1/20/2025 3:36:42 PM: /Report/GetReportSaleByCustType      
+[Exception]: System.Data.SqlClient.SqlException (0x80131904): Could not find stored procedure 'sp_ReportSaleByCustType'.
+   at System.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__122_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot)
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.EntityFrameworkCore.Storage.Internal.RelationalCommand.ExecuteAsync(IRelationalConnection connection, DbCommandMethod executeMethod, IReadOnlyDictionary`2 parameterValues, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncQueryingEnumerable`1.AsyncEnumerator.BufferlessMoveNext(DbContext _, Boolean buffer, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncQueryingEnumerable`1.AsyncEnumerator.MoveNext(CancellationToken cancellationToken)
+   at System.Linq.AsyncEnumerable.SelectEnumerableAsyncIterator`2.MoveNextCore(CancellationToken cancellationToken) in D:\a\1\s\Ix.NET\Source\System.Interactive.Async\Select.cs:line 106
+   at System.Linq.AsyncEnumerable.AsyncIterator`1.MoveNext(CancellationToken cancellationToken) in D:\a\1\s\Ix.NET\Source\System.Interactive.Async\AsyncIterator.cs:line 98
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncLinqOperatorProvider.ExceptionInterceptor`1.EnumeratorExceptionInterceptor.MoveNext(CancellationToken cancellationToken)
+   at System.Linq.AsyncEnumerable.Aggregate_[TSource,TAccumulate,TResult](IAsyncEnumerable`1 source, TAccumulate seed, Func`3 accumulator, Func`2 resultSelector, CancellationToken cancellationToken) in D:\a\1\s\Ix.NET\Source\System.Interactive.Async\Aggregate.cs:line 120
+   at DAL.Service.ReportService.BaoCaoBanVeTheoLoaiKH(SaleHistoryFilterModel filter, Boolean isExcel) in D:\Projects\OnGit\LangBianSytem\Langbiang_Web\DAL\Service\ReportService.cs:line 194
+ClientConnectionId:c039c532-6c02-4a2f-883b-1466862846ee
+Error Number:2812,State:62,Class:16
+
+1/20/2025 3:37:00 PM: /Report/GetReportSaleByCustType      
+[Exception]: System.Data.SqlClient.SqlException (0x80131904): Could not find stored procedure 'sp_ReportSaleByCustType'.
+   at System.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__122_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot)
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.EntityFrameworkCore.Storage.Internal.RelationalCommand.ExecuteAsync(IRelationalConnection connection, DbCommandMethod executeMethod, IReadOnlyDictionary`2 parameterValues, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncQueryingEnumerable`1.AsyncEnumerator.BufferlessMoveNext(DbContext _, Boolean buffer, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncQueryingEnumerable`1.AsyncEnumerator.MoveNext(CancellationToken cancellationToken)
+   at System.Linq.AsyncEnumerable.SelectEnumerableAsyncIterator`2.MoveNextCore(CancellationToken cancellationToken) in D:\a\1\s\Ix.NET\Source\System.Interactive.Async\Select.cs:line 106
+   at System.Linq.AsyncEnumerable.AsyncIterator`1.MoveNext(CancellationToken cancellationToken) in D:\a\1\s\Ix.NET\Source\System.Interactive.Async\AsyncIterator.cs:line 98
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncLinqOperatorProvider.ExceptionInterceptor`1.EnumeratorExceptionInterceptor.MoveNext(CancellationToken cancellationToken)
+   at System.Linq.AsyncEnumerable.Aggregate_[TSource,TAccumulate,TResult](IAsyncEnumerable`1 source, TAccumulate seed, Func`3 accumulator, Func`2 resultSelector, CancellationToken cancellationToken) in D:\a\1\s\Ix.NET\Source\System.Interactive.Async\Aggregate.cs:line 120
+   at DAL.Service.ReportService.BaoCaoBanVeTheoLoaiKH(SaleHistoryFilterModel filter, Boolean isExcel) in D:\Projects\OnGit\LangBianSytem\Langbiang_Web\DAL\Service\ReportService.cs:line 194
+ClientConnectionId:c039c532-6c02-4a2f-883b-1466862846ee
+Error Number:2812,State:62,Class:16
+
+1/20/2025 3:38:28 PM: /Report/GetReportSaleByCustType      
+[Exception]: System.Data.SqlClient.SqlException (0x80131904): Could not find stored procedure 'sp_ReportSaleByCustType'.
+   at System.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__122_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot)
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.EntityFrameworkCore.Storage.Internal.RelationalCommand.ExecuteAsync(IRelationalConnection connection, DbCommandMethod executeMethod, IReadOnlyDictionary`2 parameterValues, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncQueryingEnumerable`1.AsyncEnumerator.BufferlessMoveNext(DbContext _, Boolean buffer, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncQueryingEnumerable`1.AsyncEnumerator.MoveNext(CancellationToken cancellationToken)
+   at System.Linq.AsyncEnumerable.SelectEnumerableAsyncIterator`2.MoveNextCore(CancellationToken cancellationToken) in D:\a\1\s\Ix.NET\Source\System.Interactive.Async\Select.cs:line 106
+   at System.Linq.AsyncEnumerable.AsyncIterator`1.MoveNext(CancellationToken cancellationToken) in D:\a\1\s\Ix.NET\Source\System.Interactive.Async\AsyncIterator.cs:line 98
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncLinqOperatorProvider.ExceptionInterceptor`1.EnumeratorExceptionInterceptor.MoveNext(CancellationToken cancellationToken)
+   at System.Linq.AsyncEnumerable.Aggregate_[TSource,TAccumulate,TResult](IAsyncEnumerable`1 source, TAccumulate seed, Func`3 accumulator, Func`2 resultSelector, CancellationToken cancellationToken) in D:\a\1\s\Ix.NET\Source\System.Interactive.Async\Aggregate.cs:line 120
+   at DAL.Service.ReportService.BaoCaoBanVeTheoLoaiKH(SaleHistoryFilterModel filter, Boolean isExcel) in D:\Projects\OnGit\LangBianSytem\Langbiang_Web\DAL\Service\ReportService.cs:line 194
+ClientConnectionId:c039c532-6c02-4a2f-883b-1466862846ee
+Error Number:2812,State:62,Class:16
+
+1/20/2025 3:40:06 PM: /Report/GetReportSaleByCustType      
+[Exception]: System.Data.SqlClient.SqlException (0x80131904): Could not find stored procedure 'sp_ReportSaleByCustType'.
+   at System.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__122_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot)
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.EntityFrameworkCore.Storage.Internal.RelationalCommand.ExecuteAsync(IRelationalConnection connection, DbCommandMethod executeMethod, IReadOnlyDictionary`2 parameterValues, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncQueryingEnumerable`1.AsyncEnumerator.BufferlessMoveNext(DbContext _, Boolean buffer, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncQueryingEnumerable`1.AsyncEnumerator.MoveNext(CancellationToken cancellationToken)
+   at System.Linq.AsyncEnumerable.SelectEnumerableAsyncIterator`2.MoveNextCore(CancellationToken cancellationToken) in D:\a\1\s\Ix.NET\Source\System.Interactive.Async\Select.cs:line 106
+   at System.Linq.AsyncEnumerable.AsyncIterator`1.MoveNext(CancellationToken cancellationToken) in D:\a\1\s\Ix.NET\Source\System.Interactive.Async\AsyncIterator.cs:line 98
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncLinqOperatorProvider.ExceptionInterceptor`1.EnumeratorExceptionInterceptor.MoveNext(CancellationToken cancellationToken)
+   at System.Linq.AsyncEnumerable.Aggregate_[TSource,TAccumulate,TResult](IAsyncEnumerable`1 source, TAccumulate seed, Func`3 accumulator, Func`2 resultSelector, CancellationToken cancellationToken) in D:\a\1\s\Ix.NET\Source\System.Interactive.Async\Aggregate.cs:line 120
+   at DAL.Service.ReportService.BaoCaoBanVeTheoLoaiKH(SaleHistoryFilterModel filter, Boolean isExcel) in D:\Projects\OnGit\LangBianSytem\Langbiang_Web\DAL\Service\ReportService.cs:line 194
+ClientConnectionId:5918af7a-198b-4f17-aa10-44122777649e
+Error Number:2812,State:62,Class:16
+
+1/20/2025 3:56:28 PM: /Report/GetReportSaleByCustType      
+[Exception]: System.InvalidCastException: Unable to cast object of type 'System.Int64' to type 'System.Int32'.
+   at System.Data.SqlClient.SqlBuffer.get_Int32()
+   at System.Data.SqlClient.SqlDataReader.GetInt32(Int32 i)
+   at lambda_method(Closure , DbDataReader )
+   at Microsoft.EntityFrameworkCore.Storage.Internal.TypedRelationalValueBufferFactory.Create(DbDataReader dataReader)
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncQueryingEnumerable`1.AsyncEnumerator.BufferlessMoveNext(DbContext _, Boolean buffer, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncQueryingEnumerable`1.AsyncEnumerator.MoveNext(CancellationToken cancellationToken)
+   at System.Linq.AsyncEnumerable.SelectEnumerableAsyncIterator`2.MoveNextCore(CancellationToken cancellationToken) in D:\a\1\s\Ix.NET\Source\System.Interactive.Async\Select.cs:line 106
+   at System.Linq.AsyncEnumerable.AsyncIterator`1.MoveNext(CancellationToken cancellationToken) in D:\a\1\s\Ix.NET\Source\System.Interactive.Async\AsyncIterator.cs:line 98
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncLinqOperatorProvider.ExceptionInterceptor`1.EnumeratorExceptionInterceptor.MoveNext(CancellationToken cancellationToken)
+   at System.Linq.AsyncEnumerable.Aggregate_[TSource,TAccumulate,TResult](IAsyncEnumerable`1 source, TAccumulate seed, Func`3 accumulator, Func`2 resultSelector, CancellationToken cancellationToken) in D:\a\1\s\Ix.NET\Source\System.Interactive.Async\Aggregate.cs:line 120
+   at DAL.Service.ReportService.BaoCaoBanVeTheoLoaiKH(SaleHistoryFilterModel filter, Boolean isExcel) in D:\Projects\OnGit\LangBianSytem\Langbiang_Web\DAL\Service\ReportService.cs:line 193
+

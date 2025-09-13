@@ -1,0 +1,848 @@
+﻿@{
+    ViewData["Title"] = "Bán vé thăm quan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using DAL.Models.Customer
+@using DAL.Models.Ticket
+@using DAL.Entities
+@using DAL.Models
+@section styles {
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+    <link href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="~/plugins/datatables-fixedcolumns/css/fixedColumns.bootstrap4.css" rel="stylesheet" />
+    <style>
+
+
+        .btn-num {
+            width: 100%;
+            padding: 5px 10px;
+            font-size: 16pt !important;
+            margin: 3px;
+            text-align: center;
+        }
+
+            .btn-num:hover {
+                background: #3c8dbc !important;
+                cursor: pointer;
+            }
+
+        .ticket-selected {
+            background: #0094ff;
+            color: #fff;
+        }
+
+        .filter-option-inner-inner {
+            font-weight: bold;
+            color: #333333;
+        }
+
+
+        /*Ticket item list*/
+        #div-ticket {
+            border: 1px solid #f4f4f4;
+        }
+
+        .ticket-item {
+            color: #333;
+        }
+
+            .ticket-item:hover {
+                background: #DDF000;
+            }
+
+        .ticket-item-selected {
+            background: #90F5E7;
+        }
+
+        .fa-print {
+            cursor: pointer;
+        }
+    </style>
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-2">
+                <h1><span id="span-price-policy-available"></span>&nbsp; BÁN VÉ </h1>
+            </div>
+            <div class="col-sm-4">
+                <span><i class="fa fa-cart-plus"></i>Danh sách đơn hàng đang bán: <strong style="font-size:16pt;color:#ff0000;" id="cart-count">0</strong></span>
+            </div>
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="col-sm-12"><label class="col-form-label">Loại khách hàng</label></div>
+                        <div class="col-sm-12">
+                            <select class="form-control" id="ddl-customer-type">
+                                @{
+                                    var lstCustType = (List<CustomerType>)ViewBag.ListCustType;
+
+                                    foreach (var item in lstCustType)
+                                    {
+                                        string selected = item.Code == "Khach_Le" ? "selected='selected'" : string.Empty;
+                                        <option value="@(item.Code)" @(selected)>@item.Name</option>
+                                    }
+                                }
+                            </select>
+
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="col-sm-12"><label class="col-form-label">Khách hàng</label></div>
+                        <div class="col-sm-12">
+                            <select class="form-control" id="ddl-customer" data-style="btn-info" data-live-search="true"></select>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="col-sm-12"><label class="col-form-label">Đối tượng</label></div>
+                        <div class="col-sm-12">
+                            <select id="ddl-objType" class="form-control" data-style="btn-info">
+                                <option value="VietNam">Việt Nam</option>
+                                <option value="NuocNgoai">Nước ngoài</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-sm-6">
+            <input type="hidden" id="hid_TicketCode" value="" />
+            <input type="hidden" id="hid_TicketPrice" value="" />
+            <input type="hidden" id="hid_PrintType" value="" />
+            <div id="div-ticket">
+                <div class="row">
+                    <table class="table table-bordered bg-white" id="table-ticket-sale">
+                        @{
+
+                            var lstArea = (List<Area>)ViewBag.Area ?? new List<Area>();
+                            var lstTicket = (List<Ticket>)ViewBag.TicketList ?? new List<Ticket>();
+                            foreach (var itemArea in lstArea)
+                            {
+                                var lstTicketSub = lstTicket.Where(x => x.Area == itemArea.Code);
+                                if (lstTicketSub.Any())
+                                {
+                                    <tr>
+                                        <th colspan="2"><span class="text-blue">::::: @(itemArea.Name) :::::</span></th>
+                                    </tr>
+                                    foreach (var itemTicket in lstTicket.Where(x => x.Area == itemArea.Code))
+                                    {
+                                        <tr id="ticket-@(itemTicket.Code)" class="ticket-item" onclick="mouseSelectTicket('@(itemTicket.Code)',@(itemTicket.Price),'@(itemTicket.LoaiIn)')">
+                                            <td width="25%"><i class="fa fa-tag"></i> &nbsp; @(itemTicket.Code)</td>
+                                            <td width="75%">@(itemTicket.Description)</td>
+                                        </tr>
+                                    }
+
+
+                                }
+
+
+                            }
+                        }
+                    </table>
+
+                </div>
+
+
+            </div>
+
+
+
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-sm-6">
+                        </div>
+                        <div class="col-sm-6">
+                        </div>
+
+                    </div>
+                    <div class="row">
+
+                        <div class="col-sm-4">
+                            <label class="col-md-12 col-form-label">Đơn giá</label>
+                            <div class="col-md-12">
+                                <input type="number" class="form-control" style="font-size:16pt;font-weight:bold;" onblur="calculaTotal()" id="txt-price-by-policy" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="col-md-12 col-form-label">Số lượng</label>
+                            <div class="col-md-12">
+                                <input type="number" class="form-control" style="font-size:18pt;font-weight:bold;" onblur="calculaTotal()" id="txt-quanti" value="0" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="col-md-12 col-form-label">Thành tiền</label>
+                            <div class="col-md-12">
+                                <h5 id="span-total" style="font-size:18pt;color:#0094ff;">0</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+
+                        <div class="col-sm-4">
+                            <label class="col-md-12 col-form-label">Khuyến mãi (%)</label>
+                            <div class="col-md-12">
+                                <input type="number" disabled="disabled" class="form-control" style="font-size:18pt;font-weight:bold;" onblur="calculaTotal()" id="txt-km-percen" value="0" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="col-md-12 col-form-label">Tiền khuyến mãi</label>
+                            <div class="col-md-12">
+                                <h5 id="span-tien-khuyemmai" style="font-size:18pt;color:#b200ff;">0</h5>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="col-md-12 col-form-label">Tổng thanh toán</label>
+                            <div class="col-md-12">
+                                <h5 id="span-total-after-khuyenmai" style="font-size:18pt;color:#ff0000;">0</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label class="col-md-12 col-form-label">Hình thức thanh toán</label>
+                            <div class="col-md-12">
+                                <select class="form-control" id="ddl-paymenttype">
+                                    <option value="TM">Tiền mặt</option>
+                                    <option value="CK">Chuyển khoản</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="col-md-12 col-form-label">Khách đưa</label>
+                            <div class="col-md-12">
+                                <input type="number" class="form-control" style="font-size:16pt;font-weight:bold;" onblur="calculaTotal()" id="txt-cus-payamount" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="col-md-12 col-form-label">Tiền thối</label>
+                            <div class="col-md-12">
+                                <h5 id="span-tien-thoi" style="font-size:18pt;">0</h5>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        @{
+                            for (int stt = 1; stt <= 9; stt++)
+                            {
+                                <div class="col-sm-2">
+                                    <div class="btn-num bg-info" onclick="clickNum(@(stt))">@(stt)</div>
+                                </div>
+                            }
+                            <div class="col-sm-2">
+                                <div class="btn-num bg-info" onclick="clickNum(0)">0</div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="btn-num bg-warning" onclick="clearQuanti()">Xóa nhập lại</div>
+                            </div>
+                        }
+                    </div>
+                    <div class="row">
+                        <!--<div class="col-sm-4">
+                            <div class="btn-num bg-success" onclick="SaleOrderByGate()">BÁN VÉ</div>
+                        </div>-->
+                        <div class="col-sm-6">
+                            <div class="btn-num bg-success" onclick="AddToCart()">Thêm vào đơn hàng</div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="btn-num bg-success" onclick="ViewCartDetail()">Xem đơn hàng</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <br /> <br />
+
+        <div class="col-sm-12" style="margin-top:10px;">
+            <div class="card">
+                <div class="card-header card-outline card-primary with-border">
+                    <h3 class="card-title text-red">Lưu ý: trường hợp lỗi bán vé và cách khắc phục</h3>
+
+                </div>
+                <div class="card-body">
+                    <span><strong>1. Lỗi thông báo bán vé không thành công: </strong>Kiểm tra internet, hoặc đăng xuất ra và đăng nhập lại</span><br />
+                    <span><strong>2. Không in được vé: </strong>Kiểm tra máy in xem có kẹt giấy hoặc hết giấy không? sau đó vào lịch sửa bán vé in lại</span><br />
+                    <span><strong>3. Không truy cập được phần mềm: </strong>Kiểm tra internet và liên hệ GAMAN hỗ trợ</span>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <input type="hidden" value="@(ViewBag.Domain)" id="hid-domain" />
+</section>
+<div class="modal fade show" id="modal-cart-order" aria-modal="true" role="dialog" data-backdrop="static">
+    <div class="modal-dialog" style="max-width: 85%;" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Danh sách đơn hàng</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered" id="table-cart" width="100%">
+                    <thead>
+                        <tr>
+                            <th width="40px"></th>
+                            <th width="100px">Mã vé</th>
+                            <th width="150px">Tên KH</th>
+                            <th width="40px">SL</th>
+                            <th width="100px">Đơn giá</th>
+                            <th width="100px">Thành tiền</th>
+                            <th width="100px">Hình thức TT</th>
+                            <th width="40px"></th>
+                        </tr>
+                    </thead>
+                </table>
+                <hr />
+                <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2">
+                        <p><strong>Tổng tiền:</strong> </p>
+                        <h5 style="color:#ff0000;" id="span-tongtemp"></h5>
+                    </div>
+                    <div class="col-sm-2">
+                        <p><strong>Khách đưa</strong></p>
+                        <input type="text" id="txt-khachdua-temp" onblur="calculatotalCartTem()" class="form-control" />
+                    </div>
+                    <div class="col-sm-2">
+                        <p><strong>Tiền thối</strong></p>
+                        <h5 id="span-tienthoi-temp"></h5>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="button" class="btn btn-default" value="Đóng" data-dismiss="modal" />
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+
+@section scripts {
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.8/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+    <script src="~/plugins/datatable/jquery.datatable.js"></script>
+    <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+    <script src="~/plugins/datatables-fixedcolumns/js/dataTables.fixedColumns.js"></script>
+
+    <script>
+        var arrPricePolicy = [];
+        var arrCart = [];
+        $(document).ready(function () {
+
+            //  GetAllPricePolicy(); lấy chính sách giá , bên này không cần
+            GetCustomerByType();
+            $("#ddl-customer-type").change(function () {
+                GetCustomerByType();
+            });
+
+
+
+
+
+
+        });
+
+       
+
+        
+
+
+
+
+        function mouseSelectTicket(ticketCode, price, printType) {
+
+            if (!$("#ticket-" + ticketCode).hasClass("ticket-item-selected")) {
+                $(".ticket-item").removeClass("ticket-item-selected");
+                $("#ticket-" + ticketCode).addClass("ticket-item-selected");
+                $("#hid_TicketCode").val(ticketCode);
+                $("#hid_TicketPrice").val(price);
+                $("#hid_PrintType").val(printType);
+                $("#txt-price-by-policy").val(price);
+                calculaTotal();
+            };
+
+
+        }
+        function calculaTotal() {
+            /* tổng trước khuyến mãi */
+            let quanti = ($("#txt-quanti").val() == "" || $("#txt-quanti").val() == null) ? 0 : parseInt($("#txt-quanti").val());
+            let price = ($("#txt-price-by-policy").val() == "" || $("#txt-price-by-policy") == null) ? 0 : parseFloat($("#txt-price-by-policy").val());
+            let totalFirst = quanti * price;
+            $("#span-total").html(RenderTotal(totalFirst));
+
+            /* khuyến mãi */
+            let discountPercent = ($("#txt-km-percen").val() == "" || $("#txt-km-percen").val() == null) ? 0 : parseFloat($("#txt-km-percen").val());
+            let tienkhuyenmai = Math.round((totalFirst * (discountPercent / 100)));
+            let tienkhuyenmailamtron = LamTronKhuyenMai(tienkhuyenmai);
+            $("#span-tien-khuyemmai").html(RenderTotal(tienkhuyenmailamtron));
+
+            /* tổng sau khuyến mãi*/
+            let totalLast = totalFirst - tienkhuyenmailamtron;
+            $("#span-total-after-khuyenmai").html(RenderTotal(totalLast));
+
+            /* tiền thối*/
+            let khachdua = ($("#txt-cus-payamount").val() == "" || $("#txt-cus-payamount").val() == null) ? 0 : parseFloat($("#txt-cus-payamount").val());
+            let tienthoi = khachdua - totalLast;
+            $("#span-tien-thoi").html(RenderTotal(tienthoi));
+        }
+
+        function LamTronKhuyenMai(tienkm) {
+            let arrKM = RenderTotal(tienkm).split(",");
+            if (arrKM.length > 0) {
+                let hantram = parseFloat(arrKM[arrKM.length - 1]);
+                return tienkm - parseFloat(hantram);
+            }
+
+        }
+        function clickNum(num) {
+
+            let currentNum = $("#txt-quanti").val();
+            let newNum = currentNum + "" + num;
+
+            $("#txt-quanti").val(newNum);
+            calculaTotal();
+        }
+        function clearQuanti() {
+
+            $("#txt-quanti").val(null);
+            calculaTotal();
+        }
+
+
+
+
+        function GetCustomerByType() {
+            let customerType = $("#ddl-customer-type").val();
+            $.ajax({
+                type: "Get",
+                contentType: 'application/json; charset=utf-8',
+                url: "/Customer/GetListCustomerByCustType?customerType=" + customerType,
+                success: function (res) {
+                    let optionCus = "";
+                    $.each(res, function (key, value) {
+
+                        optionCus = optionCus + "<option value='" + value.customerCode + "'>" + value.customerName + "</option>";
+                    });
+                    $("#ddl-customer").html(optionCus);
+
+                }
+            });
+        }
+
+
+       
+
+        function SaleOrderByGate() {
+
+            if ($("#txt-quanti").val() == "" || $("#txt-quanti").val() == null) {
+                bootbox.alert(AlertFail("Bạn chưa chọn số lượng"));
+            }
+            else if ($("#txt-km-percen").val() == "" || $("#txt-km-percen").val() == null) {
+                bootbox.alert(AlertFail("Bạn chưa nhập khuyến mãi, không có thì nhập khuyến mãi = 0"));
+            }
+            else if ($("#hid_TicketCode").val() == "" || $("#hid_TicketCode").val() == null) {
+                bootbox.alert(AlertFail("Bạn chưa chọn vé bán"));
+            }
+            else {
+
+                let quanti = ($("#txt-quanti").val() == "" || $("#txt-quanti").val() == null) ? 0 : parseInt($("#txt-quanti").val());
+                let doituong = $("#ddl-objType").val();
+                // let isFree = $('input[name="radioisfree"]:checked').val();
+                price = parseFloat($("#txt-price-by-policy").val());
+
+                let discountPercent = ($("#txt-km-percen").val() == "" || $("#txt-km-percen").val() == null) ? 0 : parseFloat($("#txt-km-percen").val());
+                let discountValue = $("#span-tien-khuyemmai").text();
+                let khachdua = ($("#txt-cus-payamount").val() == "" || $("#txt-cus-payamount").val() == null) ? 0 : parseFloat($("#txt-cus-payamount").val());
+                debugger;
+                let customerName = $("#ddl-customer option:selected").text();
+                var modelData = {
+                    TicketCode: $("#hid_TicketCode").val(),
+                    CustomerCode: $("#ddl-customer").val(),
+                    CustomerName: customerName,
+                    CustomerType: $("#ddl-customer-type").val(),
+                    ObjType: doituong,
+                    Quanti: quanti,
+                    Price: price,
+                    IsFree: false,
+                    GateName: "ThuVienVungTau",
+                    DiscountPercent: discountPercent,
+                    DiscountValue: discountValue,
+                    TienKhachDua: khachdua,
+                    PaymentType: $("#ddl-paymenttype").val()
+                }
+
+                $.ajax({
+                    type: "POST",
+                    contentType: 'application/json; charset=utf-8',
+                    url: "/TicketOrder/SaleOrderAction",
+                    dataType: 'json',
+                    data: JSON.stringify(modelData),
+                    beforeSend: function () {
+                        ShowWaiting();
+                    },
+                    success: function (res) {
+                        HideWaiting();
+
+                        if (res.orderId > 0) {
+                            if (modelData.PaymentType == "CK") {
+                               // PayooCreatePaymentLink(res.orderId);
+                                location.href = "/ticketorder/orderdetail/" + res.orderId;
+
+                            }
+                            else {
+
+                                bootbox.alert(AlertSuccess("Bán vé thành công, chuẩn bị in vé"), function () {
+                                    PrintOrder(res.orderId, res.lstSubCode);
+                                    ResetSale();
+                                });
+
+
+                            }
+                        } else {
+                            bootbox.alert(AlertFail("Bán vé không thành công, vui lòng đăng xuất và đăng nhập lại"));
+                        }
+
+
+
+                    }
+                });
+            }
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+        function PrintOrder(orderId, lstTicketSuccess) {
+
+            let domain = $("#hid-domain").val();
+            printPdf(domain + "/ticketorder/GetPDFForPrintV2?orderId=" + orderId);
+        }
+
+
+
+        function selectTicketItem(ticketCode, price, obj) {
+
+            debugger;
+            $("#hid_GateCode").val(null);
+            $("#hid_GatePrice").val(null);
+
+            $("#hid_GateCode").val(ticketCode);
+            $("#hid_GatePrice").val(price);
+
+            $("#span-ticket-selected").html("");
+            $("#span-ticket-selected").html(ticketCode);
+
+            $(".ticket-item").removeClass("ticket-item-selected");
+            $(obj).addClass("ticket-item-selected");
+
+            calculaTotal();
+
+
+
+
+
+        }
+
+        function printPdf(url) {
+            var iframe = document.createElement('iframe');
+            // iframe.id = 'pdfIframe'
+            iframe.className = 'pdfIframe'
+            document.body.appendChild(iframe);
+            iframe.style.display = 'none';
+            iframe.onload = function () {
+                setTimeout(function () {
+                    iframe.focus();
+                    iframe.contentWindow.print();
+                    URL.revokeObjectURL(url)
+                    // document.body.removeChild(iframe)
+                }, 1);
+            };
+            iframe.src = url;
+            // URL.revokeObjectURL(url)
+        }
+
+        function ResetSale() {
+            $(".ticket-item").removeClass("ticket-item-selected");
+            $("#txt-quanti").val(0);
+            $("#hid_TicketCode").val(null);
+            $("#txt-price-by-policy").val(null);
+            $("#txt-cus-payamount").val(null);
+            $("#txt-km-percen").val(0);
+            $("#span-tien-thoi").html("");
+            $("#txt-khachdua-temp").val(null);
+            calculaTotal();
+        }
+        function RenderTotal(data) {
+            var res = "";
+            if (data !== undefined) {
+                res = data.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+            }
+            return res;
+        }
+
+        function PayooCreatePaymentLink(orderIdNew) {
+
+            $.ajax({
+                type: "GET",
+                contentType: 'application/json; charset=utf-8',
+                url: "/Payoo/CreatePaymentLink?orderId=" + orderIdNew,
+                beforeSend: function () {
+                    ShowWaiting();
+                },
+                success: function (res) {
+                    location.href = "/ticketorder/orderdetail/" + orderIdNew;
+
+
+                }
+            });
+        }
+
+
+        function RenderTableActionPrint(Idtemp) {
+            var html = "<div class='div-table-action'>" +
+                "<i class='fa fa-print' title='OK bán' style='font-size:14pt;color:blue;' onclick = 'CreateOrderCartLine(" + Idtemp + ")' ></i >" +
+                "</div>";
+            return html;
+        }
+        function RenderTableActionDelete(Idtemp) {
+            var html = "<div class='div-table-action'>" +
+                "<i class='fa fa-trash' onclick='DeleteCartLine(" + Idtemp + ")'></i>" +
+                "</div>";
+            return html;
+        }
+        function RenderTotalLineColumn(price, quanti) {
+            let totalline = price * quanti;
+            return RenderNumerFormat(totalline);
+        }
+        function DeleteCartLine(idLineitem) {
+
+            arrCart = arrCart.filter(function (item) {
+                return item.CartLineId !== idLineitem;
+            });
+            CartCounter();
+            LoadCartTable(arrCart);
+        }
+        function RenderNumerFormat(data) {
+            var res = "";
+            if (data !== undefined) {
+                res = data.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+            }
+            return "<div style='width:100%;text-align:right;'>" + res + "</div>";
+        }
+
+
+        function AddToCart() {
+            if ($("#txt-quanti").val() == "" || $("#txt-quanti").val() == null) {
+                bootbox.alert(AlertFail("Bạn chưa chọn số lượng"));
+            }
+            else if ($("#txt-km-percen").val() == "" || $("#txt-km-percen").val() == null) {
+                bootbox.alert(AlertFail("Bạn chưa nhập khuyến mãi, không có thì nhập khuyến mãi = 0"));
+            }
+            else if ($("#hid_TicketCode").val() == "" || $("#hid_TicketCode").val() == null) {
+                bootbox.alert(AlertFail("Bạn chưa chọn vé bán"));
+            }
+            else {
+
+                let quanti = ($("#txt-quanti").val() == "" || $("#txt-quanti").val() == null) ? 0 : parseInt($("#txt-quanti").val());
+                let doituong = $("#ddl-objType").val();
+                let isFree = $('input[name="radioisfree"]:checked').val();
+                price = parseFloat($("#txt-price-by-policy").val());
+
+                let discountPercent = ($("#txt-km-percen").val() == "" || $("#txt-km-percen").val() == null) ? 0 : parseFloat($("#txt-km-percen").val());
+                let discountValue = $("#span-tien-khuyemmai").text();
+                let khachdua = ($("#txt-cus-payamount").val() == "" || $("#txt-cus-payamount").val() == null) ? 0 : parseFloat($("#txt-cus-payamount").val());
+
+                let customerName = $("#ddl-customer option:selected").text();
+
+                var modelData = {
+                    CartLineId: (arrCart.length + 1),
+                    TicketCode: $("#hid_TicketCode").val(),
+                    CustomerCode: $("#ddl-customer").val(),
+                    CustomerName: customerName,
+                    CustomerType: $("#ddl-customer-type").val(),
+                    ObjType: doituong,
+                    Quanti: quanti,
+                    Price: price,
+                    IsFree: isFree,
+                    GateName: "LBL",
+                    DiscountPercent: discountPercent,
+                    DiscountValue: discountValue,
+                    TienKhachDua: khachdua,
+                    PaymentType: $("#ddl-paymenttype").val()
+                }
+                arrCart.push(modelData);
+                CartCounter();
+                ResetSale();
+            }
+        }
+        function CartCounter() {
+            $("#cart-count").html(arrCart.length);
+        }
+        function ViewCartDetail() {
+            LoadCartTable(arrCart);
+        }
+        function LoadCartTable(arrData) {
+
+            
+
+
+            $('#table-cart').DataTable({
+
+                searching: false,
+                lengthChange: false,
+                iDisplayLength: 20,
+                data: arrData,
+                destroy: true,
+                columns: [
+                    {
+                        "data": "CartLineId", "render": function (data, type, row, meta) {
+                            return RenderTableActionDelete(data);
+                        }
+                    },
+                    { data: 'TicketCode' },
+                    { data: 'CustomerName' },
+                    { data: 'Quanti' },
+                    {
+                        "data": "Price", "render": function (data, type, row, meta) {
+                            return RenderNumerFormat(data);
+                        }
+                    },
+                    {
+                        "data": "Price", "render": function (data, type, row, meta) {
+                            return RenderTotalLineColumn(data,row["Quanti"]);
+                        }
+                    },
+                    { data: 'PaymentType' },
+                    {
+                        "data": "CartLineId", "render": function (data, type, row, meta) {
+                            return RenderTableActionPrint(data);
+                        }
+                    },
+                ],
+            });
+
+            calculatotalCartTem();
+            $("#modal-cart-order").modal();
+        }
+        function calculatotalCartTem() {
+            let totalCart = 0;
+            $.each(arrCart, function (index, value) {
+                let total1 = value.Quanti * value.Price;
+                let tienkm = Math.round((total1 * (value.DiscountPercent / 100)));
+                let tienkmlamtron = LamTronKhuyenMai(tienkm);
+                let totalLast = total1 - tienkmlamtron;
+                totalCart += totalLast;
+            });
+            $("#span-tongtemp").html(RenderTotal(totalCart));
+            let khachduatemp = ($("#txt-khachdua-temp").val() == "" || $("#txt-khachdua-temp").val() == null) ? 0 : parseFloat($("#txt-khachdua-temp").val());
+            let tienthoi = khachduatemp - totalCart;
+            $("#span-tienthoi-temp").html(RenderTotal(tienthoi));
+        }
+        function CreateOrderCartLine(iduid) {
+            let lineCart = arrCart.filter(x => x.CartLineId == iduid)[0];
+            SaleOrderTempCart(lineCart);
+
+        }
+
+
+        function SaleOrderTempCart(itemCart) {
+
+            debugger;
+            let khachdua = ($("#txt-khachdua-temp").val() == "" || $("#txt-khachdua-temp").val() == null) ? 0 : parseFloat($("#txt-cus-payamount").val());
+            debugger;
+            itemCart.TienKhachDua = khachdua;
+
+            $.ajax({
+                type: "POST",
+                contentType: 'application/json; charset=utf-8',
+                url: "/TicketOrder/SaleOrderAction",
+                dataType: 'json',
+                data: JSON.stringify(itemCart),
+                beforeSend: function () {
+                    ShowWaiting();
+                },
+                success: function (res) {
+                    debugger;
+                    HideWaiting();
+
+                    if (res.orderId > 0) {
+                        debugger;
+                        if (itemCart.PaymentType == "CK")
+                        {
+                            location.href = "/ticketorder/orderdetail/" + res.orderId;
+                        }
+                        else
+                        {
+
+                                arrCart = arrCart.filter(function (item) {
+                                    return item.CartLineId !== res.cartLineId;
+                                });
+                                CartCounter();
+                                LoadCartTable(arrCart);
+
+                                PrintOrder(res.orderId, res.lstSubCode);
+                                ResetSale();
+
+
+                         }
+                    } else {
+                        bootbox.alert(AlertFail("Bán vé không thành công, vui lòng đăng xuất và đăng nhập lại"));
+                    }
+
+
+
+                }
+            });
+
+
+
+
+
+        }
+
+
+
+
+    </script>
+}

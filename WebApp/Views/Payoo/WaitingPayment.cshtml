@@ -1,0 +1,175 @@
+﻿@model DAL.Models.Payoo.WaitingPaymentOrderModel
+@using DAL.Models.Payoo
+@using DAL;
+@{
+    ViewData["Title"] = "BẢO TÀNG THƯ VIỆN - BRVT";
+    Layout = "~/Views/Shared/_LayoutWaitingPaymentOnline.cshtml";
+}
+<style>
+    @@media screen and (max-width: 767px) {
+        .breadcrumbs {
+            margin-top: 0px !important;
+        }
+    }
+
+    @@media screen and (min-width: 768px) {
+        .breadcrumbs {
+            margin-top: 50px !important;
+        }
+    }
+
+    @@media screen and (max-width: 599px) {
+        .modal-lg {
+            max-width: 100%;
+        }
+    }
+
+    @@media screen and (min-width: 600px) {
+        .modal-lg {
+            max-width: 70%;
+        }
+    }
+
+    .big-text {
+        font-size: 14pt;
+    }
+
+    .form-group {
+        margin-bottom: 2px !important;
+    }
+
+    label.error {
+        color: #ff0000;
+        font-weight: normal !important;
+    }
+
+    select.error {
+        border: 1px solid #ff0000;
+    }
+
+    .text-right {
+        width: 100%;
+        text-align: right;
+    }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<br />
+<div class="container">
+   
+    <div class="card card-outline card-primary">
+        @{
+            if (Model != null)
+            {
+
+                var qrInfo = (ResponseResultCreatePaymentLinkModel)ViewBag.QRPayoo;
+
+
+                <input type="hidden" id="txt-orderid" value="@(Model.OrderId)" />
+                <div class="card-body">
+                    <div class="row" style="padding:20px;">
+                        <div class="col-sm-6">
+                            <div class="form-group row">
+                                <h2>Thông tin chuyển khoản</h2>
+                            </div>
+                            <br />
+                            <div class="form-group row">
+                                <div class="col-sm-8">
+                                    <img class="img" style="width:100%;" src="@(ViewBag.ImgQRPayment)" />
+                                </div>
+                                
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <span><strong>Ngân Hàng Nông Nghiệp và Phát Triển Nông Thôn (AgriBank)</strong></span>
+                                </div>
+                                <div class="col-sm-12">
+                                    <span><strong>STK</strong>: 6090201043889</span>
+                                </div>
+                                <div class="col-sm-12">
+                                    <span><strong>Tên Tài khoản</strong>: Bảo Tàng - Thư Viện Tỉnh Bà Rịa - Vũng Tàu</span>
+                                </div>
+                                <div class="col-sm-12">
+                                    <span><strong>Nội dung thanh toán</strong>: <span style="color:red;">BTTV@(Model.OrderId)</span></span>
+                                </div>
+                                <div class="col-sm-12">
+                                    <span>Chi nhánh Agribank Vũng Tàu</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group row">
+                                <h2>Đơn hàng của bạn</h2>
+                            </div>
+                            <br />
+                            <div class="form-group row">
+                                <label for="staticEmail" class="col-6 col-sm-6 col-form-label big-text"><strong>Mã đơn:</strong></label>
+                                <div class="col-6 col-sm-6">
+                                    <p class="big-text" style="margin-top:10px;" id="orderId">@(Model.OrderId)</p>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="staticEmail" class="col-6 col-sm-6 col-form-label big-text"><strong>Mã vé:</strong></label>
+                                <div class="col-6 col-sm-6">
+                                    <p class="big-text" style="margin-top:10px;" id="ticketCode">@(Model.TicketCode)</p>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputPassword" class="col-6 col-sm-6 col-form-label big-text"><strong>Đơn giá:</strong></label>
+                                <div class="col-6 col-sm-6">
+                                    <p class="big-text" style="margin-top:10px !important;">@(Model.Price.ToString("N0")) VNĐ</p>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputPassword" class="col-6 col-sm-6 col-form-label big-text"><strong>Số lượng:</strong></label>
+                                <div class="col-6 col-sm-6">
+                                    <p class="big-text" style="margin-top:10px !important;">@(Model.Quanti.ToString("N0"))</p>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputPassword" class="col-6 col-sm-6 col-form-label big-text"><strong>Thành tiền:</strong></label>
+                                <div class="col-6 col-sm-6">
+                                    <p class="big-text" style="margin-top:10px !important;font-size:18pt;font-weight:bold;">@(Model.Total.ToString("N0")) VNĐ</p>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputPassword" class="col-6 col-sm-6 col-form-label big-text"><strong>KM (%):</strong></label>
+                                <div class="col-6 col-sm-6">
+                                    <p class="big-text" style="margin-top:10px !important;font-size:18pt;color:#ff6a00;font-weight:bold;">@(Model.DiscountPercent) %</p>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputPassword" class="col-6 col-sm-6 col-form-label big-text"><strong>Tổng cần thanh toán:</strong></label>
+                                <div class="col-6 col-sm-6">
+                                    <p class="big-text" style="margin-top:10px !important;font-size:18pt;color:#ff6a00;font-weight:bold;">@(Model.TotalAfterDiscounted.ToString("N0")) VNĐ</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            }
+            else
+            {
+                <br />
+                <div class="card-body">
+                    <img class="img" style="width:100%;" src="https://cdn.xanhsm.com/2025/03/d0253021-bao-tang-ba-ria-vung-tau-2.jpg" />
+                </div>
+            }
+        }
+
+
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function ()
+        {
+            setInterval(function () {
+                location.reload();
+            }, 8000);
+        });
+    </script>
+}

@@ -1,0 +1,262 @@
+﻿@model DAL.Models.Ticket.SaleHistoryFilterModel
+@{
+    ViewData["Title"] = "Báo cáo soát vé";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using DAL.Entities
+@using DAL.Models.Ticket
+@section styles{
+    <link href="~/plugins/datepicker/datepicker3.css" rel="stylesheet" />
+    <link href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="~/plugins/datatables-fixedcolumns/css/fixedColumns.bootstrap4.css" rel="stylesheet" />
+    <style>
+        .datepicker table tr td.disabled,
+        .datepicker table tr td.disabled:hover {
+            background-color: #e6d2d2;
+        }
+        .counter-item{
+            width:100%;
+           border:1px solid #ccc;
+           padding:5px;
+           text-align:center;
+           margin:10px;
+        }
+        .h1-counternum{color:#0094ff;}
+        .strong-countertext {
+            color: #555555;
+        }
+    </style>
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>@(ViewData["Title"])</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">@(ViewData["Title"])</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<section class="content">
+
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+
+   
+                <div class="col-sm-2">
+                    <label>Từ ngày</label>
+                    <div class="input-group date" id="FromDatePK">
+                        <input type="text" id="FromDate" value="@(Model.FromDate)" class="form-control">
+                        <span class="input-group-addon group-date-icon"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label>Đến ngày</label>
+                    <div class="input-group date" id="ToDatePK">
+                        <input type="text" id="ToDate" value="@(Model.ToDate)" class="form-control">
+                        <span class="input-group-addon group-date-icon"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label>Mã vé</label>
+                    <select class="form-control" id="txt-ticketcode">
+                        <option value="All">Tất cả</option>
+                        @{
+                            var lstTickets = (List<Ticket>)ViewBag.LstAllTicket;
+                            foreach (var ticket in lstTickets)
+                            {
+                                <option value="@(ticket.Code)">@(ticket.Description)</option>
+                            }
+                        }
+                    </select>
+
+
+                </div>
+                <div class="col-sm-2">
+                    <label>Từ khóa</label>
+                    <input type="text" class="form-control" placeholder="Mã tra cứu/mã KH/ tên KH" id="txt-keyword" />
+                </div>
+
+                <div class="col-sm-2">
+                    <input type="button" value="OK" class="btn btn-primary btn-filter" id="btn-search" />&nbsp;
+                    <input type="button" value="Export" class="btn btn-success btn-filter" id="btn-export" />
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card-body ">
+            <div class="row">
+                <div class="col-sm-2" id="load-counter">
+                    <div class="counter-item">
+                        <h1 class="h1-counternum">35</h1>
+                        <strong class="strong-countertext">VE40K</strong>
+                    </div>
+                </div>
+                <div class="col-sm-10">
+                    <table class="table table-bordered table-hover dataTable" id="table-salehistory" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Mã đơn</th>
+                                <th>Mã vé</th>
+                                <th>Mã bí mật</th>
+                                <th>Mã khách hàng</th>
+                                <th>Tên khách hàng</th>
+                                <th>Ngày vào cổng</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            
+
+        </div>
+    </div>
+</section>
+@section scripts{
+    <script src="~/plugins/datatable/jquery.datatable.js"></script>
+    <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+    <script src="~/plugins/datatables-fixedcolumns/js/dataTables.fixedColumns.js"></script>
+    <script src="~/plugins/datepicker/bootstrap-datepicker.js"></script>
+
+    <script>
+        var tableId = "#table-salehistory";
+        var ajaxURL = "/SoatVe/GetReportCheckin";
+        var columnData = [
+            { "data": "orderId" },
+            { "data": "ticketCode" },
+            { "data": "viettelCode" },
+            { "data": "customerCode" },
+            { "data": "customerName" },
+            { "data": "checkinDate" }
+
+
+
+
+        ];
+        $(document).ready(function () {
+            $("#btn-export-excel").click(function () {
+                ExportExcel();
+            });
+            $(".date").datepicker({
+                format: "dd/mm/yyyy"
+            }).on('changeDate', function (e) {
+                $(this).datepicker('hide');
+            });
+
+            GetCounterFilter();
+            $(document).keypress(function (e)
+            {
+                if (e.which == 13) {
+                    GetCounterFilter();
+                }
+            });
+
+            $("#btn-search").click(function () {
+                GetCounterFilter();
+            });
+
+
+
+           
+            $("#btn-export").click(function () {
+                ExportExcel();
+            });
+
+        });
+
+
+        function RenderNumerFormat(data) {
+            var res = "";
+            if (data !== undefined) {
+                res = data.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+            }
+            return "<div style='width:100%;text-align:right;'>" + res + "</div>";
+        }
+        function GetReportCheckin() {
+
+            var dataSearch = {
+                FromDate: ConverFormatDate($("#FromDate").val()),
+                ToDate: ConverFormatDate($("#ToDate").val()),
+                TicketCode: $("#txt-ticketcode").val(),
+                Keyword: $("#txt-keyword").val(),
+            };
+            GenrateDataTableSearch(tableId, ajaxURL, columnData, dataSearch, 10,"vé");
+
+        }
+
+        function ExportExcel() {
+            var dataSearch = {
+                FromDate: ConverFormatDate($("#FromDate").val()),
+                ToDate: ConverFormatDate($("#ToDate").val()),
+                TicketCode: $("#txt-ticketcode").val(),
+                Keyword: $("#txt-keyword").val(),
+            };
+
+            var dataSearch = JSON.stringify(dataSearch);
+            location.href = "/SoatVe/ExportGetReportCheckin?filter=" + dataSearch;
+        }
+
+        
+       
+
+        function GetCounterFilter()
+        {
+
+            var dataSearch = {
+                FromDate: ConverFormatDate($("#FromDate").val()),
+                ToDate: ConverFormatDate($("#ToDate").val()),
+                TicketCode: $("#txt-ticketcode").val(),
+                Keyword: $("#txt-keyword").val(),
+            };
+          
+            let htmlCounter = "";
+
+
+            $.ajax({
+                type: "POST",
+                contentType: 'application/json; charset=utf-8',
+                url: "/SoatVe/GetReportCheckinCounter",
+                dataType: 'json',
+                //headers: {
+                //    'RequestVerificationToken': TokenHeaderValue()
+                //},
+                data: JSON.stringify(dataSearch),
+                success: function (res) {
+                    if (res.length > 0) {
+                        $.each(res, function (key, value) {
+                            htmlCounter = htmlCounter+ "<div class='counter-item'>" +
+                                "<h3 class='h1-counternum'>" + RenderNumerFormatCounter(value.quantiCheckin) + "</h3 >" +
+                                "<strong class='strong-countertext'>" + value.ticketCode + "</strong>" +
+                                "</div>";
+                        });
+                        
+                    } else {
+                        htmlCounter = htmlCounter+"<div class='counter-item'>" +
+                            "<h3 class='h1-counternum'>0</h3 >" +
+                            "<strong class='strong-countertext'>Không tìm thấy kết quả</strong>" +
+                            "</div>";
+                    }
+                    $("#load-counter").html(htmlCounter);
+                    GetReportCheckin();
+                }
+            });
+        }
+        function RenderNumerFormatCounter(data) {
+            var res = "";
+            if (data !== undefined) {
+                res = data.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+            }
+            return res;
+        }
+    </script>
+}
+
+

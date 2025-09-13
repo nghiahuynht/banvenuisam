@@ -1,0 +1,175 @@
+﻿
+@{
+    ViewData["Title"] = "Danh sách nhân viên";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model List<DAL.Models.ComboBoxModel>
+@section styles{
+
+    <link href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="~/plugins/datatables-fixedcolumns/css/fixedColumns.bootstrap4.css" rel="stylesheet" />
+
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>@(ViewData["Title"])</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">@(ViewData["Title"])</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-sm-4">
+                    <label>Vai trò</label>
+                    <select class="form-control" id="ddl-role">
+                        <option value="all">Tất cả</option>
+                        @{
+                            foreach (var opt in Model) {
+                                <option value="@opt.Value">@opt.Text</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-sm-4">
+                    <label>Tìm theo SĐT/tên/email</label>
+                    <input type="text" class="form-control" id="txtkeyword" />
+                </div>
+                <div class="col-sm-2">
+                    <input type="button" value="Tìm" class="btn btn-primary btn-filter" id="btn-search" />
+                </div>
+                <div class="col-sm-2">
+                    <div class="text-right">
+                        <a class="btn btn-sm btn-primary btn-filter" href="/account/detail"><i class="fa fa-plus-circle"></i>&nbsp;Thêm mới</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body ">
+            <table class="table table-bordered table-hover dataTable" id="table-userinfo" width="100%">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Tên đăng nhập</th>
+                        <th>Họ và tên</th>
+                        <th>Số điện thoại</th>
+                        <th>Email</th>
+                        <th>Vai trò</th>
+                        <th>Tình trạng</th>
+                        <th></th>
+                    </tr>
+                </thead>
+            </table>
+
+        </div>
+    </div>
+</section>
+@section scripts{
+    <script src="~/plugins/datatable/jquery.datatable.js"></script>
+    <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+    <script src="~/plugins/datatables-fixedcolumns/js/dataTables.fixedColumns.js"></script>
+
+
+    <script>
+        var tableId = "#table-userinfo";
+        var ajaxURL = "/Account/SearchUserInfo";
+        var columnData = [
+            { "data": "id", visible: false },
+
+            { "data": "userName" },
+            { "data": "fullName" },
+            { "data": "phone" },
+            { "data": "email" },
+            { "data": "roleName" },
+            {
+                "data": "isActive", "render": function (data, type, row, meta) {
+                    return RenderTableActive(data);
+                }
+            },
+           
+            {
+                "data": "id", "render": function (data, type, row, meta) {
+                    return RenderTableAction(data);
+                }
+            },
+
+
+        ];
+        $(document).ready(function () {
+
+          
+            SearchUserInfo();
+
+            $("#btn-search").click(function () {
+                
+                SearchUserInfo();
+            });
+        });
+        function RenderTableAction(userId) {
+            var html = "<div class='div-table-action'>"+
+                "<i class='fa fa-edit' onclick='GotoUserDetail(" + userId + ")'>&nbsp;</i>" +
+                "<i class='fa fa-trash' onclick='DeleteUser(" + userId + ")'></i>" +
+                        "</div>";
+            return html;
+        }
+
+        function RenderTableActive(status) {
+            var text = ""
+            if (status != undefined) {
+                if (status == "Yes") {
+                    text = "Đang hoạt động"
+                }
+                else {
+                    text = "Ngưng hoạt động"
+                }
+            }
+            return text;
+        }
+        function GotoUserDetail(userId) {
+            location.href = "/account/detail/" + userId;
+        }
+        function SearchUserInfo() {
+
+            var dataSearch = {
+                RoleCode: $("#ddl-role").val(),
+                Keyword: $("#txtkeyword").val()
+            };
+            GenrateDataTableSearch(tableId, ajaxURL, columnData, dataSearch,10);
+           
+        }
+
+        function DeleteUser(userId) {
+            bootbox.confirm("Bạn có chắc muốn người dùng này?", function (confi) {
+                if (confi) {
+                    $.ajax({
+                        type: "GET",
+                        url: "/Account/DeleteUser/" + userId,
+                        success: function (res) {
+                            if (res.isSuccess === true) {
+                                bootbox.alert(AlertSuccess("Xoá người dùng thành công"), function () {
+                                    SearchUserInfo();
+                                });
+                               
+                            } else {
+                                bootbox.alert(AlertFail(res.errorMessage));
+                            }
+
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+}
+
+

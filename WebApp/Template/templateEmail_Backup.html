@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <style>
+        table,
+        tr,
+        td {
+            border: none;
+        }
+
+        .wrapper {
+            width: 50%;
+            margin: 0 auto 0 auto;
+        }
+
+        .content {
+            width: calc(100% - 40px);
+            margin: 20px 20px 20px 20px;
+        }
+
+        .detail td {
+            padding: 7px;
+            /*border: solid #BFBFBF 1.0pt;*/
+        }
+
+        .headinfo {
+            margin: auto !important;
+        }
+
+        .centerText {
+            display: block;
+            text-align: center;
+        }
+
+        @media only screen and (max-width: 820px) {
+            .wrapper {
+                width: 600px;
+            }
+        }
+
+        @media only screen and (max-width: 641px) {
+            .wrapper {
+                width: 320px;
+            }
+
+            .detail td {
+                padding: 5px;
+                word-break: normal;
+                font-size: 13px;
+            }
+
+            .stt {
+                font-size: 1px !important;
+            }
+
+            .total {
+                font-size: 13px;
+            }
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+
+<body style="background: #f4f4f4; font-family: Roboto, Arial, sans-serif; font-size: 14px;">
+    <div style="margin: 0 auto 0 auto; width: 800px; justify-content:center;">
+        <table style="width: 100%;  min-height: 500px; background: #fff; border-top: 3px solid #ccc; font-family: Roboto, Arial, sans-serif; font-size: 14px;">
+            <tr>
+                <td>
+                    <div style="margin: 20px 20px 20px 20px; width: calc(100% - 40px); padding-bottom: 20px; line-height: 130%; ">
+                        <div style="margin: auto !important;">
+                            <b style="text-align: center; display: block; color: #ee8640; ">Cảm ơn Quý khách {{customerName}} đã đăng ký thăm quan Vườn Quốc Gia Côn Đảo</b> <br />
+                            <p style="text-align: center; display: block;"> Đây là vé điện tử, quý khách đã mua vé thành công trên website bán vé Vườn Quốc Gia Côn Đảo. Vui lòng xuất trình vé này cho nhân viên soát vé khi đến địa điểm thăm quan. Trân trọng cảm ơn! </p> <br />
+                        </div>
+                        <div>Chúng tôi xin xác nhận thông tin vé mà Quý khách vừa đăng ký:</div>
+                        <h3>THÔNG TIN VÉ THĂM QUAN</h3>
+                        <table cellspacing="1" cellpadding="7" width="100%" style="background: #fff; font-size: 14px; border: none;">
+                            <tr>
+                                <td width="40%" style="background: #fff; text-align: right;">Họ tên: </td>
+                                <td width="60%" style="background: #fff;font-weight: bold;">{{customerName}} </td>
+                            </tr>
+                            <tr>
+                                <td width="40%" style="background: #fff; text-align: right;">Mã vé/Mã tra cứu: </td>
+                                <td width="60%" style="background: #fff;">{{subOrderCode}}</td>
+                            </tr>
+                            <tr>
+                                <td width="40%" style="background: #fff; text-align: right;">Đơn giá: </td>
+                                <td width="60%" style="background: #fff;">{{strPrice}}</td>
+                            </tr>
+                            <tr>
+                                <td width="40%" style="background: #fff; text-align: right;">Số lượng: </td>
+                                <td width="60%" style="background: #fff;">{{quanti}}</td>
+                            </tr>
+                            <tr>
+                                <td width="40%" style="background: #fff; text-align: right;">Thành tiền: </td>
+                                <td width="60%" style="background: #fff;font-weight: bold;">{{strTotal}}</td>
+                            </tr>
+                            <tr>
+                                <td width="40%" style="background: #fff; text-align: right;">Ngày mua vé: </td>
+                                <td width="60%" style="background: #fff;">{{strCreatedDate}}</td>
+                            </tr>
+                            <tr>
+                                <td width="40%" style="background: #fff; text-align: right;">Ngày thăm quan: </td>
+                                <td width="60%" style="background: #fff;">{{strVisitDate}}</td>
+                            </tr>
+                            <tr>
+                                <td width="100%" colspan="5" style="background: #fff; font-style: italic; text-align: center;">
+                                        <img style="width: 200px; height:auto;" src="https://vuonquocgiacondao.gamanjsc.com/QRCode/{{subOrderCodeId}}.jpg" alt="vuonquocgiacondao.gamanjsc.com" />
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="40%" style="background: #fff; text-align: right;">Mã tra cứu</td>
+                                <td width="60%" style="background: #fff;font-weight: bold; font-size: 18px;">{{subOrderCode}}</td>
+                            </tr>
+                            <tr>
+                                <td width="40%" style="background: #fff; text-align: right;">Link tra cứu: </td>
+                                <td width="60%" style="background: #fff;"><a rel="noopener noreferrer" href="bit.ly/ditichcondao">bit.ly/ditichcondao</a></td>
+                            </tr>
+
+                        </table>
+
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div style="padding: 0 0 20px 0; width: 100%; margin: 0 auto 0 auto; font-size: 12px; line-height: 18px;">
+            <b>Quý khách nhận được Email này vì đã đăng ký mua vé trên Website bán vé Côn Đảo. </b> <br /> Để biết thông tin chi tiết hoặc cần hỗ trợ, Quý khách vui lòng liên hệ Tổng đài Chăm sóc khách hàng 24/7: <a rel="noopener noreferrer" href="tel:0907 084 993" style="font-weight: bold; color: #0070c0; text-decoration: none;"> 0907 084 993 </a>, <br /> hoặc Email: <a rel="noopener noreferrer" href="mailto:ditichlichsucondao.acc@gmail.com" target="_blank" style="font-weight: bold; color: #0070c0; text-decoration: none;">ditichlichsucondao.acc@gmail.com</a>.
+        </div>
+    </div>
+</body>
+</html>

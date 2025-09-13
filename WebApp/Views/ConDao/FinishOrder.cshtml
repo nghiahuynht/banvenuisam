@@ -1,0 +1,207 @@
+﻿@model DAL.Models.ConDao.OrderResultViewModel
+@using DAL;
+@using DAL.Enum;
+@{
+    ViewData["Title"] = "Thông tin mua vé";
+    Layout = "~/Views/Shared/_LayoutConDao.cshtml";
+}
+<style>
+    @@media screen and (max-width: 767px) {
+        .breadcrumbs {
+            margin-top: 0px !important;
+        }
+    }
+
+    @@media screen and (min-width: 768px) {
+        .breadcrumbs {
+            margin-top: 50px !important;
+        }
+    }
+    .big-text {
+        font-size: 12pt;
+    }
+
+    .form-group {
+        margin-bottom: 2px !important;
+    }
+
+    label.error {
+        color: #ff0000;
+        font-weight: normal !important;
+    }
+
+    select.error {
+        border: 1px solid #ff0000;
+    }
+</style>
+<!-- ======= Breadcrumbs ======= -->
+<section id="breadcrumbs" class="breadcrumbs">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <h2>Bạn đã mua vé thành công</h2>
+            </div>
+            <div class="col-sm-4">
+                <ol>
+                    <li><a href="index.html">Trang chủ</a></li>
+                    <li>Thông tin mua vé</li>
+                </ol>
+            </div>
+        </div>
+
+
+    </div>
+</section><!-- End Breadcrumbs -->
+<div class="container">
+    <br />
+    <div class="card">
+        <div class="card-body">
+            <div class="row" style="padding:20px;">
+                <div class="col-sm-12">
+
+                    <div class="alert alert-success" role="alert">
+                        <strong>
+                            Vé điện tử sẽ được gửi qua Số điện thoại zalo hoặc email. Xuất trình vé khi đến các điểm thăm quan
+                        </strong>
+                    </div>
+                    <br />
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group row">
+                        <label for="staticEmail" class="col-6 col-sm-6 col-form-label big-text"><strong>Mã vé:</strong></label>
+                        <div class="col-6 col-sm-6">
+                            <p class="big-text" style="margin-top:10px;" id="ticketCode">@(Model.TicketOrder.TicketCode)</p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputPassword" class="col-sm-6 col-form-label big-text"><strong>Đơn giá (đã bao gồm VAT):</strong></label>
+                        <div class="col-sm-6">
+                            <p class="big-text" style="margin-top:10px !important;">@(Model.TicketOrder.Price.ToString("N0")) VNĐ</p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputPassword" class="col-6 col-sm-6 col-form-label big-text"><strong>Số lượng:</strong></label>
+                        <div class="col-6 col-sm-6">
+                            <p class="big-text" style="margin-top:10px !important;">@(Model.TicketOrder.Quanti.ToString("N0"))</p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputPassword" class="col-6 col-sm-6 col-form-label big-text"><strong>Thành tiền:</strong></label>
+                        <div class="col-6 col-sm-6">
+                            <span class="badge badge-success big-text">@(Model.TicketOrder.Total.ToString("N0")) VNĐ</span>
+
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputPassword" class="col-6 col-sm-6 col-form-label big-text"><strong>Ngày mua vé:</strong></label>
+                        <div class="col-6 col-sm-6">
+                            <p class="big-text" style="margin-top:10px !important;">@(Model.TicketOrder.CreatedDate.HasValue ? Model.TicketOrder.CreatedDate.Value.ToString("dd/MM/yyyy") : string.Empty)</p>
+
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputPassword" class="col-6 col-sm-6 col-form-label big-text"><strong>Ngày thăm quan:</strong></label>
+                        <div class="col-6 col-sm-6">
+                            <p class="big-text" style="margin-top:10px !important;">@(Model.TicketOrder.VisitDate.HasValue ? Model.TicketOrder.VisitDate.Value.ToString("dd/MM/yyyy") : string.Empty)</p>
+
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputPassword" class="col-sm-6 col-form-label big-text"><strong>Phương thức thanh toán:</strong></label>
+                        <div class="col-sm-6">
+                            @{
+                                var paymentTypeTXT = Model.TicketOrder.PaymentType == Contanst.PaymentType_CK ? "Chuyển khoản" : "Thanh toán online qua OnePay";
+
+                                <p class="big-text" style="margin-top:10px !important;">@(paymentTypeTXT)</p>
+                            }
+
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="lbl_PaymentStatus" class="col-sm-6 col-form-label big-text"><strong>Tình trạng thanh toán:</strong></label>
+                        <div class="col-sm-6">
+                            @{
+                                var paymentSatusTXT = Model.TicketOrder.PaymentStatus == (int)PaymentStatus.Paid ? "Đã thanh toán" : Model.TicketOrder.PaymentStatus == (int)PaymentStatus.UnPaid ? "Chưa thanh toán" : "Hủy";
+                                if (Model.TicketOrder.PaymentStatus == (int)PaymentStatus.Paid)
+                                {
+                                    <p class="badge badge-success big-text" style="margin-top:10px !important;">Đã thanh toán</p>
+                                }
+                                else if (Model.TicketOrder.PaymentStatus == (int)PaymentStatus.UnPaid)
+                                {
+                                    <p class="badge badge-warning big-text" style="margin-top:10px !important;">Chờ nhân viên xác nhận</p>
+                                }
+                                else
+                                {
+                                    <p class="badge badge-danger big-text" style="margin-top:10px !important;">Hủy</p>
+                                }
+
+                            }
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group row">
+                        <label for="inputPassword" class="col-6 col-sm-6 col-form-label big-text"><strong>Họ tên:</strong></label>
+                        <div class="col-6 col-sm-6">
+                            <p class="big-text" style="margin-top:10px !important;">@(Model.Customer.CustomerName)</p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputPassword" class="col-sm-6 col-form-label big-text"><strong>SĐT (nhận vé zalo):</strong></label>
+                        <div class="col-sm-6">
+                            <p class="big-text" style="margin-top:10px !important;">@Model.Customer.Phone</p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputPassword" class="col-sm-6 col-form-label big-text"><strong>Email (nhận vé):</strong></label>
+                        <div class="col-sm-6">
+                            <p class="big-text" style="margin-top:10px !important;">@(Model.Customer.Email)</p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <span class="col-sm-12 col-form-label big-text">Thông tin xuất biên lai Công ty / tổ chức:</span>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputPassword" class="col-sm-6 col-form-label big-text"><strong>Tên công ty:</strong></label>
+                        <div class="col-sm-6">
+                            <p class="big-text" style="margin-top:10px !important;">@(Model.Customer.AgencyName)</p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputPassword" class="col-sm-6 col-form-label big-text"><strong>Mã số thuế:</strong></label>
+                        <div class="col-sm-6">
+                            <p class="big-text" style="margin-top:10px !important;">@(Model.Customer.TaxCode)</p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputPassword" class="col-sm-6 col-form-label big-text"><strong>Địa chỉ:</strong></label>
+                        <div class="col-sm-6">
+                            <p class="big-text" style="margin-top:10px !important;">@(Model.Customer.TaxAddress)</p>
+                        </div>
+                    </div>
+                    <br /> <br />
+                   
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{ 
+    <script>
+        $(document).ready(function () {
+            $("#btn-download").click(function () {
+                var subId = $("#hid-subId").val();
+                ViewPDf(subId);
+            });
+        });
+        function ViewPDf(subId) {
+            window.open("/ticketorder/ViewTicketOrderPdf?subOrderId=" + subId, 'Xem pdf');
+        }
+    </script>
+}

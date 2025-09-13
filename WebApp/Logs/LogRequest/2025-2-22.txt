@@ -1,0 +1,167 @@
+2/22/2025 8:02:30 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":27798,"SubNum":1,"SubOrderCode":"VE-NGAY2202250068","CreatedBy":"adminlbl","CardNum":"0027798"}
+SubCode: {"SubId":27799,"SubNum":2,"SubOrderCode":"VE-NGAY2202250069","CreatedBy":"adminlbl","CardNum":"0027799"}
+
+
+2/22/2025 8:10:13 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":27800,"SubNum":1,"SubOrderCode":"VE-NGAY2202250070","CreatedBy":"adminlbl","CardNum":"0027800"}
+
+
+2/22/2025 8:10:33 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":27801,"SubNum":1,"SubOrderCode":"Combo22202250001","CreatedBy":"adminlbl","CardNum":"0027801"}
+
+
+2/22/2025 8:13:46 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":27802,"SubNum":1,"SubOrderCode":"VE-DEM2202250001","CreatedBy":"adminlbl","CardNum":"0027802"}
+
+
+2/22/2025 8:17:04 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":27803,"SubNum":1,"SubOrderCode":"Combo32202250001","CreatedBy":"adminlbl","CardNum":"0027803"}
+
+
+2/22/2025 8:17:44 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":27804,"SubNum":1,"SubOrderCode":"Combo32202250002","CreatedBy":"adminlbl","CardNum":"0027804"}
+
+
+2/22/2025 8:17:47 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":27805,"SubNum":1,"SubOrderCode":"Combo32202250003","CreatedBy":"adminlbl","CardNum":"0027805"}
+
+
+2/22/2025 8:18:28 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":27806,"SubNum":1,"SubOrderCode":"Combo62202250001","CreatedBy":"adminlbl","CardNum":"0027806"}
+
+
+2/22/2025 8:18:31 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":27807,"SubNum":1,"SubOrderCode":"VE-NGAY2202250071","CreatedBy":"adminlbl","CardNum":"0027807"}
+
+
+2/22/2025 8:18:45 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":27808,"SubNum":1,"SubOrderCode":"Combo52202250001","CreatedBy":"adminlbl","CardNum":"0027808"}
+
+
+2/22/2025 8:19:42 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":27809,"SubNum":1,"SubOrderCode":"Combo72202250001","CreatedBy":"adminlbl","CardNum":"0027809"}
+
+
+2/22/2025 8:19:48 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":27810,"SubNum":1,"SubOrderCode":"VE-DEM2202250002","CreatedBy":"adminlbl","CardNum":"0027810"}
+
+
+2/22/2025 8:21:09 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":27811,"SubNum":1,"SubOrderCode":"Combo42202250001","CreatedBy":"adminlbl","CardNum":"0027811"}
+
+
+2/22/2025 8:22:26 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":27812,"SubNum":1,"SubOrderCode":"Combo62202250002","CreatedBy":"adminlbl","CardNum":"0027812"}
+
+
+2/22/2025 8:29:31 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":27813,"SubNum":1,"SubOrderCode":"Combo22202250002","CreatedBy":"adminlbl","CardNum":"0027813"}
+
+
+2/22/2025 8:29:33 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":27814,"SubNum":1,"SubOrderCode":"Combo72202250002","CreatedBy":"adminlbl","CardNum":"0027814"}
+
+
+2/22/2025 10:51:37 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":27815,"SubNum":1,"SubOrderCode":"Combo22202250003","CreatedBy":"adminlbl","CardNum":"0027815"}
+SubCode: {"SubId":27816,"SubNum":2,"SubOrderCode":"Combo22202250004","CreatedBy":"adminlbl","CardNum":"0027816"}
+SubCode: {"SubId":27817,"SubNum":3,"SubOrderCode":"Combo22202250005","CreatedBy":"adminlbl","CardNum":"0027817"}
+SubCode: {"SubId":27818,"SubNum":4,"SubOrderCode":"Combo22202250006","CreatedBy":"adminlbl","CardNum":"0027818"}
+SubCode: {"SubId":27819,"SubNum":5,"SubOrderCode":"Combo22202250007","CreatedBy":"adminlbl","CardNum":"0027819"}
+
+
+2/22/2025 10:51:41 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":27820,"SubNum":1,"SubOrderCode":"VE-NGAY2202250072","CreatedBy":"adminlbl","CardNum":"0027820"}
+SubCode: {"SubId":27821,"SubNum":2,"SubOrderCode":"VE-NGAY2202250073","CreatedBy":"adminlbl","CardNum":"0027821"}
+
+
+2/22/2025 11:48:05 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":27822,"SubNum":1,"SubOrderCode":"VE-NGAY2202250074","CreatedBy":"adminlbl","CardNum":"0027822"}
+SubCode: {"SubId":27823,"SubNum":2,"SubOrderCode":"VE-NGAY2202250075","CreatedBy":"adminlbl","CardNum":"0027823"}
+SubCode: {"SubId":27824,"SubNum":3,"SubOrderCode":"VE-NGAY2202250076","CreatedBy":"adminlbl","CardNum":"0027824"}
+SubCode: {"SubId":27825,"SubNum":4,"SubOrderCode":"VE-NGAY2202250077","CreatedBy":"adminlbl","CardNum":"0027825"}
+SubCode: {"SubId":27826,"SubNum":5,"SubOrderCode":"VE-NGAY2202250078","CreatedBy":"adminlbl","CardNum":"0027826"}
+
+
+2/22/2025 11:48:41 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":27827,"SubNum":1,"SubOrderCode":"Combo22202250008","CreatedBy":"adminlbl","CardNum":"0027827"}
+SubCode: {"SubId":27828,"SubNum":2,"SubOrderCode":"Combo22202250009","CreatedBy":"adminlbl","CardNum":"0027828"}
+SubCode: {"SubId":27829,"SubNum":3,"SubOrderCode":"Combo22202250010","CreatedBy":"adminlbl","CardNum":"0027829"}
+SubCode: {"SubId":27830,"SubNum":4,"SubOrderCode":"Combo22202250011","CreatedBy":"adminlbl","CardNum":"0027830"}
+SubCode: {"SubId":27831,"SubNum":5,"SubOrderCode":"Combo22202250012","CreatedBy":"adminlbl","CardNum":"0027831"}
+
+
+2/22/2025 12:45:46 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":27832,"SubNum":1,"SubOrderCode":"VE-NGAY2202250078","CreatedBy":"hannguyen99","CardNum":"0027832"}
+
+
+2/22/2025 12:45:51 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":27833,"SubNum":1,"SubOrderCode":"Combo32202250004","CreatedBy":"hannguyen99","CardNum":"0027833"}
+
+
+2/22/2025 12:45:55 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":27834,"SubNum":1,"SubOrderCode":"Combo62202250003","CreatedBy":"hannguyen99","CardNum":"0027834"}
+
+
+2/22/2025 12:49:15 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":27835,"SubNum":1,"SubOrderCode":"Combo22202250008","CreatedBy":"hannguyen99","CardNum":"0027835"}
+
+
+2/22/2025 12:51:48 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":27836,"SubNum":1,"SubOrderCode":"Combo32202250005","CreatedBy":"hannguyen99","CardNum":"0027836"}
+SubCode: {"SubId":27837,"SubNum":2,"SubOrderCode":"Combo32202250006","CreatedBy":"hannguyen99","CardNum":"0027837"}
+SubCode: {"SubId":27838,"SubNum":3,"SubOrderCode":"Combo32202250007","CreatedBy":"hannguyen99","CardNum":"0027838"}
+SubCode: {"SubId":27839,"SubNum":4,"SubOrderCode":"Combo32202250008","CreatedBy":"hannguyen99","CardNum":"0027839"}
+
+
+2/22/2025 3:10:09 PM: /report/GetReportSaleByTicket      
+[Exception]: System.Data.SqlClient.SqlException (0x80131904): Must declare the scalar variable "@SaleChanelId".
+   at System.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__122_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot)
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.EntityFrameworkCore.Storage.Internal.RelationalCommand.ExecuteAsync(IRelationalConnection connection, DbCommandMethod executeMethod, IReadOnlyDictionary`2 parameterValues, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncQueryingEnumerable`1.AsyncEnumerator.BufferlessMoveNext(DbContext _, Boolean buffer, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncQueryingEnumerable`1.AsyncEnumerator.MoveNext(CancellationToken cancellationToken)
+   at System.Linq.AsyncEnumerable.SelectEnumerableAsyncIterator`2.MoveNextCore(CancellationToken cancellationToken) in D:\a\1\s\Ix.NET\Source\System.Interactive.Async\Select.cs:line 106
+   at System.Linq.AsyncEnumerable.AsyncIterator`1.MoveNext(CancellationToken cancellationToken) in D:\a\1\s\Ix.NET\Source\System.Interactive.Async\AsyncIterator.cs:line 98
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncLinqOperatorProvider.ExceptionInterceptor`1.EnumeratorExceptionInterceptor.MoveNext(CancellationToken cancellationToken)
+   at System.Linq.AsyncEnumerable.Aggregate_[TSource,TAccumulate,TResult](IAsyncEnumerable`1 source, TAccumulate seed, Func`3 accumulator, Func`2 resultSelector, CancellationToken cancellationToken) in D:\a\1\s\Ix.NET\Source\System.Interactive.Async\Aggregate.cs:line 120
+   at DAL.Service.ReportService.GetReportSaleByTicket(SaleReportFilterModel filter) in D:\Projects\OnGit\LangBianSytem\Langbiang_Web\DAL\Service\ReportService.cs:line 226
+ClientConnectionId:5a4c2201-e0aa-4d1a-87c5-fb8603973f75
+Error Number:137,State:2,Class:15
+
+2/22/2025 3:15:34 PM: /report/GetReportSaleByTicket      
+[Exception]: System.InvalidCastException: Object cannot be cast from DBNull to other types.
+   at System.DBNull.System.IConvertible.ToInt16(IFormatProvider provider)
+   at DAL.Service.ReportService.GetReportSaleByTicket(SaleReportFilterModel filter) in D:\Projects\OnGit\LangBianSytem\Langbiang_Web\DAL\Service\ReportService.cs:line 227
+

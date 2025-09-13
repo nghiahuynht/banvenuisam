@@ -1,0 +1,224 @@
+﻿@model DAL.Models.Report.TicketTypeRPFilter
+@{
+    ViewData["Title"] = "Báo cáo bán vé theo tuyến thăm quan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using DAL.Entities
+@section styles{
+    <link href="~/plugins/datepicker/datepicker3.css" rel="stylesheet" />
+    <link href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="~/plugins/datatables-fixedcolumns/css/fixedColumns.bootstrap4.css" rel="stylesheet" />
+    <style>
+        .datepicker table tr td.disabled,
+        .datepicker table tr td.disabled:hover {
+            background-color: #e6d2d2;
+        }
+        .RowTotal {
+            background-color: #9fbbd7;
+        }
+    </style>
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>@(ViewData["Title"])</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">@(ViewData["Title"])</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<section class="content">
+    @Html.AntiForgeryToken()
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+
+                <div class="col-sm-2">
+                    <label>Nhân viên</label>
+                    <select class="form-control" id="ddl-employee">
+                        <option value="All">Tất cả</option>
+                        @{
+                            var lstUser = (List<UserInfo>)ViewBag.LstUser;
+                            foreach (var user in lstUser.Where(x => !x.UserName.ToLower().StartsWith("zone")))
+                            {
+                                <option value="@user.UserName">@user.FullName</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <label>Từ ngày</label>
+                    <div class="input-group date" id="FromDatePK">
+                        <input type="text" id="FromDate" value="@(Model.FromDate)" class="form-control">
+                        <span class="input-group-addon group-date-icon"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label>Đến ngày</label>
+                    <div class="input-group date" id="ToDatePK">
+                        <input type="text" id="ToDate" value="@(Model.ToDate)" class="form-control">
+                        <span class="input-group-addon group-date-icon"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                </div>
+                @*<div class="col-sm-2">
+                    <label>Tìm theo mã vé</label>
+                    <input type="text" class="form-control" id="keyword">
+                </div>*@
+
+                <div class="col-sm-2">
+                    <input type="button" value="OK" class="btn btn-primary btn-filter" id="btn-search" />
+                    &nbsp;
+                    @*<button class="btn btn-sm btn-success btn-filter" id="btn-export-excel"><i class="fa fa-download"></i>&nbsp;Export excel</button>*@
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body ">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-green"><i class="fa fa-flag"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Tổng SL bán</span>
+                            <span class="info-box-number" id="counter-SL-ve">0</span>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <span class="info-box-icon bg-green"><i class="fa fa-flag"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Tổng doanh số bán</span>
+                            <span class="info-box-number" id="counter-doanhso">0</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-9">
+                    <table class="table table-bordered table-hover dataTable" id="table-TitcketTypeRP" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Mã tuyến</th>
+                                <th>Tên tuyến</th>
+                                <th>Mệnh giá</th>
+                                <th>Tổng SL bán</th>
+                                <th>Tổng doanh số bán</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</section>
+@section scripts{
+    <script src="~/plugins/datatable/jquery.datatable.js"></script>
+    <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+    <script src="~/plugins/datatables-fixedcolumns/js/dataTables.fixedColumns.js"></script>
+    <script src="~/plugins/datepicker/bootstrap-datepicker.js"></script>
+
+    <script>
+        var tableId = "#table-TitcketTypeRP";
+        var ajaxURL = "/report/GetReportSalesByTicketType";
+        var columnData = [
+            //{ "data": "id" },
+            { "data": "gateCode" },
+            { "data": "gateName" },
+            { "data": "price" },
+
+            {
+                "data": "slSale", "render": function (data, type, row, meta) {
+                    return RenderNumerFormat(data);
+                }
+            },
+            {
+                "data": "amountSale"
+            },
+
+        ];
+        $(document).ready(function () {
+            $(".date").datepicker({
+                format: "dd/mm/yyyy"
+            }).on('changeDate', function (e) {
+                $(this).datepicker('hide');
+            });
+
+
+            $(document).keypress(function (e) {
+                if (e.which == 13) {
+                    GetReportSalesByTickerType();
+                }
+            });
+            GetReportSalesByTickerType();
+            $("#btn-search").click(function () {
+                GetReportSalesByTickerType();
+            });
+        });
+        function RenderNumerFormat(data) {
+            var res = "";
+            if (data !== undefined) {
+                res = data?.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+            }
+            return "<div style='width:100%;text-align:right;'>" + res + "</div>";
+        }
+        function GetReportSalesByTickerType() {
+
+            var counterFilter = {
+                UserName: $("#ddl-employee").val(),
+                FromDate: ConverFormatDate($("#FromDate").val()),
+                ToDate: ConverFormatDate($("#ToDate").val()),
+                Keyword: $("#keyword").val()
+            };
+
+            $.ajax({
+                type: "POST",
+                contentType: 'application/json; charset=utf-8',
+                url: "/report/GetReportSalesByTicketType",
+                dataType: 'json',
+                headers: {
+                    'RequestVerificationToken': TokenHeaderValue()
+                },
+                data: JSON.stringify(counterFilter),
+                success: function (res) {
+                    $("#counter-SL-ve").html(res.sellQuantity.toLocaleString());
+                    $("#counter-doanhso").html(res.totalSales.toLocaleString());
+                    var tableSales = $(tableId).DataTable({
+                        "processing": true,
+                        "responsive": true,
+                        "searching": false,
+                        "lengthChange": false,
+                        "paging": true,
+                        "iDisplayLength": 20,
+                        "columns": columnData,
+                        "ordering": false,
+                        "scrollY": "400px",
+                        "scrollX": true,
+                        "scrollCollapse": true,
+                        "language": {
+                            "zeroRecords": "Không tìm thấy dữ liệu",
+                            "infoEmpty": "0/0 Kết quả"
+                        },
+                        data: res.data,
+                        "destroy": true,
+                        "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                            if (aData.loaiVe == "Tổng") {
+                                $(`td`, nRow).addClass("RowTotal");
+                            }
+                        }
+                    });
+                    //var allSelectedData = tableSales.rows().data();
+                    //for (var index = 0; index < allSelectedData.filter(x => x.loaiVe == "Tổng").length; index++) {
+                    //    allSelectedData[index]
+                    //}
+                }
+            });
+        }
+    </script>
+}

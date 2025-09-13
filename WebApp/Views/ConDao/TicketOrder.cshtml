@@ -1,0 +1,230 @@
+﻿
+@{
+    ViewData["Title"] = "Mua vé thăm quan Gành Đá Đĩa";
+    Layout = "~/Views/Shared/_LayoutConDao.cshtml";
+}
+@model DAL.Models.Ticket.ResOrderInfoDto
+<link href="~/plugins/datepicker/datepicker3.css" rel="stylesheet" />
+<style>
+    
+    @@media screen and (max-width: 767px) {
+        .breadcrumbs {
+            margin-top: 25px !important;
+        }
+
+        #header .logo {
+            line-height: 1.4;
+        }
+    }
+    @@media screen and (min-width: 768px) {
+        .breadcrumbs {
+            margin-top: 50px !important;
+        }
+    }
+
+    .big-text {
+        font-size: 14pt;
+    }
+
+    .form-group {
+        margin-bottom: 5px !important;
+    }
+
+    label.error {
+        color: #ff0000;
+        font-weight: normal !important;
+    }
+
+    input.error {
+        border: 1px solid #ff0000;
+    }
+    .required-info{
+        color:#ff0000;
+    }
+    .text-right {
+        width: 100%;
+        text-align: right;
+    }
+    #btn-plus-num, #btn-minus-num {
+        border: 1px solid #ccc;
+        height:38px;
+        width:30px;
+        margin-top:10px;
+        font-weight:bold;
+        background:#f4f4f4;
+    }
+    .input-group-addon{
+        border:1px solid #ccc;padding:3px 7px;
+    }
+    .fa-calendar{
+        margin-top:3px;
+    }
+</style>
+
+<!-- ======= Breadcrumbs ======= -->
+<section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <h2>Mua vé thăm quan</h2>
+            </div>
+            <div class="col-sm-4">
+                <ol>
+                    <li><a href="/">Trang chủ</a></li>
+                    <li>Mua vé thăm quan</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section><!-- End Breadcrumbs -->
+<div class="container">
+    <br />
+    <div class="card card-primary">
+        <div class="card-body">
+            <form class="form-horizontal" id="form-order">
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(x => x.Id)
+                @Html.HiddenFor(x => x.TicketCode)
+                @Html.HiddenFor(x => x.PartnerCode)
+                @Html.HiddenFor(x => x.Price)
+                <div class="row" style="padding:20px;">
+                    <div class="col-sm-6" style="padding-bottom:15px">
+
+                        <div class="form-group row">
+                            <label class="col-6 col-sm-6 col-form-label big-text"><strong>Đơn giá</strong></label>
+                            <div class="col-6 col-sm-6 text-right">
+                                <span class="big-text" style="margin-top:10px !important;">@(Model.Price.ToString("N0")) VNĐ/người</span>
+
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-6 col-sm-6 col-form-label big-text" for="quantiTicket"><strong>Số lượng</strong>&nbsp;<i class="required-info">*</i></label>
+                            <div class="col-6 col-sm-6 text-right">
+
+
+                                <div class="btn-group" role="group" aria-label="...">
+                                    <button type="button" id="btn-minus-num">-</button>
+                                    <input type="number" value="@(Model.Quanti)" min="1" oninput="validity.valid||(value='');" id="quantiTicket" name="quantiTicket" class="form-control" style="margin-top:10px;width:70px;text-align:center;" />
+                                    <button type="button" id="btn-plus-num">+</button>
+                                </div>
+
+
+
+                                @*<p class="errorMessage top-arrow"> </p>*@
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-6 col-sm-6 col-form-label big-text" for="visitDate" style="padding-right: 0px"><strong>Ngày thăm quan</strong> <i class="required-info">*</i></label>
+                            <div class="col-6 col-sm-6">
+
+                                <div style="width:100%;text-align:right;">
+                                    <div class="input-group date">
+                                        <input type="text" id="VisitDate" name="VisitDate" value="@(Model.VisitDate.HasValue?Model.VisitDate.Value.ToString("dd/MM/yyyy"):string.Empty)" class="form-control">
+                                        <span class="input-group-addon group-date-icon"><i class="fa fa-calendar"></i></span>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group row">
+                            <label class="col-sm-6 col-form-label big-text" for="inp_Fullname"><strong>Người mua/tên đơn vị</strong>&nbsp;<i class="required-info">*</i></label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="inp_Fullname" name="inp_Fullname" value="@(Model.CustomerName)" placeholder="Ví dụ: Trần Văn Thái">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-6 col-form-label big-text" for="inp_Phone"><strong>SĐT (nhận vé zalo)</strong>&nbsp;<i class="required-info">*</i></label>
+                            <div class="col-sm-6">
+                                <input type="text"
+                                       class="form-control"
+                                       id="inp_Phone"
+                                       maxlength="10"
+                                       pattern="^(08|09|03|05|07|02)\d{8}$"
+                                       name="inp_Phone"
+                                       placeholder="Ví dụ: 0989148824"
+                                       value="@(Model.Phone)">
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="form-group row">
+                            <label class="col-sm-6 col-form-label big-text" for="inp_Email"><strong>Email</strong></label>
+                            <div class="col-sm-6">
+                                <input type="email"
+                                       class="form-control"
+                                       id="inp_Email"
+                                       name="inp_Email"
+                                       placeholder="Ví dụ: vanthai@gmail.com"
+                                       value="@(Model.Email)">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-6 col-form-label big-text" for="inp_TaxCode"><strong>MST</strong></label>
+                            <div class="col-sm-6">
+                                <input type="text"
+                                       class="form-control"
+                                       id="inp_TaxCode"
+                                       name="inp_TaxCode"
+                                       placeholder="Nếu có"
+                                       value="@(Model.TaxCode)">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-6 col-form-label big-text" for="inp_TaxAddress"><strong>Địa chỉ</strong></label>
+                            <div class="col-sm-6">
+                                <input type="text"
+                                       class="form-control"
+                                       id="inp_TaxAddress"
+                                       name="inp_TaxAddress"
+                                       placeholder="Nếu có"
+                                       value="@(Model.TaxAddress)">
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <i class="text-danger"><strong>Lưu ý</strong>: Quý khách điền đúng Số điện thoại và Email để nhận vé online.</i><br />
+                                <i class="text-danger">(Vé đã mua miễn trả lại)</i>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <hr />
+
+                <div class="col-12">
+                    <div class="form-group row">
+                        <div class="text-right">
+                            <input type="button" id="btn-cancel" value="Huỷ bỏ" class="btn btn-lg btn-danger" />&nbsp;
+                            <input type="button" id="btn-save" value="Mua vé" class="btn btn-lg btn-success" />&nbsp;
+                        </div>
+
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+</div>
+
+
+@section scripts{
+    <script src="~/plugins/jquery/jquery.js"></script>
+    <script src="~/app-script/helper.js"></script>
+    <script src="~/plugins/bootbox/bootbox.min.js"></script>
+    <script src="~/plugins/bootstrap/js/bootstrap.js"></script>
+    <script src="~/plugins/bootstrap3-typehead/bootstrap3-typeahead.js"></script>
+    <script src="~/plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script src="~/js/jquery.validate.js"></script>
+    <script src="~/app-script/ConDao/TicketOrder.js"></script>
+}
+
+

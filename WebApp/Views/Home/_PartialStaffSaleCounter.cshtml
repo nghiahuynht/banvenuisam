@@ -1,0 +1,24 @@
+﻿@model List<DAL.Models.Report.StaffSaleCounterModel>
+<table style="width:100%;" class="table">
+    @{
+        if (Model.Any())
+        {
+            foreach (var item in Model)
+            {
+
+                <tr>
+                    <td><i class="fa fa-user"></i>&nbsp;&nbsp;@(item.FullName)</td>
+                    <td style="text-align:right;font-size:11pt;"><label class="badge badge-success ">@(item.TotalSale.Value.ToString("N0"))</label></td>
+                </tr>
+
+
+            }
+        }
+        else
+        {
+            <tr><td colspan="3">Không tìm thấy</td></tr>
+        }
+    }
+
+</table>
+

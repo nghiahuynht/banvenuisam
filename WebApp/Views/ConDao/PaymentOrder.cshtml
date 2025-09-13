@@ -1,0 +1,430 @@
+﻿@using DAL
+@{
+    ViewData["Title"] = "Đặt vé thành cônng";
+    Layout = "~/Views/Shared/_LayoutConDao.cshtml";
+}
+@model DAL.Models.Ticket.ResOrderInfoDto
+
+@using DAL.Models
+@using CommonFW.Domain.Model.Payment
+
+<style>
+    @@media screen and (max-width: 767px) {
+        .breadcrumbs {
+            margin-top: 25px !important;
+        }
+    }
+
+    @@media screen and (min-width: 768px) {
+        .breadcrumbs {
+            margin-top: 50px !important;
+        }
+    }
+    @@media screen and (max-width: 599px) {
+        .modal-lg {
+            max-width: 100%;
+        }
+    }
+    @@media screen and (min-width: 600px) {
+        .modal-lg {
+            max-width: 70%;
+        }
+    }
+    .big-text {
+        font-size: 12pt;
+    }
+
+    .form-group {
+        margin-bottom: 2px !important;
+    }
+
+    label.error {
+        color: #ff0000;
+        font-weight: normal !important;
+    }
+
+    select.error {
+        border: 1px solid #ff0000;
+    }
+    .text-right{
+        width:100%;text-align:right;
+    }
+    .radio-group {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+    }
+
+    .radio-option {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-family: Arial, sans-serif;
+    }
+
+    .modal-footer {
+        justify-content: normal
+    }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- ======= Breadcrumbs ======= -->
+<section id="breadcrumbs" class="breadcrumbs">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <h2>Tiến hành thanh toán</h2>
+            </div>
+            <div class="col-sm-4">
+                <ol>
+                    <li><a href="/">Trang chủ</a></li>
+                    <li>Mua vé thăm quan</li>
+                </ol>
+            </div>
+        </div>
+
+
+    </div>
+</section><!-- End Breadcrumbs -->
+<div class="container">
+    <br />
+    <div class="card card-primary">
+        <div class="card-body">
+            <form class="form-horizontal" id="form-payment">
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(x => x.Id)
+                @Html.HiddenFor(x => x.TicketCode)
+                @Html.HiddenFor(x => x.Quanti)
+                <div class="row" style="padding:20px;">
+                    <div class="col-sm-6">
+                        <div class=" form-group row"><h3>Thông tin vé thăm quan</h3></div><br />
+                        <div class="form-group row">
+                            <label for="inputPassword" class="col-6 col-sm-6 col-sm-6 col-form-label big-text"><strong>Mã đơn:</strong></label>
+                            <div class="col-6 col-sm-6 col-sm-6">
+                                <p class="big-text" style="margin-top:10px !important;">@(Model.Id)</p>
+
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputPassword" class="col-6 col-sm-6 col-sm-6 col-form-label big-text"><strong>Ngày mua vé:</strong></label>
+                            <div class="col-6 col-sm-6 col-sm-6">
+                                <p class="big-text" style="margin-top:10px !important;">@(Model.CreatedDate.HasValue ? Model.CreatedDate.Value.ToString("dd/MM/yyyy") : string.Empty)</p>
+
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="staticEmail" class="col-6 col-sm-6 col-form-label big-text"><strong>Ngày thăm quan:</strong></label>
+                            <div class="col-6 col-sm-6">
+                                <p class="big-text" style="margin-top:10px;">@(Model.VisitDate.HasValue ? Model.VisitDate.Value.ToString("dd/MM/yyyy") : string.Empty)</p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputPassword" class="col-6 col-sm-6 col-form-label big-text"><strong>Đơn giá:</strong></label>
+                            <div class="col-6 col-sm-6">
+                                <p class="big-text" style="margin-top:10px !important;">@(Model.Price.ToString("N0")) VNĐ</p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputPassword" class="col-6 col-sm-6 col-form-label big-text"><strong>Số lượng:</strong></label>
+                            <div class="col-6 col-sm-6">
+                                <p class="big-text" style="margin-top:10px !important;">@(Model.Quanti.ToString("N0"))</p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputPassword" class="col-6 col-sm-6 col-form-label big-text"><strong>Thành tiền:</strong></label>
+                            <div class="col-6 col-sm-6">
+                                <p class="big-text" style="margin-top:10px !important;">@(Model.Total.ToString("N0")) VNĐ</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="inputPassword" class="col-6 col-sm-6 col-form-label big-text"><strong>Thanh toán:</strong></label>
+                            <div class="col-6 col-sm-6">
+                                <span id="span-total-pay" class="badge badge-success big-text">@(Model.Total.ToString("N0")) VNĐ</span>
+                                <input type="hidden" value="@(Model.Total)" id="hid-total" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group row">
+                            <label for="inputPassword" class="col-6 col-sm-6 col-form-label big-text"><strong>Tên KH:</strong></label>
+                            <div class="col-6 col-sm-6">
+                                <p class="big-text" style="margin-top:10px !important;">@(Model.CustomerName)</p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputPassword" class="col-6 col-sm-6 col-form-label big-text"><strong>SĐT zalo:</strong></label>
+                            <div class="col-6 col-sm-6">
+                                <p class="big-text" style="margin-top:10px !important;">@Model.Phone</p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputPassword" class="col-sm-6 col-form-label big-text"><strong>Email (nhận vé):</strong></label>
+                            <div class="col-sm-6">
+                                <p class="big-text" style="margin-top:10px !important;">@(Model.Email)</p>
+                            </div>
+                        </div>
+
+                        <br />
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <i>Vé điện tử sẽ được gửi qua Số điện thoại zalo hoặc email. Xuất trình vé khi đến các điểm thăm quan</i>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <hr />
+
+                <div class="col-12">
+                    <br />
+                    <div class="form-group row">
+                        <div class="text-right">
+                            <input type="button" id="btn-back" value="Trở về" class="btn btn-lg btn-danger" />&nbsp;
+                            <input type="button" id="btn-payment" value="Thanh toán" class="btn btn-lg btn-success" />&nbsp;
+                        </div>
+
+                    </div>
+                </div>
+
+            </form>
+
+
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade show" id="modal-payment-direct" aria-modal="true" role="dialog">
+    <div class="modal-dialog modal-static">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Thông tin chuyển khoản</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                        <img id="imgQRCode" class="img img-bordered" style="max-width:100%;" src="https://qrcode-app.co/img/logo-big.png" />
+                        <div style="margin-top: 10px; max-width: 100%">
+                            <a class="btn btn-outline-info" style="display:block" id="download-qrcode">
+                                <i class="fa fa-download"></i>&nbsp; Tải ảnh về
+                            </a>
+
+                        </div>
+                        <div style="margin-top: 10px; max-width: 100%">
+                            <a style="width:100%;" href="~/condao/finishorder/@(Model.Id)" class="btn btn-success">Đã chuyển khoản thanh toán</a>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+
+                    </div>
+                </div>
+
+                @*<div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                        <img id="imgQRCode" class="img img-bordered" style="max-width:100%;" src="~/img/no-qr.jpg" />
+                        <div style="margin-top: 10px; max-width: 100%">
+                            <a class="btn btn-outline-info" style="display:block" id="download-qrcode">
+                                <i class="fa fa-download"></i>&nbsp; Tải ảnh về
+                            </a>
+
+                        </div>
+                        <div style="margin-top: 10px; max-width: 100%">
+                            <a style="width:100%;" href="~/condao/finishorder/@(Model.Id)" class="btn btn-success">Đã chuyển khoản thanh toán</a>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        
+                    </div>
+                </div>*@
+            </div>
+            <div class="modal-footer">
+                <p>Sử dụng <a href="#">Ứng dụng hỗ trợ</a> hoặc <b>nhấn vào logo</b> để thanh toán trực tiếp trên ứng dụng (<i>Vui lòng chọn thiết bị </i>)</p>
+                <div class="row">
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="platform" value="android" id="radio-android" />
+                            Android
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="platform" value="ios" id="radio-ios" />
+                            IOS
+                        </label>
+                    </div>
+
+                </div>
+
+                <div class="row" id="android-apps" style="display:none">
+                    @{
+                        var lstInfoAppBankAndroid = ViewBag.LstInfoAppBankAndroid as List<DeeplinkInfoAppBank> ?? new List<DeeplinkInfoAppBank>();
+                        foreach (var info in lstInfoAppBankAndroid)
+                        {
+                            <div class="col-4 pt-2 ">
+                                <a href="@info.Deeplink" target="_blank">
+                                    <img src="@info.AppLogo" width="100" height="100" style="cursor: pointer;" />
+                                </a>
+                            </div>
+                        }
+                    }
+                </div>
+
+                <div class="row" id="ios-apps" style="display:none">
+                    @{
+                        var lstInfoAppBankIOS = ViewBag.LstInfoAppBankIOS as List<DeeplinkInfoAppBank> ?? new List<DeeplinkInfoAppBank>();
+                        foreach (var info in lstInfoAppBankIOS)
+                        {
+                            <div class="col-4 pt-2">
+                                <a href="@info.Deeplink" target="_blank">
+                                    <img src="@info.AppLogo" width="100" height="100" style="cursor: pointer;" />
+                                </a>
+                            </div>
+                        }
+                    }
+                </div>
+                
+
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<script src="~/plugins/jquery/jquery.js"></script>
+<script src="~/app-script/helper.js"></script>
+<script src="~/plugins/bootbox/bootbox.min.js"></script>
+<script src="~/plugins/bootstrap/js/bootstrap.js"></script>
+<script src="~/plugins/bootstrap3-typehead/bootstrap3-typeahead.js"></script>
+
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#btn-payment").click(function () {
+                var valid = ValidPayment();
+                if (valid)
+                    openBankInfo();
+            });
+
+            $.validator.addMethod(
+                "ChoosePaymentMethod",
+                function (value, element) {
+                    if (value != "")
+                        return true;
+                    return false;
+                },
+                "Vui lòng chọn phương thức thanh toán!"
+            );
+
+            $("input[name='input_PaymentMethod']").change(function () {
+                calculaPaymentFee();
+            });
+            $("#btn-back").click(function () {
+                let ticketCodeSelected = $("#TicketCode").val();
+                let quanti = parseFloat($("#Quanti").val());
+                location.href = `/system/ticketorder?ticketCode=${ticketCodeSelected}&quanti=${quanti}`;
+            });
+
+
+            $("#download-qrcode").click(function () {
+                dowloadQRCode();
+            });
+
+            //
+
+            $('input[name="platform"]').change(function () {
+                if (this.value === 'android') {
+                    $('#android-apps').css('display', 'flex');
+                    $('#ios-apps').hide();
+                } else if (this.value === 'ios') {
+                    $('#ios-apps').css('display', 'flex');
+                    $('#android-apps').hide();
+                }
+            });
+        });
+        function ValidPayment() {
+            var resutlValid = $("#form-payment").validate({
+                rules: {
+                    "input_PaymentMethod": {
+                        required: true,
+                        ChoosePaymentMethod: true
+                    }
+                },
+                messages: {
+                    "input_PaymentMethod": {
+                        required: "Thông tin bắt buộc!",
+                        checkPhone: "Vui lòng chọn phương thức thanh toán!"
+                    }
+                }
+            }).form();
+            return resutlValid;
+        }
+
+        function openBankInfo() {
+           // var paymentTypeVal = $("input[name='input_PaymentMethod']:checked").val();
+            var viewModel = {
+                OrderId: parseFloat($("#Id").val()),
+                PaymentType: 1
+            };
+           // alert(JSON.stringify(viewModel));
+            $.ajax({
+                type: "POST",
+                contentType: 'application/json; charset=utf-8',
+                url: "/condao/GetUrlPayment",
+                dataType: 'json',
+                data: JSON.stringify(viewModel),
+                beforeSend: function () {
+
+                },
+                success: function (result) {
+                    if (result.isSuccess) {
+                        document.getElementById('imgQRCode').src = result.desc;
+                        $("#modal-payment-direct").modal();
+                    } else {
+                        bootbox.alert(AlertFail(result.desc));
+                    }
+                }
+
+            });
+        }
+
+        function calculaPaymentFee()
+        {
+            var method = $("input[name='input_PaymentMethod']:checked").val();
+            let paymentFee = 0;
+            let totalOrder = parseFloat($("#hid-total").val());
+            let totalPayment = totalOrder;
+
+
+            if (method == "OnePay") {
+                paymentFee = 2000;
+                $("#payment-fee-text").html(`${paymentFee.toLocaleString()} VNĐ`);
+                totalPayment = totalPayment + paymentFee;
+            } else
+            {
+                paymentFee = 0;
+                totalPayment = totalPayment + paymentFee;
+                $("#payment-fee-text").html("0");
+            }
+            $("#span-total-pay").html(`${totalPayment.toLocaleString()} VNĐ`);
+
+        }
+        function dowloadQRCode() {
+            var base64Image = document.getElementById("imgQRCode").src;
+            
+            var a = document.createElement("a"); //Create <a>
+            a.href = base64Image; //Image Base64 Goes here
+            a.download = "Image.png"; //File name Here
+            a.click(); //Downloaded file
+        }
+    </script>
+}
+
+
+

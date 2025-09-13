@@ -1,0 +1,69 @@
+﻿@using DAL;
+@model DAL.Models.Ticket.TicketPricePolicyModel
+@Html.HiddenFor(x => x.Id)
+
+<div class="form-group">
+    <div class="row">
+        <label class="col-md-3 control-label">Mã vé *</label>
+        <div class="col-md-9">
+            <select class="form-control" id="TicketCode" name="TicketCode">
+                <option value=""></option>
+                @{
+                    var lstTickets = (List<DAL.Entities.Ticket>)ViewBag.LstTicketDDL;
+                    foreach (var item in lstTickets)
+                    {
+                        string selected = item.Code == Model.TicketCode ? "selected='selected'" : string.Empty;
+                        <option value="@item.Code" @(selected)>@item.Description</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <div class="row">
+        <label class="col-md-3 control-label">Loại khách</label>
+        <div class="col-md-9">
+            <select class="form-control" id="CustomerType" name="CustomerType">
+                <option value=""></option>
+                @{
+                    var lstCustType = (List<DAL.Entities.CustomerType>)ViewBag.ListCustType;
+                    foreach (var item in lstCustType)
+                    {
+                        string selected = item.Code == Model.CustomerType ? "selected='selected'" : string.Empty;
+                        <option value="@item.Code" @(selected)>@item.Name</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <div class="row">
+        <label class="col-md-3 control-label">Đối tượng</label>
+        <div class="col-md-9">
+            <select class="form-control" id="CustomerForm" name="CustomerForm">
+                <option value=""></option>
+                @{
+                    var lstForms = new List<DAL.Models.ComboBoxModel>() {
+                        new DAL.Models.ComboBoxModel{Value="VietNam",Text = "Việt Nam"},
+                        new DAL.Models.ComboBoxModel{Value="NuocNgoai",Text = "Nước ngoài"},
+                    };
+                    foreach (var item in lstForms)
+                    {
+                        string selected = item.Value == Model.CustomerForm ? "selected='selected'" : string.Empty;
+                        <option value="@item.Value" @(selected)>@item.Text</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <div class="row">
+        <label class="col-md-3 control-label">Giá *</label>
+        <div class="col-md-9">
+            @Html.TextBoxFor(x => x.Price, new { @class = "form-control" })
+        </div>
+    </div>
+</div>

@@ -1,0 +1,199 @@
+﻿@model DAL.Models.Ticket.SaleReportFilter
+@{
+    ViewData["Title"] = "Báo cáo bán vé theo loại vé";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using DAL.Entities
+@section styles{
+    <link href="~/plugins/datepicker/datepicker3.css" rel="stylesheet" />
+    <link href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="~/plugins/datatables-fixedcolumns/css/fixedColumns.bootstrap4.css" rel="stylesheet" />
+    <style>
+        .datepicker table tr td.disabled,
+        .datepicker table tr td.disabled:hover {
+            background-color: #e6d2d2;
+        }
+
+        .RowTotal {
+            background-color: #9fbbd7;
+        }
+    </style>
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>@(ViewData["Title"])</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">@(ViewData["Title"])</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+
+                <div class="col-sm-2">
+                    <label>Nhân viên</label>
+                    <select class="form-control" id="ddl-employee">
+                        <option value="All">Tất cả</option>
+                        @{
+                            var lstUser = (List<UserInfo>)ViewBag.LstUser;
+                            foreach (var user in lstUser.Where(x => !x.UserName.ToLower().StartsWith("zone")))
+                            {
+                                <option value="@user.UserName">@user.FullName</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <label>Từ ngày</label>
+                    <div class="input-group date" id="FromDatePK">
+                        <input type="text" id="FromDate" value="@(Model.FromDate)" class="form-control">
+                        <span class="input-group-addon group-date-icon"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label>Đến ngày</label>
+                    <div class="input-group date" id="ToDatePK">
+                        <input type="text" id="ToDate" value="@(Model.ToDate)" class="form-control">
+                        <span class="input-group-addon group-date-icon"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                </div>
+                @*<div class="col-sm-2">
+                        <label>Tìm theo mã vé</label>
+                        <input type="text" class="form-control" id="keyword">
+                    </div>*@
+                <div class="col-sm-2">
+                    <label>Hình thức</label>
+                    <div class="input-group" id="">
+                        <select class="form-control" id="PaymentType">
+                            <option value="All" selected>Tất cả</option>
+                            <option value="TM">Tiền mặt</option>
+                            <option value="CK">Chuyển khoản</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="col-sm-4 d-flex align-items-center gap-2">
+                    <button type="button" class="btn btn-primary btn-filter" id="btn-search">Tìm kiếm</button>
+                    &nbsp;
+                    <button type="button" class="btn btn-success btn-filter" id="btn-export-excel">
+                        Export excel
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered" id="table-report-byticket" width="100%">
+                <thead>
+                    <tr>
+                        <th>Mã vé</th>
+                        <th>Mô tả</th>
+                        <th>Loại vé</th>
+                        <th>Tổng SL</th>
+                        <th>Tổng tiền</th>
+                        <th>Tiền KM</th>
+                        <th>Tổng sau KM</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</section>
+@section scripts{
+    <script src="~/plugins/datatable/jquery.datatable.js"></script>
+    <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+    <script src="~/plugins/datatables-fixedcolumns/js/dataTables.fixedColumns.js"></script>
+    <script src="~/plugins/datepicker/bootstrap-datepicker.js"></script>
+
+    <script>
+        var tableId = "#table-report-byticket";
+        var ajaxURL = "/report/GetReportSaleByTicket";
+        var columnData = [
+            //{ "data": "id" },
+            { "data": "ticketCode" },
+            { "data": "description" },
+            { "data": "ticketGroup" },
+            {
+                "data": "tongSL", "render": function (data, type, row, meta) {
+                    return RenderNumerFormat(data);
+                }
+            },
+            {
+                "data": "tongTien", "render": function (data, type, row, meta) {
+                    return RenderNumerFormat(data);
+                }
+            },
+            {
+                "data": "tienKM", "render": function (data, type, row, meta) {
+                    return RenderNumerFormat(data);
+                }
+            },
+            {
+                "data": "tongTienSauKM", "render": function (data, type, row, meta) {
+                    return RenderNumerFormat(data);
+                }
+            },
+        ];
+        $(document).ready(function () {
+            $(".date").datepicker({
+                format: "dd/mm/yyyy"
+            }).on('changeDate', function (e) {
+                $(this).datepicker('hide');
+            });
+
+
+            $(document).keypress(function (e) {
+                if (e.which == 13) {
+                    GetReportSalesByTicket();
+                }
+            });
+            GetReportSalesByTicket();
+            $("#btn-search").click(function () {
+                GetReportSalesByTicket();
+            });
+
+            $("#btn-export-excel").click(function () {
+                ExportExcel();
+            });
+        });
+        function RenderNumerFormat(data) {
+            var res = "";
+            if (data !== undefined) {
+                res = data?.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+            }
+            return "<div style='width:100%;text-align:right;'>" + res + "</div>";
+        }
+        function GetReportSalesByTicket() {
+
+            var filterModel = {
+                UserName: $("#ddl-employee").val(),
+                FromDate: ConverFormatDate($("#FromDate").val()),
+                ToDate: ConverFormatDate($("#ToDate").val()),
+                PaymentType: $("#PaymentType").val(),
+               // Keyword: $("#keyword").val()
+            };
+
+            GenrateDataTableSearch(tableId, ajaxURL, columnData, filterModel, 40);
+        }
+        function ExportExcel() {
+            var dataSearch = {
+                UserName: $("#ddl-employee").val(),
+                FromDate: ConverFormatDate($("#FromDate").val()),
+                ToDate: ConverFormatDate($("#ToDate").val()),
+            };
+
+            location.href = "/report/ExportExcelReportSaleByTicket?filter=" + JSON.stringify(dataSearch) ;
+        }
+    </script>
+}
+

@@ -1,0 +1,122 @@
+12/5/2024 10:33:42 AM: /condao/SaveOrder      
+{"OrderId":0,"FullName":"Lý Công Bằng","PhoneNumber":"0977019146","Email":"","Quantity":2,"TicketCode":"LB50","AgencyName":"","TaxCode":"","TaxAddress":"","VisitDate":"2024-12-05T00:00:00","GateCode":null}
+
+12/5/2024 10:34:09 AM: /condao/SaveOrder      
+{"Id":0,"TicketCode":"LB50","CustomerCode":"ONLKD2DT3V27","CustomerName":"Lý Công Bằng","Price":50000.00,"Quanti":2,"Total":100000.00,"CreatedDate":null,"CreatedBy":null,"MaHDDT":null,"CustomerType":"Ve_Le","BienSoXe":null,"SaleChannelId":1,"PaymentStatus":0,"PaymentType":null,"PaymentDate":null,"PaymentValue":null,"PaymentId":0,"UpdatedDate":null,"UpdatedBy":null,"PaymentFee":0.0,"VisitDate":"2024-12-05T00:00:00","GateName":"Vé trẻ em","ObjType":1}
+
+12/5/2024 10:34:39 AM: /condao/SaveOrder      
+RequestURL: /ConDao/SaveOrder
+Input: {"OrderId":0,"FullName":"Lý Công Bằng","PhoneNumber":"0977019146","Email":"","Quantity":2,"TicketCode":"LB50","AgencyName":"","TaxCode":"","TaxAddress":"","VisitDate":"2024-12-05T00:00:00","GateCode":null}
+
+
+12/5/2024 10:34:40 AM: /condao/paymentorder/31      
+[Exception]: System.InvalidOperationException: The required column 'DiscountedAmount' was not present in the results of a 'FromSql' operation.
+   at Microsoft.EntityFrameworkCore.Query.Sql.Internal.FromSqlNonComposedQuerySqlGenerator.CreateValueBufferFactory(IRelationalValueBufferFactoryFactory relationalValueBufferFactoryFactory, DbDataReader dataReader)
+   at Microsoft.EntityFrameworkCore.Query.Internal.ShaperCommandContext.<NotifyReaderCreated>b__14_0(FactoryAndReader s)
+   at Microsoft.EntityFrameworkCore.Internal.NonCapturingLazyInitializer.EnsureInitialized[TParam,TValue](TValue& target, TParam param, Func`2 valueFactory)
+   at Microsoft.EntityFrameworkCore.Query.Internal.ShaperCommandContext.NotifyReaderCreated(DbDataReader dataReader)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.Enumerator.BufferlessMoveNext(DbContext _, Boolean buffer)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.Enumerator.MoveNext()
+   at System.Linq.Enumerable.TryGetFirst[TSource](IEnumerable`1 source, Boolean& found)
+   at lambda_method(Closure )
+   at Microsoft.EntityFrameworkCore.Query.Internal.LinqOperatorProvider.ResultEnumerable`1.GetEnumerator()
+   at Microsoft.EntityFrameworkCore.Query.Internal.LinqOperatorProvider._TrackEntities[TOut,TIn](IEnumerable`1 results, QueryContext queryContext, IList`1 entityTrackingInfos, IList`1 entityAccessors)+MoveNext()
+   at Microsoft.EntityFrameworkCore.Query.Internal.LinqOperatorProvider.ExceptionInterceptor`1.EnumeratorExceptionInterceptor.MoveNext()
+   at System.Linq.Enumerable.TryGetFirst[TSource](IEnumerable`1 source, Boolean& found)
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass15_1`1.<CompileQueryCore>b__0(QueryContext qc)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.Execute[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.Execute[TResult](Expression expression)
+   at System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source)
+   at DAL.Service.TicketService.GetOrderInfo(Int64 orderId) in F:\Projects\OnGIT\LangBiang\Langbiang_Web\DAL\Service\TicketService.cs:line 488
+
+12/5/2024 10:35:00 AM: /condao/paymentorder/31      
+[Exception]: System.InvalidOperationException: The required column 'DiscountedAmount' was not present in the results of a 'FromSql' operation.
+   at Microsoft.EntityFrameworkCore.Query.Sql.Internal.FromSqlNonComposedQuerySqlGenerator.CreateValueBufferFactory(IRelationalValueBufferFactoryFactory relationalValueBufferFactoryFactory, DbDataReader dataReader)
+   at Microsoft.EntityFrameworkCore.Query.Internal.ShaperCommandContext.<NotifyReaderCreated>b__14_0(FactoryAndReader s)
+   at Microsoft.EntityFrameworkCore.Internal.NonCapturingLazyInitializer.EnsureInitialized[TParam,TValue](TValue& target, TParam param, Func`2 valueFactory)
+   at Microsoft.EntityFrameworkCore.Query.Internal.ShaperCommandContext.NotifyReaderCreated(DbDataReader dataReader)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.Enumerator.BufferlessMoveNext(DbContext _, Boolean buffer)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.Enumerator.MoveNext()
+   at System.Linq.Enumerable.TryGetFirst[TSource](IEnumerable`1 source, Boolean& found)
+   at lambda_method(Closure )
+   at Microsoft.EntityFrameworkCore.Query.Internal.LinqOperatorProvider.ResultEnumerable`1.GetEnumerator()
+   at Microsoft.EntityFrameworkCore.Query.Internal.LinqOperatorProvider._TrackEntities[TOut,TIn](IEnumerable`1 results, QueryContext queryContext, IList`1 entityTrackingInfos, IList`1 entityAccessors)+MoveNext()
+   at Microsoft.EntityFrameworkCore.Query.Internal.LinqOperatorProvider.ExceptionInterceptor`1.EnumeratorExceptionInterceptor.MoveNext()
+   at System.Linq.Enumerable.TryGetFirst[TSource](IEnumerable`1 source, Boolean& found)
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass15_1`1.<CompileQueryCore>b__0(QueryContext qc)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.Execute[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.Execute[TResult](Expression expression)
+   at System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source)
+   at DAL.Service.TicketService.GetOrderInfo(Int64 orderId) in F:\Projects\OnGIT\LangBiang\Langbiang_Web\DAL\Service\TicketService.cs:line 488
+
+12/5/2024 10:55:59 AM: /condao/paymentorder/31      
+[Exception]: System.InvalidOperationException: The required column 'DiscountedAmount' was not present in the results of a 'FromSql' operation.
+   at Microsoft.EntityFrameworkCore.Query.Sql.Internal.FromSqlNonComposedQuerySqlGenerator.CreateValueBufferFactory(IRelationalValueBufferFactoryFactory relationalValueBufferFactoryFactory, DbDataReader dataReader)
+   at Microsoft.EntityFrameworkCore.Query.Internal.ShaperCommandContext.<NotifyReaderCreated>b__14_0(FactoryAndReader s)
+   at Microsoft.EntityFrameworkCore.Internal.NonCapturingLazyInitializer.EnsureInitialized[TParam,TValue](TValue& target, TParam param, Func`2 valueFactory)
+   at Microsoft.EntityFrameworkCore.Query.Internal.ShaperCommandContext.NotifyReaderCreated(DbDataReader dataReader)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.Enumerator.BufferlessMoveNext(DbContext _, Boolean buffer)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.Enumerator.MoveNext()
+   at System.Linq.Enumerable.TryGetFirst[TSource](IEnumerable`1 source, Boolean& found)
+   at lambda_method(Closure )
+   at Microsoft.EntityFrameworkCore.Query.Internal.LinqOperatorProvider.ResultEnumerable`1.GetEnumerator()
+   at Microsoft.EntityFrameworkCore.Query.Internal.LinqOperatorProvider._TrackEntities[TOut,TIn](IEnumerable`1 results, QueryContext queryContext, IList`1 entityTrackingInfos, IList`1 entityAccessors)+MoveNext()
+   at Microsoft.EntityFrameworkCore.Query.Internal.LinqOperatorProvider.ExceptionInterceptor`1.EnumeratorExceptionInterceptor.MoveNext()
+   at System.Linq.Enumerable.TryGetFirst[TSource](IEnumerable`1 source, Boolean& found)
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass15_1`1.<CompileQueryCore>b__0(QueryContext qc)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.Execute[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.Execute[TResult](Expression expression)
+   at System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source)
+   at DAL.Service.TicketService.GetOrderInfo(Int64 orderId) in F:\Projects\OnGIT\LangBiang\Langbiang_Web\DAL\Service\TicketService.cs:line 488
+
+12/5/2024 10:56:46 AM: /condao/paymentorder/31      
+[Exception]: System.InvalidOperationException: The required column 'DiscountedAmount' was not present in the results of a 'FromSql' operation.
+   at Microsoft.EntityFrameworkCore.Query.Sql.Internal.FromSqlNonComposedQuerySqlGenerator.CreateValueBufferFactory(IRelationalValueBufferFactoryFactory relationalValueBufferFactoryFactory, DbDataReader dataReader)
+   at Microsoft.EntityFrameworkCore.Query.Internal.ShaperCommandContext.<NotifyReaderCreated>b__14_0(FactoryAndReader s)
+   at Microsoft.EntityFrameworkCore.Internal.NonCapturingLazyInitializer.EnsureInitialized[TParam,TValue](TValue& target, TParam param, Func`2 valueFactory)
+   at Microsoft.EntityFrameworkCore.Query.Internal.ShaperCommandContext.NotifyReaderCreated(DbDataReader dataReader)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.Enumerator.BufferlessMoveNext(DbContext _, Boolean buffer)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.Enumerator.MoveNext()
+   at System.Linq.Enumerable.TryGetFirst[TSource](IEnumerable`1 source, Boolean& found)
+   at lambda_method(Closure )
+   at Microsoft.EntityFrameworkCore.Query.Internal.LinqOperatorProvider.ResultEnumerable`1.GetEnumerator()
+   at Microsoft.EntityFrameworkCore.Query.Internal.LinqOperatorProvider._TrackEntities[TOut,TIn](IEnumerable`1 results, QueryContext queryContext, IList`1 entityTrackingInfos, IList`1 entityAccessors)+MoveNext()
+   at Microsoft.EntityFrameworkCore.Query.Internal.LinqOperatorProvider.ExceptionInterceptor`1.EnumeratorExceptionInterceptor.MoveNext()
+   at System.Linq.Enumerable.TryGetFirst[TSource](IEnumerable`1 source, Boolean& found)
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass15_1`1.<CompileQueryCore>b__0(QueryContext qc)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.Execute[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.Execute[TResult](Expression expression)
+   at System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source)
+   at DAL.Service.TicketService.GetOrderInfo(Int64 orderId) in F:\Projects\OnGIT\LangBiang\Langbiang_Web\DAL\Service\TicketService.cs:line 488
+
+12/5/2024 10:57:54 AM: /TicketOrder/ChangeStatusOrder      
+RootFolder: F:\Projects\OnGIT\LangBiang\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":46,"SubNum":1,"SubOrderCode":"LB500512240001","CreatedBy":"Online","CardNum":null}
+SubCode: {"SubId":47,"SubNum":2,"SubOrderCode":"LB500512240002","CreatedBy":"Online","CardNum":null}
+
+
+12/5/2024 10:58:02 AM: /ConDao/SendNoti      
+Before call api url: /gm/api/v1.0/zns/get-token
+Input: {"OAId":859331931254348594,"AppId":4534628161010948186}
+RequestUri: https://oauth.gamanjsc.com/gm/api/v1.0/zns/get-token
+ResponseCode: OK
+Response: {"Code":200,"Message":{"Message":"Thành công","ExMessage":null},"Data":{"AccessToken":"E96C3bGmX7Opb8mDN322VZUTZGnU9ie_Qlo6C0qAzJO0wQ0pDnx961dJk00b0VmUFAQK7LPnno5vgjGw5mgk52Ehz0jFVQqMNvZH2Ly_Z1DEd8ezAMhOD3UUiGalSTrm9OcGGXbjpJWAeC8m76QLE1Q9_XrzMQ8nJeZs47zb_sX_l9PBRK75MKldp7fxD9zr2Vlf2XrPZnOjuSCA04FC6copY3K5KS4d8AB8FmnLW3OtyeeoEmtS4aciYY9HM_OWHAAnB2bTrZKXWQajJqxo3d-Qe31EElOPKCwnQq4foaLGrQSYJYdZ7sZfd2r1Ev8ERlRB5m1Qc0eE_UeJ1mAR8nB6wWDv7xfnIyde0sOcZdzuvkT5PIIXUtl7rGXK8TmrRD-lErKyynOppQWLF1_yCZE_i4aa1zv4NvK-IbCgXd4","ExpireIn":86400,"ExpireDate":"05/12/2024 14:05:12"},"IsSuccess":true,"IsNotFound":false,"IsNoContent":false,"IsConflict":false}
+
+
+12/5/2024 10:58:02 AM: /ConDao/SendNoti      
+Before call api url: /message/template
+Input: {"mode":null,"phone":"84977019146","template_id":"328629","template_data":{"company_name":"Lang Bian","customer_name":"Lý Công Bằng","ticket_code":"LB500512240001","price":"50,000","quantity":"2","total":"100,000","order_date":"05/12/2024 10:34:23","visit_date":"05/12/2024","qr":"46","code":"langbian","place_visit":"Vé trẻ em"},"tracking_id":"rAWvtpr0vyD9P2F4sqzxcfKSKpv0hbfRhw1b24Yn1vp"}
+access_token: E96C3bGmX7Opb8mDN322VZUTZGnU9ie_Qlo6C0qAzJO0wQ0pDnx961dJk00b0VmUFAQK7LPnno5vgjGw5mgk52Ehz0jFVQqMNvZH2Ly_Z1DEd8ezAMhOD3UUiGalSTrm9OcGGXbjpJWAeC8m76QLE1Q9_XrzMQ8nJeZs47zb_sX_l9PBRK75MKldp7fxD9zr2Vlf2XrPZnOjuSCA04FC6copY3K5KS4d8AB8FmnLW3OtyeeoEmtS4aciYY9HM_OWHAAnB2bTrZKXWQajJqxo3d-Qe31EElOPKCwnQq4foaLGrQSYJYdZ7sZfd2r1Ev8ERlRB5m1Qc0eE_UeJ1mAR8nB6wWDv7xfnIyde0sOcZdzuvkT5PIIXUtl7rGXK8TmrRD-lErKyynOppQWLF1_yCZE_i4aa1zv4NvK-IbCgXd4
+RequestUri: https://business.openapi.zalo.me/message/template
+ResponseCode: OK
+Response: {"error":0,"message":"Success","data":{"sent_time":"1733371056227","sending_mode":"1","quota":{"remainingQuota":"4996","dailyQuota":"5000"},"msg_id":"e44f2224a444c11f9850"}}
+
+

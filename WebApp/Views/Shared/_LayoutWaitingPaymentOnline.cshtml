@@ -1,0 +1,98 @@
+﻿@using DAL.Entities
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="zalo-platform-site-verification" content="K8Ey6vAkQI1kdCm7dxLCMLI5cr-uyqa3CZap" />
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>@(ViewData["Title"])</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    @*<link href="~/Template-common/assets/img/favicon.png" rel="icon">
+        <link href="~/Template-common/assets/img/apple-touch-icon.png" rel="apple-touch-icon">*@
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Bangers|Cinzel:400,700,900|Lato:100,300,400,700,900|Lobster|Lora:400,700|Mansalva|Muli:200,300,400,600,700,800,900|Open+Sans:300,400,600,700,800|Oswald:200,300,400,500,600,700|Roboto:100,300,400,500,700,900&display=swap" rel="stylesheet" />
+    <link href="~/plugins/fontawesome-free/css/all.css" rel="stylesheet" />
+    <!-- Vendor CSS Files -->
+    <link href="~/Template-Landing-ConDao/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Template-Landing-ConDao/assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+    <link href="~/Template-Landing-ConDao/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="~/Template-Landing-ConDao/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="~/Template-Landing-ConDao/assets/vendor/venobox/venobox.css" rel="stylesheet">
+    <link href="~/Template-Landing-ConDao/assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="~/Template-Landing-ConDao/assets/vendor/aos/aos.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="~/Template-common/assets/css/style.css" rel="stylesheet">
+    <style>
+        #header {
+            padding: 0px;
+            background: #37517e;
+            color: #fff;
+        }
+
+            #header .logo a {
+                color: #fff;
+            }
+
+        #hero {
+            margin-top: 12px;
+        }
+    </style>
+    <!-- =======================================================
+    * Template Name: Arsha - v2.3.1
+    * Template URL: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
+</head>
+
+<body>
+    <header id="header" class="fixed-top ">
+        <div class="container d-flex align-items-center">
+
+            <h1 class="logo mr-auto"><a href="#">Chào mừng bạn đến với BẢO TÀNG THƯ VIỆN - BRVT</a></h1>
+            <a href="/home/index" class="get-started-btn scrollto">MST: 3502543213</a>
+        </div>
+    </header><!-- End Header -->
+
+    <section class="inner-page">
+        @RenderBody()
+    </section>
+    <!-- ======= Footer ======= -->
+    <footer id="footer" style="background-color: #fff; color: #37517e; border-top: 1px solid #e2e2e2; border-bottom: 1px solid #e2e2e2;">
+
+        <div class=" footer-bottom clearfix" style="padding-left: 40px; padding-right:40px">
+            <div class="row">
+                <div class="col-6">
+                   
+                </div>
+
+                <div class="col-6">
+                    <div class="text-right">
+                        <span>Hệ thống được phát triển và vận hành bởi: Công ty cổ phần <strong>GAMAN</strong></span>
+                    </div>
+                    <div class="text-right">
+                        <span>11 Đoàn Văn Bơ, phường 13, quận 4, TP.HCM</span>
+                    </div>
+                    <div class="text-right">
+                        <span>Hotline: <a rel="noopener noreferrer" href="tel:0977 209 040" style="font-weight: bold; color: #0070c0; text-decoration: none;">0977 209 040</a> – Email: info@gamanjsc.com</span>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </footer><!-- End Footer -->
+    <script src="~/plugins/jquery/jquery.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+
+</html>
+

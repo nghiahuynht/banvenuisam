@@ -1,0 +1,264 @@
+﻿
+@{
+    ViewData["Title"] = "Mua vé thăm quan Côn Đảo";
+    Layout = "~/Views/Shared/_LayoutConDao.cshtml";
+}
+@model DAL.Entities.PaymentInfo
+<style>
+    .breadcrumbs {
+        margin-top: 20px !important;
+    }
+
+    .big-text {
+        font-size: 15pt;
+    }
+    body {
+        /*background-image: url(https://c0.wallpaperflare.com/preview/908/172/958/cfejk53g1irmejn5jlb4nptp4n.jpg);*/
+        background-size: cover;
+        background-color: #fff;
+        ;
+    }
+
+    .fa-trash {
+        color: #ff0000 !important;
+    }
+
+    #ddl-lang {
+        border-radius: 3px;
+        font-size: 9pt;
+        background: #f4f4f4;
+    }
+
+    .text-uppercase {
+        text-transform: uppercase !important;
+    }
+
+    .text-center {
+        text-align: center !important;
+    }
+
+    .text-uppercase {
+        text-transform: uppercase !important;
+    }
+
+    .text-center {
+        text-align: center !important;
+    }
+
+    .iconSuccess {
+        grid-area: iconSuccess;
+    }
+
+    .headerPage {
+        grid-area: headerPage;
+    }
+
+    .OrderCode {
+        grid-area: OrderCode;
+    }
+
+    .Code {
+        grid-area: Code;
+    }
+
+    .UserName {
+        grid-area: UserName;
+    }
+
+    .PhoneNumber {
+        grid-area: PhoneNumber;
+    }
+
+    .PaymentType {
+        grid-area: PaymentType;
+    }
+
+    .PaymentStatus {
+        grid-area: PaymentStatus;
+    }
+
+    .TotalVAT {
+        grid-area: TotalVAT;
+    }
+
+    .NotePayment {
+        grid-area: NotePayment;
+    }
+
+    .empty {
+        grid-area: empty;
+    }
+
+    .empty1 {
+        grid-area: empty1;
+    }
+
+    .empty2 {
+        grid-area: empty2;
+    }
+
+    .empty3 {
+        grid-area: empty3;
+    }
+
+    .empty4 {
+        grid-area: empty4;
+    }
+
+    .empty5 {
+        grid-area: empty5;
+    }
+
+    .empty6 {
+        grid-area: empty6;
+    }
+
+    .empty7 {
+        grid-area: empty7;
+    }
+
+    .empty8 {
+        grid-area: empty8;
+    }
+
+    .empty9 {
+        grid-area: empty9;
+    }
+
+    .empty10 {
+        grid-area: empty10;
+    }
+
+    .empty11 {
+        grid-area: empty11;
+    }
+
+    .empty12 {
+        grid-area: empty12;
+    }
+
+    .empty13 {
+        grid-area: empty13;
+    }
+
+    .empty14 {
+        grid-area: empty14;
+    }
+
+    .description {
+        grid-area: description;
+    }
+
+    .grid-container {
+        display: grid;
+        grid-template-areas: ' empty1 iconSuccess empty2' 'empty3 headerPage empty4' 'empty3 description empty4' ' empty5 Code empty6' ' empty7 OrderCode empty8' ' empty9 PaymentType empty10' ' empty11 PaymentStatus empty12' 'empty13 TotalVAT empty14'
+            /*'empty13 NotePayment empty14'*/;
+        gap: 10px;
+        padding: 10px;
+        align-content: center;
+    }
+</style>
+<link href="~/plugins/fontawesome-free/css/all.css" rel="stylesheet" />
+<!-- ======= Breadcrumbs ======= -->
+<section id="breadcrumbs" class="breadcrumbs">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <h2>Hoàn tất thanh toán</h2>
+            </div>
+            <div class="col-sm-4">
+                <ol>
+                    <li><a href="index.html">Trang chủ</a></li>
+                    <li>Hoàn tất thanh toán</li>
+                </ol>
+            </div>
+        </div>
+
+
+    </div>
+</section><!-- End Breadcrumbs -->
+<section class="content">
+    <div style="width: 100%">
+
+        <div class="grid-container">
+            @*<div>
+                    <div class="empty"></div>
+                    <div class="iconSuccess col-sm-4" style="text-align: center; padding-top: 3%">
+                        <span style="font-size: 60px; background-color:none; color: forestgreen"><i class="fa fa-chevron-down"></i></span>
+                    </div>
+                    <div class="col-sm-4" style="width: 100%">
+
+                    </div>
+                </div>*@
+            <div class="empty1" style="width: 100%"></div>
+            <div class="iconSuccess " style="text-align: center; padding-top: 3%">
+                <span style="font-size: 60px; background-color:none; color: forestgreen"><i class="fa fa-chevron-down"></i></span>
+            </div>
+            <div class="empty2" style="width: 100%"></div>
+            <div class="empty3" style="width: 100%"></div>
+            <div class="headerPage" style="text-align: center">
+                <div class="form-group ">
+                    @{
+                        var strPaid = Model.ValidatedHash == "CORRECTED" && Model.TxnResponseCode == 0 ? "Thanh toán thành công" : "Thanh toán thất bại";
+                        var des = Model.TxnResponseCode != 0 ? ViewBag.DescriptionVN : string.Empty;
+                        <h2 class="col-sm-12" style="text-align: center">@(strPaid)</h2>
+
+                    }
+                </div>
+
+            </div>
+            @*<div class="description" style="text-align: center">
+                    <div class="form-group row ">
+                        <p class="col-sm-12" style="font-size: 0.75vw; color: darkgray; text-align: center; "><i>@(des)</i></p>
+                    </div>
+
+                </div>*@
+            <div class="empty4 " style="width: 100%"></div>
+            <div class="empty5" style="width: 100%"></div>
+            <div class="Code" style="font-size: 0.9vw">
+                <div class="form-group row">
+                    <label class=" col-sm-6 control-label" style="text-align: left; padding-left: 20%">Mã giao dịch: </label>
+                    <label class=" col-sm-6 control-label" style="text-align: left; ">@(Model.MerchTxnRef)</label>
+                </div>
+            </div>
+            <div class="empty6" style="width: 100%"></div>
+            <div class="empty7" style="width: 100%"></div>
+            <div class="OrderCode" style="font-size: 0.9vw">
+                <div class="form-group row">
+                    <label class="col-sm-6 control-label" style="text-align: left; padding-left: 20%">ID Đơn hàng: </label>
+                    <label class="col-sm-6 control-label" style="text-align: left; ">@(Model.ContractId)</label>
+                </div>
+            </div>
+            <div class="empty8" style="width: 100%"></div>
+            <div class="empty9" style="width: 100%"></div>
+            <div class="PaymentType" style="font-size: 0.9vw">
+                <div class="form-group row">
+                    <label class="col-sm-6 control-label" style="text-align: left; padding-left: 20%">Hình thức thanh toán: </label>
+                    <label class="col-sm-6 control-label" style="text-align: left; ">Onepay</label>
+                </div>
+            </div>
+            <div class="empty10" style="width: 100%"> </div>
+            <div class="empty11" style="width: 100%"> </div>
+            <div class="PaymentStatus" style="font-size: 0.9vw">
+                <div class="form-group row">
+                    <label class="col-sm-6 control-label" style="text-align: left; padding-left: 20%">Tình trạng thanh toán: </label>
+                    <label class="col-sm-6 control-label" style="text-align: left; ">@(strPaid)</label>
+                </div>
+               
+            </div>
+            <div class="empty12" style="width: 100%"> </div>
+            <div class="empty13" style="width: 100%"> </div>
+
+            <div class="TotalVAT" style="font-size: 0.9vw">
+                <div class="form-group row">
+                    <label class="col-sm-6 control-label" style="text-align:left;padding-left: 20%; font-weight:bold;color:orangered">Tổng tiền: </label>
+                    <label class="col-sm-6 control-label" style="text-align: left;  font-weight: bold; color: orangered">@(Model.Amount.ToString("N0")) đ</label>
+                </div>
+            </div>
+            <div class="empty14" style="width: 100%"> </div>
+        </div>
+    </div>
+
+</section>
+

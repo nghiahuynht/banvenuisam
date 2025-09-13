@@ -1,0 +1,585 @@
+﻿@using DAL
+@using DAL.Models.Ticket
+@using DAL.Models.Customer
+@using DAL.Models
+@using DAL.Entities
+@{
+    ViewData["Title"] = "Danh sách đơn bán vé";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+@section styles{
+
+    <link href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="~/plugins/datatables-fixedcolumns/css/fixedColumns.bootstrap4.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+    <style>
+        .fa-adjust {
+            cursor: pointer;
+        }
+        .bootstrap-select .dropdown-menu{
+            min-width:500px !important;
+        }
+        .modal-dialog{
+            min-width:60% !important;
+        }
+    </style>
+
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>@(ViewData["Title"])</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">@(ViewData["Title"])</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<section class="content">
+    <input type="hidden" id="hid_userlogin" value="@(ViewBag.UserName)" />
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-sm-2">
+                    <label>Hình thức mua vé</label>
+                    <select class="form-control" id="ddl-chanel">
+                        <option value="0">Tất cả</option>
+                        <option value="1">Website bán vé</option>
+                        <option value="2">Bán tại quầy</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <label>Nhân viên</label>
+                    <select class="form-control" id="ddl-employee">
+
+                        @{
+                            var lstUser = (List<UserInfo>)ViewBag.LstUser;
+                            if (lstUser.Count() > 1) // lớn hơn 1 là admin
+                            {
+                                <option value="">Tất cả</option>
+                            }
+                            foreach (var user in lstUser)
+                            {
+                                <option value="@user.UserName">@user.FullName</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <label>Loại KH</label>
+                    <select class="form-control" id="ddl-customertype">
+                        <option value="All">Tất cả</option>
+                        @{
+                            var lstCustType = (List<CustomerType>)ViewBag.ListCustType;
+
+                            foreach (var item in lstCustType)
+                            {
+                                <option value="@(item.Code)">@item.Name</option>
+                            }
+                        }
+                    </select>
+                </div>
+
+                <div class="col-sm-2">
+                    <label>Loại vé</label>
+                    <select class="form-control" id="ddl-ticketgroup">
+                        <option value="All">Tất cả</option>
+                        @{
+                            var lstGroupTicket = (List<TicketGroupModel>)ViewBag.GroupTicketList;
+                            foreach (var item in lstGroupTicket)
+                            {
+                                <option value="@item.GroupCode">@(item.GroupName)</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <label>Mã vé/dịch vụ</label>
+                    <select class="form-control" id="ddl-ticketcode">
+                        <option value="All">Tất cả</option>
+                        @{
+                            var lstTicket = (List<Ticket>)ViewBag.TicketList;
+                            foreach (var item in lstTicket)
+                            {
+                                <option value="@item.Code">@(item.Description)</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <label>Hình thức TT</label>
+                    <select class="form-control" id="ddl-payment-type">
+                        <option value="ALL">Tất cả</option>
+                        <option value="TM">Tiền mặt</option>
+                        <option value="CK">Chuyển khoản</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <label>Tình trạng thanh toán</label>
+                    <select class="form-control" id="ddl-status">
+                        <option value="-1">Tất cả</option>
+                        <option value="0">Chờ xác nhận TT</option>
+                        <option value="1">Đã xác nhận thanh toán</option>
+                        <option value="2">Huỷ</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <label>Từ ngày</label>
+                    <div class="input-group date">
+                        <input type="text" id="FromDate" value="@(DateTime.Now.ToString("dd/MM/yyyy"))" class="form-control">
+                        <span class="input-group-addon group-date-icon"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label>Đến ngày</label>
+                    <div class="input-group date">
+                        <input type="text" id="ToDate" value="@(DateTime.Now.ToString("dd/MM/yyyy"))" class="form-control">
+                        <span class="input-group-addon group-date-icon"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                </div>
+
+
+                <div class="col-sm-2">
+                    <label></label>
+                    <input type="radio" style="width:15px;height:15px;" class="btn-filter" value="false" name="radioisfree" checked="checked" />&nbsp;Bình thường&nbsp;&nbsp;
+                    <input type="radio" style="width:15px;height:15px;" class="btn-filter" value="true" name="radioisfree" />&nbsp;Miễn phí
+                </div>
+                <div class="col-sm-2">
+                    <label>Mã/tên KH/SĐT khách hàng</label>
+                    <input type="text" class="form-control" id="txtkeyword" />
+                </div>
+                <div class="col-sm-2">
+                    <input type="button" value="Tìm" class="btn btn-primary btn-filter" id="btn-search" />&nbsp;
+                    <input type="button" value="Export" class="btn btn-success btn-filter" id="btn-export" />&nbsp;
+                </div>
+            </div>
+
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered table-hover dataTable" id="table-order">
+                <thead>
+                    <tr>
+                        <th width="60px"></th>
+                        <th width="50px">Mã đơn</th>
+                        <th width="200px">Tên KH</th>
+                        <th width="150px">Ngày mua</th>
+                        <th width="70px">Mã vé</th>
+                        <th width="130px">Thanh toán</th>
+                        <th width="100px">Đơn giá</th>
+                        <th width="40px">SL</th>
+                        <th width="150px">Thành tiền</th>
+                        <th width="150px">KM giảm tiền</th>
+                        <th width="150px">Tổng sau KM</th>
+                        <th width="150px">Loại KH</th>
+                        <th width="100px">Đối tượng</th>
+                        <th width="150px">Người bán</th>
+                        <th width="150px">Hình thức TT</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- Modal -->
+<div class="modal fade" id="modal-CustForSaleUpdate" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Cập nhật khách hàng cho mã đơn:<strong id="strong-madon"></strong></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="hid-ticketOrderId" />
+                <div class="row">
+                    <div class="col-sm-4"><label class="col-form-label">Loại KH</label></div>
+                    <div class="col-sm-8">
+                        <select class="form-control" id="ddl-customer-type-2">
+                            <option value="Khach_Doan" selected="selected">Khách đoàn</option>
+                            <option value="Khach_Le">Khách lẻ</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4"><label class="col-form-label">Tìm khách hàng</label></div>
+                    <div class="col-sm-8">
+                        <select class="form-control selectpicker" id="ddl-customer" data-live-search="true">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+                <hr />
+                <br />
+                <strong>Thông tin khách lấy hóa đơn/biên lai</strong>
+                <div class="row">
+                    <div class="col-sm-4"><label class="col-form-label">Mã KH</label></div>
+                    <div class="col-sm-8">
+                        <input id="txt-customerCode" class="form-control" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4"><label class="col-form-label">Tên KH</label></div>
+                    <div class="col-sm-8">
+                        <input id="txt-customerName" class="form-control" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4"><label class="col-form-label">Mã số thuế</label></div>
+                    <div class="col-sm-8">
+                        <input id="txt-taxtCode" class="form-control" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4"><label class="col-form-label">Địa chỉ</label></div>
+                    <div class="col-sm-8">
+                        <input class="form-control" id="txt-taxtAdress" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" onclick="UpdateCustForTicketOrder()">Cập nhật</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+@section scripts{
+    <script src="~/plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script src="~/plugins/datatable/jquery.datatable.js"></script>
+    <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+    <script src="~/plugins/datatables-fixedcolumns/js/dataTables.fixedColumns.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+    <script>
+        var tableId = "#table-order";
+        var ajaxURL = "/TicketOrder/SearchOrder";
+        var columnData = [
+
+            {
+                "data": "id", "render": function (data, type, row, meta) {
+                    return RenderTableAction(data);
+                }
+            },
+            { "data": "id" },
+            { "data": "customerName" },
+
+
+            { "data": "createdDate" },
+            { "data": "ticketCode" },
+            {
+                "data": "paymentStatus", "render": function (data, type, row, meta) {
+                    return RenderStatus(data);
+                }
+            },
+            { "data": "price" },
+            { "data": "quanti" },
+            { "data": "total" },
+            {
+                "data": "discountedAmount", "render": function (data, type, row, meta) {
+                    return RenderNumerFormat(data);
+                }
+            },
+            {
+                "data": "totalAfterDiscounted", "render": function (data, type, row, meta) {
+                    return RenderNumerFormat(data);
+                }
+            },
+            { "data": "customerTypeName" },
+            { "data": "objName" },
+            { "data": "createdByName" },
+            { "data": "paymentMethod" },
+        ];
+
+        $(document).ready(function () {
+            // Khôi phục thông tin tìm kiếm từ sessionStorage
+            var searchHistory = JSON.parse(sessionStorage.getItem('searchHistory'));
+            if (searchHistory) {
+                $("#ddl-chanel").val(searchHistory.ChanelId);
+                $("#FromDate").val(ConverFormatDate(searchHistory.FromDate));
+                $("#ToDate").val(ConverFormatDate(searchHistory.ToDate));
+                $("#ddl-status").val(searchHistory.PaymentStatus);
+                $("#txtkeyword").val(searchHistory.Keyword);
+                $("#ddl-customertype").val(searchHistory.CustomerType);
+                $("#ddl-ticketgroup").val(searchHistory.GroupTicket);
+                $("#ddl-objtype").val(searchHistory.ObjType);
+                $("#ddl-ticketcode").val(searchHistory.TicketCode);
+
+                if (searchHistory.IsFree == "true" || searchHistory.IsFree == true) {
+                    radioOptionFree = jQuery("input:radio[value=true]");
+                    radioOptionFree.prop("checked", true);
+                } else {
+                    radioOptionNonFree = jQuery("input:radio[value=false]");
+                    radioOptionNonFree.prop("checked", true);
+                }
+
+            }
+
+            SearchOrder();
+            $("#btn-search").click(function () {
+                // Lưu thông tin tìm kiếm vào sessionStorage trước khi tìm kiếm
+                SaveSearchHistory();
+                SearchOrder();
+            });
+
+            $(".date").datepicker({
+                format: "dd/mm/yyyy"
+            }).on('changeDate', function (e) {
+                $(this).datepicker('hide');
+            });
+
+
+            $("#btn-export").click(function () {
+                ExportExcelSearch();
+            });
+
+            GetCustomerByType();
+            $("#ddl-customer-type-2").change(function () {
+                GetCustomerByType();
+            });
+
+
+            $("#ddl-customer").change(function () {
+                bindCustomerReview($(this).val());
+            });
+
+
+        });
+
+        function SearchOrder() {
+            var searchModel = {
+                ChanelId: $("#ddl-chanel").val(),
+                FromDate: ConverFormatDate($("#FromDate").val()),
+                ToDate: ConverFormatDate($("#ToDate").val()),
+                PaymentMethod: $("#ddl-payment-type").val(),
+                PaymentStatus: $("#ddl-status").val(),
+                GateCode: "All",
+                Keyword: $("#txtkeyword").val(),
+                CustomerType: $("#ddl-customertype").val(),
+                GroupTicket: $("#ddl-ticketgroup").val(),
+                ObjType: "All",
+                TicketCode: $("#ddl-ticketcode").val(),
+                IsFree: $('input[name="radioisfree"]:checked').val(),
+                UserName: $("#ddl-employee").val()
+            };
+            debugger;
+            GenrateDataTableSearch(tableId, ajaxURL, columnData, searchModel, 10, "vé");
+        }
+        function ExportExcelSearch() {
+            var searchModel = {
+                ChanelId: $("#ddl-chanel").val(),
+                FromDate: ConverFormatDate($("#FromDate").val()),
+                ToDate: ConverFormatDate($("#ToDate").val()),
+                PaymentMethod: $("#ddl-payment-type").val(),
+                PaymentStatus: $("#ddl-status").val(),
+                GateCode: "All",
+                Keyword: $("#txtkeyword").val(),
+                CustomerType: $("#ddl-customertype").val(),
+                GroupTicket: $("#ddl-ticketgroup").val(),
+                ObjType: "All",
+                TicketCode: $("#ddl-ticketcode").val(),
+                IsFree: $('input[name="radioisfree"]:checked').val(),
+                UserName: $("#ddl-employee").val()
+            };
+            var dataSearch = JSON.stringify(searchModel);
+            location.href = "/report/ExportExcelSearchOrder?filter=" + dataSearch;
+        }
+        function SaveSearchHistory() {
+            var searchModel = {
+                ChanelId: $("#ddl-chanel").val(),
+                FromDate: ConverFormatDate($("#FromDate").val()),
+                ToDate: ConverFormatDate($("#ToDate").val()),
+                PaymentMethod: "All",
+                PaymentStatus: $("#ddl-status").val(),
+                GateCode: "All",
+                Keyword: $("#txtkeyword").val(),
+                CustomerType: $("#ddl-customertype").val(),
+                GroupTicket: $("#ddl-ticketgroup").val(),
+                ObjType: $("#ddl-objtype").val(),
+                TicketCode: $("#ddl-ticketcode").val(),
+                IsFree: $('input[name="radioisfree"]:checked').val()
+            };
+
+            // Lưu thông tin tìm kiếm vào sessionStorage
+            sessionStorage.setItem('searchHistory', JSON.stringify(searchModel));
+        }
+
+        function RenderTableAction(invoiceId) {
+            debugger;
+            let userLogin = $("#hid_userlogin").val().toLowerCase();
+            let hideclass = $("#hid_userlogin").val().toLowerCase() == "hannguyen99" ? "style='display:inline'" : "style='display:none;'";
+            var html = "<div class='div-table-action'>" +
+                "<i class='fa fa-edit' onclick='GotoDetail(" + invoiceId + ")'></i>&nbsp;&nbsp;" +
+                "<i class='fa fa-trash' " + hideclass + " onclick='DeleteOrder(" + invoiceId + ")'></i>&nbsp;" +
+                "<i class='fa fa-adjust' onclick='openModalCustInfo(" + invoiceId + ")'></i>&nbsp;&nbsp;" +
+                "</div>";
+            return html;
+        }
+
+        function GotoDetail(orderId) {
+            location.href = "/ticketorder/orderdetail/" + orderId;
+        }
+
+        function DeleteOrder(orderId) {
+            bootbox.confirm("Bạn có chắc muốn xóa đơn bán vé này?", function (confi) {
+                if (confi) {
+                    $.ajax({
+                        type: "GET",
+                        contentType: 'application/json; charset=utf-8',
+                        url: "/TicketOrder/DeleteOrder?id=" + orderId + "&deleteTye=1",
+                        success: function (result) {
+
+                            if (result.isSuccess == true) {
+                                bootbox.alert(AlertSuccess("Xóa vé thành công"), function () {
+                                    SearchOrder();
+                                });
+
+                            } else {
+                                bootbox.alert(AlertFail("Xóa vé không thành công"));
+                            }
+
+
+                        }
+                    });
+                }
+            });
+        }
+
+        function RenderStatus(status) {
+            var statusHTML = "";
+            if (status == 0) {
+                statusHTML = "<span class='badge badge-warning badge-status'>Chờ xác nhận TT</span>";
+            } else if (status == 1) {
+                statusHTML = "<span class='badge badge-success badge-status'>Đã xác nhận TT</span>";
+            } else if (status == 2) {
+                statusHTML = "<span class='badge badge-danger badge-status'>Hủy</span>";
+            }
+            return statusHTML;
+        }
+        function RenderNumerFormat(data) {
+            var res = "";
+            if (data !== undefined) {
+                res = data.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+            }
+            return "<div style='width:100%;text-align:right;'>" + res + "</div>";
+        }
+
+        function openModalCustInfo(orderId) {
+            $("#strong-madon").html(orderId);
+            $("#hid-ticketOrderId").val(orderId);
+            $("#modal-CustForSaleUpdate").modal();
+        }
+
+
+
+
+        function GetCustomerByType() {
+            let customerType = $("#ddl-customer-type-2").val();
+
+            if (customerType != "" && customerType != null) {
+                $.ajax({
+                    type: "Get",
+                    contentType: 'application/json; charset=utf-8',
+                    url: "/Customer/GetListCustomerByCustType?customerType=" + customerType,
+                    success: function (res) {
+                        let optionCus = "<option value=''></option>";
+                        $.each(res, function (key, value) {
+
+                            let customerCode = value.customerCode;
+                            let customerName = value.customerName;
+                            let taxCode = value.taxCode != null ? value.taxCode : "";
+                            let taxAddress = value.taxAddress != null ? value.taxAddress : "";
+
+
+                            let cusObj = {
+                                "customerCode": customerCode,
+                                "customerName": customerName,
+                                "taxCode": taxCode,
+                                "taxAddress": taxAddress
+                            };
+                            let cusObjJson = JSON.stringify(cusObj);
+
+
+                            optionCus = optionCus + "<option value='" + cusObjJson + "'>" + value.customerName + "</option>";
+                        });
+                        $("#ddl-customer").html(optionCus);
+                        $('#ddl-customer').selectpicker('refresh');
+
+                    }
+                });
+            } else {
+                $("#ddl-customer").html("<option value=''></option>");
+            }
+
+
+        }
+
+
+
+        function bindCustomerReview(selectedCus) {
+
+            if (selectedCus != "") {
+                var custObject = $.parseJSON(selectedCus);
+                $("#txt-customerCode").val(custObject.customerCode);
+                $("#txt-customerName").val(custObject.customerName);
+                $("#txt-taxtCode").val(custObject.taxCode);
+                $("#txt-taxtAdress").val(custObject.taxAddress);
+            } else {
+                $("#txt-customerCode").val(null);
+                $("#txt-customerName").val(null);
+                $("#txt-taxtCode").val(null);
+                $("#txt-taxtAdress").val(null);
+            }
+
+           
+        }
+
+
+        function UpdateCustForTicketOrder() {
+            let ticketOrderId = $("#hid-ticketOrderId").val();
+            let customerCode = $("#txt-customerCode").val();
+            let customerName = $("#txt-customerName").val();
+
+            var postData = {
+                "OrderId": ticketOrderId,
+                "CustomerCode": customerCode,
+                "CustomerName": customerName
+            };
+
+            $.ajax({
+                type: "POST",
+                contentType: 'application/json; charset=utf-8',
+                url: "/TicketOrder/UpdateCustomerForTicketOrder",
+                dataType: 'json',
+                data: JSON.stringify(postData),
+                success: function (result) {
+                    $("#modal-CustForSaleUpdate").modal("hide");
+                    if (result.valueReturn > 0) {
+                        bootbox.alert(AlertSuccess("Cập nhật thành công"));
+                        SearchOrder();
+                    } else {
+                        bootbox.alert(AlertFail("Thất bại, liên hệ hỗ trợ"));
+                    }
+                    bindCustomerReview("");//reset selected value
+                }
+            });
+        }
+
+
+    </script>
+}
+}

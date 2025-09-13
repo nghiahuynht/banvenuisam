@@ -1,0 +1,172 @@
+﻿
+@{
+    ViewData["Title"] = "Thông tin người dùng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model DAL.Models.UserInfo.UserDetailViewModel
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>@(ViewData["Title"])</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item">
+                        <input type="button" value="Lưu" class="btn bg-primary" id="btn-save" />
+                    </li>
+
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="card">
+        <div class="card-body">
+            <form class="form-horizontal" id="form-userinfo">
+                @Html.HiddenFor(x => x.User.Id)
+                @Html.HiddenFor(x => x.User.CreatedBy)
+                @Html.HiddenFor(x => x.User.CreatedDate)
+                @Html.HiddenFor(x => x.User.UpdatedBy)
+                @Html.HiddenFor(x => x.User.UpdatedDate)
+                @Html.HiddenFor(x => x.User.Pass)
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Họ tên</label>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(x => x.User.FullName, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Phone</label>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(x => x.User.Phone, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Email</label>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(x => x.User.Email, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Vai trò</label>
+                            <div class="col-md-9">
+                                <select class="form-control" id="Role" name="Role">
+                                    <option value=""></option>
+                                    @{
+                                        foreach (var item in Model.LstRoles)
+                                        {
+                                            string selected = item.Value == Model.RoleSelected ? "selected='selected'" : "";
+                                            <option value="@item.Value" @(selected)>@item.Text</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Tên đăng nhập</label>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(x => x.User.UserName, new { @class = "form-control" })
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+                            <div class="offset-md-3">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="chk-user-active" @(Model.User.IsActive ? "checked='checked'" : string.Empty)>
+                                    @Html.HiddenFor(x => x.User.IsActive)
+                                    <label class="form-check-label">Đang hoạt động</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </form>
+
+        </div>
+    </div>
+
+
+
+</section>
+@section scripts{ 
+  
+<script src="~/js/jquery.validate.js"></script>
+<script>
+    $(document).ready(function () {
+
+        $("#btn-save").click(function () {
+            SaveUserInfo();
+        });
+
+        $("#chk-user-active").change(function () {
+            var valueCheck = $(this).prop("checked");
+            $("#User_IsActive").val(valueCheck);
+        });
+
+    });
+    function ValidateUserInfo() {
+        var resutlValid = $("#form-userinfo").validate({
+            rules: {
+                "User.FullName": "required",
+                "User.Email": "required",
+                "User.Phone": "required",
+            },
+            messages: {
+                "User.FullName": null,
+                "User.Email": null,
+                "User.Phone": null,
+            }
+        }).form();
+        return resutlValid;
+    }
+    function SaveUserInfo() {
+        var valid = ValidateUserInfo();
+        if (valid) {
+            var userObj = FormToObject("#form-userinfo", "User.");
+            var saveModel = {
+                User: userObj,
+                RoleSelected: $("#Role").val(),
+                LstRoles: []
+            };
+            $.ajax({
+                type: "POST",
+                contentType: 'application/json; charset=utf-8',
+                url: "/Account/SaveUserInfo",
+                dataType: 'json',
+                data: JSON.stringify(saveModel),
+                beforeSend: function () {
+                        
+                },
+                success: function (res) {
+                    if (res.isSuccess === true) {
+                        bootbox.alert(AlertSuccess("Lưu dữ liệu thành công"), function () {
+                            location.href = "/account/detail/" + res.valueReturn;
+                        });
+                    } else {
+                        bootbox.alert(AlertFail(res.errorMessage));
+                    }
+                        
+                }
+            });
+
+
+
+
+        }
+    }
+</script>
+}

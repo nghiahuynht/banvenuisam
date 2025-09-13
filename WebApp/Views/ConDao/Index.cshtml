@@ -1,0 +1,216 @@
+﻿@{
+    ViewData["Title"] = "BẢO TÀNG THƯ VIỆN BÀ RỊA VŨNG TÀU";
+    Layout = "~/Views/Shared/_LayoutConDao.cshtml";
+}
+@using DAL.Entities
+@using DAL.Models.Ticket
+
+<link rel="stylesheet" href="css/icomoon.css">
+<link rel="stylesheet" href="css/style.css">
+<link href="~/plugins/datepicker/datepicker3.css" rel="stylesheet" />
+<style>
+
+    #hero h2{
+        color:#555;
+    }
+    .la-hero {
+        font-size: 16pt;
+        color: #000000;
+    }
+
+    .fw-bold {
+        color: #333;
+    }
+
+    @@media only screen and (max-width: 768px) {
+        .la-hero {
+            font-size: 13pt;
+            color: #000000;
+        }
+
+        #header .logo {
+            line-height: 1.4;
+        }
+    }
+</style>
+
+
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="d-flex">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2 col-xxl-2 mb-5"></div>
+            @{
+                var lstTicket = (List<Ticket>)ViewBag.Ticket;
+                foreach (var ticket in lstTicket.OrderByDescending(x => x.Id))
+                {
+                    <div class="col-lg-3 col-xxl-3 mb-5">
+                        <div class="card border-0 h-100" style="background-color: rgba(255, 255, 255, 0.8);">
+                            <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                                <div class="feature bg-gradient rounded-3 mb-4 mt-n4"><i style="font-size:40pt;" class="fa fa-user-tag"></i></div>
+                                <strong class="fs-4 fw-bold" style="font-size:16pt;">@(ticket.Description)</strong><br />
+                                <strong class="fs-4 fw-bold" style="color:#0094ff;font-size:20pt">@(ticket.Price.ToString("#,##0")) VNĐ</strong><br />
+                                <a href="/system/ticketorder?ticketCode=@(ticket.Code)&quanti=1&visitDate=@(DateTime.Now.ToString("dd/MM/yyyy"))" class="btn btn-danger">Mua vé</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            <div class="col-lg-12" style="background-color: rgba(255, 255, 255, 0.8);">
+                <strong style="color:#ff006e;">Lưu ý:</strong><br />
+                <span><strong>Người cao tuổi:</strong> Từ 60 tuổi trở lên, khi đi mang theo CCCD/CMND</span><br />
+                <span><strong>Trẻ em:</strong> Từ 6 đến 15 tuổi</span>
+            </div>
+        </div>
+        
+    </div>
+
+
+</section>
+<!-- End Hero -->
+<section id="about" class="about">
+    <div class="section-title">
+        <h2>GIỚI THIỆU VỀ KHU DU LỊCH QUỐC GIA NÚI SAM</h2>
+    </div>
+    <div class="row content" style="padding:20px;">
+        <div class="col-lg-6">
+            <div style="width:100%;padding:5px;border:1px solid #ccc;">
+                <img class="img" style="width:100%;height:70%" src="https://images.baoangiang.com.vn/image/fckeditor/upload/2019/20190102/images/t1-tien.jpg" />
+            </div>
+        </div>
+        <div class="col-lg-6 pt-4 pt-lg-0">
+            <h5>KHU DU LỊCH QUỐC GIA NÚI SAM</h5>
+            <p>
+                Tọa lạc tại thành phố Châu Đốc, tỉnh An Giang, Khu du lịch quốc gia Núi Sam là một trong những điểm đến tâm linh và sinh thái nổi bật bậc nhất vùng Tây Nam Bộ. Với vẻ đẹp hùng vĩ của núi non hòa quyện cùng bề dày văn hóa – lịch sử lâu đời, nơi đây thu hút hàng triệu du khách mỗi năm, đặc biệt là trong mùa lễ hội.
+            </p>
+            <p>Núi Sam cao 284 mét, giữa lòng đồng bằng sông Cửu Long trù phú, tạo nên một khung cảnh thiên nhiên vừa thơ mộng vừa linh thiêng. Điểm nhấn quan trọng nhất của khu du lịch là Miếu Bà Chúa Xứ, một công trình tôn giáo nổi tiếng khắp cả nước, thu hút hàng triệu lượt khách hành hương mỗi năm. Lễ hội Vía Bà Chúa Xứ – diễn ra vào tháng Tư âm lịch – đã được công nhận là Di sản Văn hóa phi vật thể cấp quốc gia, thể hiện nét đẹp tín ngưỡng độc đáo của người dân Nam Bộ.</p>
+        </div>
+    </div>
+    <br />
+    <div class="row content" style="padding:20px;">
+        <div class="col-lg-6 pt-4 pt-lg-0">
+            <h5>
+                NATIONAL TOURIST AREA SAM MOUNTAIN
+            </h5>
+            <p>Located in Chau Doc city, An Giang province, Sam Mountain National Tourist Area is one of the most prominent spiritual and ecological destinations in the Southwest region. With the majestic beauty of the mountains combined with a long history and culture, this place attracts millions of tourists every year, especially during the festival season.</p>
+            <p>Sam Mountain is 284 meters high, in the heart of the fertile Mekong Delta, creating a natural landscape that is both poetic and sacred. The most important highlight of the tourist area is Ba Chua Xu Temple, a famous religious structure throughout the country, attracting millions of pilgrims each year. The Ba Chua Xu Festival - taking place in the fourth lunar month - has been recognized as a national intangible cultural heritage, demonstrating the unique religious beauty of the people of the South.</p>
+
+        </div>
+        <div class="col-lg-6">
+            <div style="width:100%;padding:5px;border:1px solid #ccc;">
+                <img class="img" style="width:100%;height:70%" src="https://alodi.net/public/uploads/v2/nui-sam-70766.jpg" />
+               
+            </div>
+        </div>
+
+    </div>
+
+</section><!-- End About Us Section -->
+
+
+<section id="services" class="services section-bg">
+
+
+    <div class="container" data-aos="fade-up">
+        <div class="section-title">
+            <h2>Vài hình ảnh tổng quan về khu du lịch quốc gia</h2>
+            <p>Thắng cảnh được bảo tồn qua nhiều thế hệ</p>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-6 col-lg-6 col-xl-6" data-aos="zoom-in" data-aos-delay="100">
+                <img class="img img-thumbnail img-location" src="https://images.baoangiang.com.vn/image/fckeditor/upload/2024/20240523/images/image001.jpg" />
+            </div>
+
+
+            <div class="col-md-6 col-lg-6 col-xl-6" data-aos="zoom-in" data-aos-delay="100">
+                <img class="img img-thumbnail img-location" src="https://i.ytimg.com/vi/DdArE1-LGhw/maxresdefault.jpg" />
+            </div>
+
+        </div>
+        <div class="row">
+
+
+            <div class="col-md-6 col-lg-6 col-xl-6" data-aos="zoom-in" data-aos-delay="100">
+                <img class="img img-thumbnail img-location" src="https://i.ex-cdn.com/vntravellive.com/files/news/2022/01/06/hoat-dong-tro-lai-kdl-nui-sam-tu-thang-1-2022-121310.jpg" />
+            </div>
+
+            <div class="col-md-6 col-lg-6 col-xl-6" data-aos="zoom-in" data-aos-delay="100">
+                <img class="img img-thumbnail img-location" src="https://media-cdn-v2.laodong.vn/Storage/NewsPortal/2022/1/1/990647/Khudulichquocgianuis.JPG" />
+            </div>
+
+
+
+
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-lg-6 col-xl-6" data-aos="zoom-in" data-aos-delay="100">
+                <img class="img img-thumbnail img-location" src="https://images.baoangiang.com.vn/image/fckeditor/upload/2018/20180520/images/t6-(1).jpg" />
+            </div>
+
+            <div class="col-md-6 col-lg-6 col-xl-6" data-aos="zoom-in" data-aos-delay="100">
+                <img class="img img-thumbnail img-location" src="https://cdnmedia.baotintuc.vn/Upload/rGkvwNpj74Z1EcpzQ6ltA/files/2020/04/nui-cam-27420.jpg" />
+            </div>
+          
+        </div>
+
+       
+    </div>
+</section>
+
+
+
+<div class="modal fade show" id="modal-notify" aria-modal="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Thông báo</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row" style="margin:0px">
+                    <i>Khách hàng vui lòng liên hệ Quầy vé để được hướng dẫn mua tuyến thăm quan này</i>
+                    <br />
+                    <i><b>Số hotline:</b> 0983.83.06.69</i>
+
+                </div>
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@section scripts{
+    <script src="~/plugins/jquery/jquery.js"></script>
+    <script src="~/app-script/helper.js"></script>
+    <script src="~/plugins/datepicker/bootstrap-datepicker.js"></script>
+
+    <script src="~/plugins/bootstrap/js/bootstrap.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(".date").datepicker({
+                format: "dd/mm/yyyy"
+            }).on('changeDate', function (e) {
+                $(this).datepicker('hide');
+            });
+
+
+            $("#btn-order").click(function () {
+
+                let ticketCode = $("#se-ticket").val();
+                let quanti = $("#txt-quanti").val();
+                let visitDate = $("#VisitDate").val();
+                location.href = "/condao/ticketorder?ticketCode=" + ticketCode + "&quanti=" + quanti + "&visitDate=" + visitDate;
+
+            });
+        });
+
+
+    </script>
+}

@@ -1,0 +1,182 @@
+﻿@{
+    ViewData["Title"] = "Tổng quan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styles{
+    <link href="~/plugins/chart.js/Chart.css" rel="stylesheet" />
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-4">
+                <h1>Tổng Quan</h1>
+            </div>
+            <div class="col-sm-8">
+                <div class="row">
+                    <div class="col-sm-1">
+                        <label for="ddl-LoaiKhachHangIn" class="col-form-label">Năm</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <select class="form-control" id="ddl-year" onchange="handleSelectYearChange()">
+                            <option value="2024">2025</option>
+                            <option value="2024">2024</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<!-- Main content -->
+<section class="content">
+    <input type="hidden" id="hid-year" value="@(DateTime.Now.Year)" />
+    <input type="hidden" id="hid-day-now" value="@(DateTime.Now.ToString("yyyy/MM/dd"))" />
+
+
+
+
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="chart">
+                        <div style="width: 800px;"><canvas id="acquisitions"></canvas></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title"><strong>Số lượng vé bán hôm nay: @(DateTime.Now.ToString("dd/MM/yyyy"))</strong></h3>
+                </div>
+                <div class="card-body" id="div-staff-sale">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-sm-10">
+                        <strong>Số lượng biên lai điện tử cập nhập lên Vietel tháng @(DateTime.Now.Month)/@(DateTime.Now.Year)</strong>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="text-right">
+                            <button class="btn btn-sm btn-primary" id="btn-view-misa-status"><i class="fa fa-database"></i>&nbsp;Cập nhật kết quả</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card-body" id="div-sale-misa-status">
+
+            </div>
+        </div>
+    </div>
+</section>
+
+@section scripts{
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+
+    <script>
+        var myChart;
+        $(document).ready(function () {
+
+            loadStaffSaleCounter();
+            getDataChart();
+            loadSaleMisaStatus();
+
+            $("#btn-view-misa-status").click(function () {
+
+                loadSaleMisaStatus();
+            });
+        });
+        // ddphuong:09/03/2024 add function
+        function handleSelectYearChange() {
+            var yearSelected = document.getElementById("ddl-year").value;
+            ShowWaiting();
+            $.ajax({
+                type: "GET",
+                contentType: 'application/json; charset=utf-8',
+                url: "/Report/GetColumnChartValue?year=" + yearSelected,
+                success: function (res) {
+                    HideWaiting();
+                    initChart(res);
+                }
+            });
+        }
+        function getDataChart() {
+            ShowWaiting();
+            $.ajax({
+                type: "GET",
+                contentType: 'application/json; charset=utf-8',
+                url: "/Report/GetColumnChartValue?year=" + $("#hid-year").val(),
+                success: function (res) {
+                    HideWaiting();
+
+                    initChart(res);
+                }
+            });
+
+        }
+
+
+        function initChart(data) {
+            // Destroy the existing chart if it exists
+            if (myChart) {
+                myChart.destroy();
+            }
+            Chart.defaults.backgroundColor = '#9BD0F5';
+            myChart = new Chart(
+                document.getElementById('acquisitions'),
+                {
+                    type: 'bar',
+                    data: {
+                        labels: data.map(row => row.thang),
+                        datasets: [
+                            {
+                                label: 'Số lượng vé bán',
+                                data: data.map(row => row.ketQua)
+                            }
+                        ]
+                    },
+                    options: {
+                        scales: {
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Tháng'
+                                }
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'Số lượng'
+                                }
+                            }
+                        }
+                    }
+                }
+            );
+
+        }
+
+
+        function loadStaffSaleCounter() {
+            var dateView = $("#hid-day-now").val();
+            $("#div-staff-sale").load("/home/_PartialStaffSaleCounter?dateView=" + dateView);
+        }
+
+        function loadSaleMisaStatus() {
+            var fromDate = $("#hid-day-now").val();
+            var toDate = fromDate;
+            $("#div-sale-misa-status").load("/home/_PartialTicketSaleMisaStatus?fromDate=" + fromDate + "&toDate=" + toDate);
+        }
+    </script>
+}
+
+

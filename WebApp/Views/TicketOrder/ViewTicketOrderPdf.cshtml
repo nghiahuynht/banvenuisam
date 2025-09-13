@@ -1,0 +1,229 @@
+﻿@model DAL.Models.TicketOrder.PrintPdfOrderModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông tin vé</title>
+    @*<link href="~/css/bootstrap.css" rel="stylesheet" type="text/css" />
+        <link href="~/css/bootstrap-grid.css" rel="stylesheet" type="text/css" />
+        <link href="~/plugins/bootstrap/" rel="stylesheet" type="text/css" />
+        <link href="~/plugins//datatable/datatable.bootstrap.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href=" https://printjs-4de6.kxcdn.com/print.min.js" />*@
+    <style>
+
+        body {
+            font-size: 15pt;
+            font-family: 'font-family: Arial, sans-serif';
+            margin: 0;
+            padding: 0px;
+        }
+
+        #back-print {
+            /* border: 1px solid #fff;*/
+            /*width: 100%;*/
+            height: auto;
+            text-align: left;
+        }
+
+        .frame-print {
+            background: #fff;
+            width: 405px;
+            /*  border: 1px solid #000;*/
+            /*text-align: left !important;*/
+        }
+
+        .line {
+            width: 100%;
+            height: 1px;
+            border-bottom: 1px solid #000;
+            margin-top: 2px;
+            margin-bottom: 2px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .fS28 {
+            font-size: 28px
+        }
+
+        .fS25 {
+            font-size: 25px
+        }
+
+        .fS23 {
+            font-size: 23px
+        }
+
+        .fS22 {
+            font-size: 22px
+        }
+
+        .fS21 {
+            font-size: 21px
+        }
+
+        .fS20 {
+            font-size: 20px
+        }
+
+        .fS18 {
+            font-size: 18px
+        }
+
+        .fS15 {
+            font-size: 15px
+        }
+
+        .fS11 {
+            font-size: 11px
+        }
+
+        .fS12 {
+            font-size: 12px
+        }
+
+        .fS9 {
+            font-size: 9px
+        }
+
+        .wtd35 {
+            width: 35%
+        }
+
+        .wtd30 {
+            width: 30%
+        }
+
+        .wtd25 {
+            width: 25%
+        }
+
+        .wtd65 {
+            width: 75%
+        }
+
+        .wtd100 {
+            width: 100%
+        }
+
+        .wtdpx100 {
+            width: 130px
+        }
+
+        .heipx100 {
+            width: 130px
+        }
+
+        .pad-top10 {
+            padding-top: 10px
+        }
+
+        .bold {
+            font-weight: bold
+        }
+    </style>
+</head>
+<body>
+    <div id="back-print">
+        <div class="frame-print">
+            @*  <div class="text-center" ><h2>Vườn Quốc Gia Côn Đảo</h2></div>
+                <div class="text-center fS28" ><small>Địa chỉ: Đường Ma Thiên Lãnh,Khu 3,</small></div>
+                <div class="text-center fS28" ><small>Huyện Côn Đảo, Bà Rịa-Vũng Tàu</small></div> *@
+            <table class="fS11" style="width:100%;">
+                <tr>
+                    <td class="wtd25 fS23" style="text-align:center">
+                        <img src="~/img/logovqg.jpg" width="60" height="60" />
+                    </td>
+                    <td class="wtd65 fS18" style="text-align:left">
+                        <small><b>Quốc gia Núi Sam</b></small> <br />
+                        <small>Phường Vĩnh Tế- An Giang</small><br />
+                        @*  <small>tỉnh Bà Rịa-Vũng Tàu</small><br /> *@
+                        <small>Số hotline: 0983.83.06.69</small>
+                    </td>
+
+                </tr>
+            </table>
+            <br />
+            <div class="text-center fS25"><strong>VÉ THĂM QUAN</strong></div>
+            <div class="text-center fS25"><small>Đối tượng: @(Model.ObjDesc)</small></div>
+            <br />
+            <div class="text-center fS23"><strong>@(Model.ZoneName)</strong></div>
+            <br />
+            <table class="fS11" style="width:100%;">
+                <tr>
+                    <th class="wtd35 fS23" style="text-align:center;">Số lượng</th>
+                    <th class="wtd30 fS23" style="text-align:center">Đơn Giá</th>
+                    <th class="wtd35 fS23" style="text-align:center">Thành tiền</th>
+                </tr>
+                <tr>
+                    <td class="wtd35 fS23" style="text-align:center">@(Model.Quanti.ToString("#,##0"))</td>
+                    <td class="wtd30 fS23" style="text-align:center">@(Model.Price.ToString("#,##0"))</td>
+                    <td class="wtd35 fS23" style="text-align:center">@(Model.TotalAfterVAT.ToString("#,##0"))</td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="pad-top10" style="text-align:center;">
+                        <span class="fS23">Bằng chữ: @(Model.TotalByText)</span><br />
+                    </td>
+                </tr>
+                @{
+                    var txtDate = Model.CreatedDate.HasValue ? $"Ngày {Model.CreatedDate.Value.Day} tháng {Model.CreatedDate.Value.Month} năm {Model.CreatedDate.Value.Year}" : "";
+                    <tr>
+                        <td colspan="3" style="text-align:center;" class="fS23">@(txtDate)</td>
+                    </tr>
+                }
+                <tr>
+                    <td colspan="3" style="text-align:center;" class="fS23"><strong>(Vé chỉ có giá trị sử dụng trong ngày)</strong></td>
+                </tr>
+            </table>
+            <br />
+            <table class="wtd100">
+                <tr>
+                    <td class="wtd25">
+                        <img src="~/QRCode/@(Model.SubId).jpg" class="wtdpx100 heipx100" />
+                    </td>
+                    <td class="wtd65 ">
+                        <small class="fS23">Tra cứu biên lai điện tử tại:</small><br />
+                        <small class="fS20">Mã tra cứu: </small><strong class="fS21">@(Model.SubOrderCode)</strong><br />
+                        <small class="fS20">Link tra cứu:</small> <u class="fS21 bold" href="#">bit.ly/vqgcondao</u>
+                    </td>
+                </tr>
+            </table>
+            <br />
+            <div class="text-center fS21"><strong>***  Vé được tham quan tại các địa điểm  ***</strong></div>
+            <div style="text-align: center;align-items: center;margin-left: 35%;">
+                @{
+                    var counter = 1;
+                    foreach (var item in Model.ListGate)
+                    {
+                        <div style="text-align: left;"><small style="text-align:left" class="fS21">@(counter++). @(item.GateName)</small></div>
+                        // <p>@(item.GateName)</p>
+                    }
+                }
+
+            </div>
+            <table style="width: 100%; padding-left:10px" class="fS18">
+
+                <tr>
+                    <td width="90%" colspan="2" style="text-align: center;">
+                        <br />
+                        <i class="fS18">Hệ thống được triển khai bởi:</i><br />
+                        <i class="fS18">Công ty cổ phần GAMAN - 0977 209 040</i><br />
+                    </td>
+                </tr>
+
+            </table>
+            <br />
+            <br />
+        </div>
+    </div>
+
+</body>
+</html>

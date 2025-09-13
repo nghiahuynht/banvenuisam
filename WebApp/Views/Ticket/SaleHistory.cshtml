@@ -1,0 +1,386 @@
+﻿@model DAL.Models.Ticket.SaleHistoryFilterModel
+@{
+    ViewData["Title"] = "Báo cáo bán vé chi tiết";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using DAL.Entities
+@using DAL.Models.Ticket
+@section styles{
+    <link href="~/plugins/datepicker/datepicker3.css" rel="stylesheet" />
+    <link href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="~/plugins/datatables-fixedcolumns/css/fixedColumns.bootstrap4.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
+    <style>
+        .datepicker table tr td.disabled,
+        .datepicker table tr td.disabled:hover {
+            background-color: #e6d2d2;
+        }
+    </style>
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>@(ViewData["Title"])</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">@(ViewData["Title"])</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<section class="content">
+
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+
+                <div class="col-sm-2">
+                    <label>Nhân viên</label>
+                    <select class="form-control" id="ddl-employee">
+
+                        @{
+                            var lstUser = (List<UserInfo>)ViewBag.LstUser;
+                            if (lstUser.Count() > 1) // lớn hơn 1 là admin
+                            {
+                                <option value="">Tất cả</option>
+                            }
+                            foreach (var user in lstUser)
+                            {
+                                <option value="@user.UserName">@user.FullName</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <label>Từ ngày</label>
+                    <div class="input-group date" id="FromDatePK">
+                        <input type="text" id="FromDate" value="@(Model.FromDate)" class="form-control">
+                        <span class="input-group-addon group-date-icon"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label>Đến ngày</label>
+                    <div class="input-group date" id="ToDatePK">
+                        <input type="text" id="ToDate" value="@(Model.ToDate)" class="form-control">
+                        <span class="input-group-addon group-date-icon"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label>Mã vé</label>
+                    <select class="form-control" id="txt-ticketcode" multiple="multiple">
+                        @{
+                            var lstTickets = (List<Ticket>)ViewBag.LstAllTicket;
+                            foreach (var ticket in lstTickets)
+                            {
+                                <option value="@(ticket.Code)">@(ticket.Description)</option>
+                            }
+                        }
+                    </select>
+
+
+                </div>
+                <div class="col-sm-2">
+                    <label>Hình thức</label>
+                    <div class="input-group" id="">
+                        <select class="form-control" id="PaymentType">
+                            <option value="All" selected>Tất cả</option>
+                            <option value="TM">Tiền mặt</option>
+                            <option value="CK">Chuyển khoản</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="col-sm-2">
+                    <label>Từ khóa</label>
+                    <input type="text" class="form-control" placeholder="Mã tra cứu/mã KH/ tên KH" id="txt-keyword" />
+                </div>
+
+                <div class="col-sm-2">
+                    <input type="button" value="OK" class="btn btn-primary btn-filter" id="btn-search" />&nbsp;
+                    <input type="button" value="Export" class="btn btn-success btn-filter" id="btn-export" />
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card-body ">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-green"><i class="fa fa-flag"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Tổng số lượng vé bán</span>
+                            <span class="info-box-number" id="counter-SL-TrenVe">0</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-green"><i class="fa fa-flag"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Tổng số lượng đơn hàng</span>
+                            <span class="info-box-number" id="counter-SL-InRa">0</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-green"><i class="fa fa-flag"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Tổng doanh số bán</span>
+                            <span class="info-box-number" id="counter-doanhso">0</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3"></div>
+            </div>
+            <table class="table table-bordered table-hover dataTable" id="table-salehistory">
+                <thead>
+                    <tr>
+
+                        <th width="75px">Mã đơn</th>
+                        <th width="40px">Số vé</th>
+                        <th width="100px">Mã vé</th>
+                        <th width="150px">Mã tra cứu</th>
+                        <th width="100px">Giá vé</th>
+                        <th width="50px">Số lượng</th>
+                        <th width="100px">Thành tiền</th>
+                        <th width="100px">Người bán</th>
+                        <th width="100px">Ngày bán</th>
+                        <th width="100px">Loại Vé</th>
+                        <th width="200px">Tên khách hàng</th>
+                        <th width="100px">Loại khách</th>
+                        <th width="150px">Số biên lai Misa</th>
+                        <th width="150px">Mã tra cứu Misa</th>
+
+                    </tr>
+                </thead>
+            </table>
+
+        </div>
+    </div>
+</section>
+@section scripts{
+    <script src="~/plugins/datatable/jquery.datatable.js"></script>
+    <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+    <script src="~/plugins/datatables-fixedcolumns/js/dataTables.fixedColumns.js"></script>
+    <script src="~/plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
+    <script>
+        var tableId = "#table-salehistory";
+        var ajaxURL = "/Ticket/GetSaleHistory";
+        var columnData = [
+
+            { "data": "orderId" },
+            { "data": "id" },
+            { "data": "ticketCode" },
+            { "data": "subOrderCode" },
+
+
+            {
+                "data": "price", "render": function (data, type, row, meta) {
+                    return RenderNumerFormat(data);
+                }
+            },
+            {
+                "data": "quanti", "render": function (data, type, row, meta) {
+                    return RenderNumerFormat(data);
+                }
+            },
+            {
+                "data": "totalAfterVAT", "render": function (data, type, row, meta) {
+                    return RenderNumerFormat(data);
+                }
+            },
+            { "data": "fullName" },
+            {
+                "data": "createdDate", "render": function (data, type, row, meta) {
+                    return RenderDateComlumnGrid(data);
+                }
+            },
+            { "data": "loaiIn" },
+            { "data": "customerName" },
+            { "data": "objtypeName" },
+            { "data": "invoiceNumber" },
+            { "data": "transactionID" },
+
+
+
+        ];
+        $(document).ready(function () {
+
+            $('#txt-ticketcode').multiselect({
+                includeSelectAllOption: true,
+                buttonWidth: '200px',
+            });
+
+
+            $("#btn-export-excel").click(function () {
+                ExportExcel();
+            });
+            $(".date").datepicker({
+                format: "dd/mm/yyyy"
+            }).on('changeDate', function (e) {
+                $(this).datepicker('hide');
+            });
+
+
+            $(document).keypress(function (e) {
+                if (e.which == 13) {
+                    GetCounterFilter();
+                }
+            });
+
+
+            GetCounterFilter();
+            $("#btn-search").click(function () {
+                GetCounterFilter();
+            });
+
+
+
+            $("#ddl-sale-chanel").change(function () {
+                GetAllUserforDDL($(this).val());
+
+            });
+
+            $("#btn-export").click(function () {
+                ExportExcel();
+            });
+
+        });
+
+        function GotoTicketDetail(ticketId) {
+            location.href = "/Ticket/TicketDetail/" + ticketId;
+        }
+        function RenderNumerFormat(data) {
+            var res = "";
+            if (data !== undefined) {
+                res = data.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+            }
+            return "<div style='width:100%;text-align:right;'>" + res + "</div>";
+        }
+        function GetSaleHistory() {
+            let ves = $("#txt-ticketcode").val();
+            var dataSearch = {
+                SaleChanelId: 0,
+                GateCode: $("#ddl-gatecode").val(),
+                UserName: $("#ddl-employee").val(),
+                FromDate: ConverFormatDate($("#FromDate").val()),
+                ToDate: ConverFormatDate($("#ToDate").val()),
+                TicketCode: ves.join(","),
+                Keyword: $("#txt-keyword").val(),
+                PaymentType: $("#PaymentType").val(),
+            };
+            GenrateDataTableSearch(tableId, ajaxURL, columnData, dataSearch, 50, "vé");
+
+        }
+
+        function ExportExcel() {
+            let ves = $("#txt-ticketcode").val();
+            var dataSearch = {
+                SaleChanelId: 0,
+                GateCode: $("#ddl-gatecode").val(),
+                UserName: $("#ddl-employee").val(),
+                FromDate: ConverFormatDate($("#FromDate").val()),
+                ToDate: ConverFormatDate($("#ToDate").val()),
+                TicketCode: ves.join(","),
+                Keyword: $("#txt-keyword").val(),
+                PaymentType: $("#PaymentType").val(),
+            };
+
+            var dataSearch = JSON.stringify(dataSearch);
+            location.href = "/ticket/ExportGetSaleHistory?filter=" + dataSearch;
+        }
+
+        function GetAllUserforDDL(chanelId) {
+            let htmlUserOption = "<option value=''>Tất cả</option>";
+
+            if (chanelId == "2") {
+                $.ajax({
+                    type: "GET",
+                    url: "/Account/GetListAllUserInfo",
+                    success: function (res) {
+
+                        if (res !== null && res.length > 0) {
+                            $.each(res, function (i, item) {
+                                htmlUserOption = htmlUserOption + "<option value='" + item.userName + "' >" + item.fullName + "</option>"
+                            });
+                            $("#ddl-employee").html(htmlUserOption);
+                        }
+
+                    }
+                });
+            } else {
+                htmlUserOption = "<option value=''>Tất cả</option>";
+                $("#ddl-employee").html(htmlUserOption);
+            }
+
+
+        }
+        function RenderPdfView(subId) {
+            var html = "<div class='div-table-action'>" +
+                "<i class='fa fa-eye' onclick='ViewPDf(" + subId + ")'></i>&nbsp;" +
+                "</div>";
+            return html;
+        }
+        function ViewPDf(subId) {
+            printPdf("https://vuonquocgiacondao.gamanjsc.com/ticketorder/GetPDFForPrint/" + subId);
+            //window.open("/ticketorder/ViewTicketOrderPdf?subOrderId=" + subId, 'Xem pdf');
+        }
+
+        function GetCounterFilter() {
+            let ves = $("#txt-ticketcode").val();
+            var dataSearch = {
+                SaleChanelId: 0,
+                GateCode: $("#ddl-gatecode").val(),
+                UserName: $("#ddl-employee").val(),
+                FromDate: ConverFormatDate($("#FromDate").val()),
+                ToDate: ConverFormatDate($("#ToDate").val()),
+                TicketCode: ves.join(","),
+                Keyword: $("#txt-keyword").val(),
+                PaymentType: $("#PaymentType").val(),
+            };
+
+            $.ajax({
+                type: "POST",
+                contentType: 'application/json; charset=utf-8',
+                url: "/Ticket/GetSaleReportCounter",
+                dataType: 'json',
+                headers: {
+                    'RequestVerificationToken': TokenHeaderValue()
+                },
+                data: JSON.stringify(dataSearch),
+                success: function (res) {
+                    $("#counter-SL-TrenVe").html(res.totalQuantiOnTicket);
+                    $("#counter-SL-InRa").html(res.totalQuantiPrint);
+                    $("#counter-doanhso").html(res.totalVAT);
+                    GetSaleHistory();
+                }
+            });
+        }
+        function printPdf(url) {
+            var iframe = document.createElement('iframe');
+            // iframe.id = 'pdfIframe'
+            iframe.className = 'pdfIframe'
+            document.body.appendChild(iframe);
+            iframe.style.display = 'none';
+            iframe.onload = function () {
+                setTimeout(function () {
+                    iframe.focus();
+                    iframe.contentWindow.print();
+                    URL.revokeObjectURL(url)
+                    // document.body.removeChild(iframe)
+                }, 1);
+            };
+            iframe.src = url;
+            // URL.revokeObjectURL(url)
+        }
+
+    </script>
+}

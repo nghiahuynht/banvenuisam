@@ -1,0 +1,16 @@
+3/13/2025 10:49:40 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\GanhDaDia\GanhDaDia_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":319,"SubNum":1,"SubOrderCode":"VE40K1303250007","CreatedBy":"admin","CardNum":"4000319"}
+SubCode: {"SubId":320,"SubNum":2,"SubOrderCode":"VE40K1303250008","CreatedBy":"admin","CardNum":"4000320"}
+SubCode: {"SubId":321,"SubNum":3,"SubOrderCode":"VE40K1303250009","CreatedBy":"admin","CardNum":"4000321"}
+SubCode: {"SubId":322,"SubNum":4,"SubOrderCode":"VE40K1303250010","CreatedBy":"admin","CardNum":"4000322"}
+SubCode: {"SubId":323,"SubNum":5,"SubOrderCode":"VE40K1303250011","CreatedBy":"admin","CardNum":"4000323"}
+
+
+3/13/2025 10:32:08 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\GanhDaDia\GanhDaDia_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":1,"SubNum":1,"SubOrderCode":"VE40K1303250001","CreatedBy":"admin","CardNum":"4000001"}
+SubCode: {"SubId":2,"SubNum":2,"SubOrderCode":"VE40K1303250002","CreatedBy":"admin","CardNum":"4000002"}
+SubCode: {"SubId":3,"SubNum":3,"SubOrderCode":"VE40K1303250003","CreatedBy":"admin","CardNum":"4000003"}
+
+

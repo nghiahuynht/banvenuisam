@@ -1,0 +1,5 @@
+1/17/2025 5:37:43 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":11,"SubNum":1,"SubOrderCode":"Combo81701250001","CreatedBy":"admin","CardNum":null}
+
+

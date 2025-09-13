@@ -1,0 +1,129 @@
+﻿
+@{
+    ViewData["Title"] = "Lịch sử ra vào cổng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using DAL.Models.SoatVe
+@section styles{
+
+    <link href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="~/plugins/datatables-fixedcolumns/css/fixedColumns.bootstrap4.css" rel="stylesheet" />
+
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>@(ViewData["Title"])</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">@(ViewData["Title"])</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-sm-2">
+                    <label>Từ ngày</label>
+                    <div class="input-group date">
+                        <input type="text" id="FromDate" value="@(Model.FromDate)" class="form-control">
+                        <span class="input-group-addon group-date-icon"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label>Đến ngày</label>
+                    <div class="input-group date">
+                        <input type="text" id="ToDate" value="@(Model.ToDate)" class="form-control">
+                        <span class="input-group-addon group-date-icon"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label>Tìm theo tên KH</label>
+                    <input type="text" class="form-control" id="txtkeyword" />
+                </div>
+                <div class="col-sm-2">
+                    <input type="button" value="Tìm" class="btn btn-primary btn-filter" id="btn-search" />
+                </div>
+                <div class="col-sm-4">
+                    <div class="text-right">
+                        <button class="btn btn-sm btn-success btn-filter"><i class="fa fa-download"></i>&nbsp;Export excel</button>
+                        <button class="btn btn-sm btn-success btn-filter"><i class="fa fa-upload"></i>&nbsp;Import excel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body ">
+
+            <table class="table table-bordered table-hover dataTable" id="table-history" width="100%">
+                <thead>
+                    <tr>
+                        <th>Họ</th>
+                        <th>Tên</th>
+                        <th>Mã vé</th>
+                        <th>Thời điểm vào</th>
+                        <th>Thời điểm ra</th>
+                        <th>Cổng vào</th>
+                        <th>Cổng ra</th>
+                    </tr>
+                </thead>
+            </table>
+
+        </div>
+    </div>
+</section>
+@section scripts{
+    <script src="~/plugins/datatable/jquery.datatable.js"></script>
+    <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+    <script src="~/plugins/datatables-fixedcolumns/js/dataTables.fixedColumns.js"></script>
+
+
+    <script>
+
+        var tableId = "#table-history";
+        var ajaxURL = "/SoatVe/SearchInOutPaging";
+        var columnData = [
+            { "data": "last_name" },
+            { "data": "name" },
+            { "data": "subcode" },
+            { "data": "first_in_time" },
+            { "data": "last_out_time" },
+            { "data": "reader_name_in" },
+            { "data": "reader_name_out" },
+        ];
+        $(document).ready(function () {
+
+            SearchHistoryInOut();
+            $("#btn-search").click(function () {
+                SearchHistoryInOut();
+            });
+
+
+
+
+
+        });
+       
+        function SearchHistoryInOut() {
+
+            var dataSearch = {
+                FromDate: ConverFormatDate($("#FromDate").val()),
+                ToDate: ConverFormatDate($("#ToDate").val()),
+                Keyword: $("#txtkeyword").val()
+            };
+            GenrateDataTableSearch(tableId, ajaxURL, columnData, dataSearch,10,"bản ghi");
+
+        }
+
+        
+
+    </script>
+}

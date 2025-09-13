@@ -1,0 +1,271 @@
+﻿@using System.Security.Claims
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="zalo-platform-site-verification" content="K8Ey6vAkQI1kdCm7dxLCMLI5cr-uyqa3CZap" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"]</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+
+    <link href="~/plugins/fontawesome-free/css/all.css" rel="stylesheet" />
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
+
+    <link href="~/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/adminlte.css" rel="stylesheet" />
+    <style>
+        .child-icon {
+            font-size: 10pt !important;
+            margin-left: 10px;
+        }
+        #popup-overlay {
+            position: fixed;
+            background-color: rgba(0, 0, 0, 0.685);
+            width: 100%;
+            height: 95vh;
+            top: 0;
+            left: 0;
+            z-index: 9998;
+            display: block;
+            overflow-y: hidden;
+            overflow-x: hidden;
+            display: none;
+        }
+
+        #content-wating {
+            margin-top: 20%;
+        }
+    </style>
+    @RenderSection("styles", required: false)
+
+</head>
+<body class="hold-transition sidebar-mini text-sm">
+    <div class="wrapper">
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-dark navbar-lightblue">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="#" class="nav-link">HỆ THỐNG BÁN VÉ KHU DU LỊCH QUỐC GIA NÚI SAM</a>
+                </li>
+            </ul>
+
+            <!-- Right navbar links -->
+            <ul class="navbar-nav ml-auto">
+                @{
+                    string userName = string.Empty;
+                    string fullName = string.Empty;
+                    string role = string.Empty;
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        userName = User.Identity.Name;
+                        fullName = User.Claims.FirstOrDefault(x => x.Type == "FullName").Value;
+                        role = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value;
+                    }
+                }
+                <!-- Notifications Dropdown Menu -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        <i class="far fa-user"></i>&nbsp;<span>@(userName)</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-user mr-2"></i> @(fullName)
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-bolt mr-2"></i> @(role)
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#" id="btn-open-changepass">
+                            <i class="fas fa-lock mr-2"></i> Đổi mật khẩu
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="/Account/Logout" class="dropdown-item">
+                            <i class="fas fa-power-off mr-2"></i> Thoát hệ thống
+                        </a>
+
+                    </div>
+                </li>
+
+
+            </ul>
+        </nav>
+        <!-- /.navbar -->
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="/" class="brand-link navbar-lightblue">
+                <span style="font-weight:bold;">KHL QG NÚI SAM</span>
+            </a>
+            <!-- Sidebar -->
+            <div class="sidebar ">
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    @{
+                        if (User.Identity.IsAuthenticated)
+                        {
+                            string roleCode = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value;
+                            @(await Component.InvokeAsync("ListMenuNavigationByRole", new { roleCode = roleCode }))
+                        }
+                    }
+
+                </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            @RenderBody()
+            <!-- Content Header (Page header) -->
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+        <!-- /.control-sidebar -->
+    </div>
+    <!-- ./wrapper -->
+
+    <footer class="main-footer" style="padding:0px">
+        <div class="float-right d-none d-sm-block" style="padding:5px">
+
+            <a style="color:black" href="https://gamansoftware.com">Hotline: 0977 209 040-Email: info@gamanjsc.com</a>
+        </div>
+        <div class="float-left d-none d-sm-block" style="padding:5px">
+            <a style="color:black" href="https://gamansoftware.com">Hệ thống được phát triển và vận hành bởi: Công ty cổ phần GAMAN</a><br />
+
+        </div>
+
+    </footer>
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <div id="popup-overlay">
+        <div class="text-center" id="content-wating">
+            <div class="spinner-border text-warning" role="status" style="width: 3rem; height: 3rem;">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal fade show" id="modal-changepass" aria-modal="true" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Đổi mật khẩu</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="form-change-pass" class="form-horizontal" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label">Mật khẩu hiện tại *</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" id="txt-current-pass" />
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label">Mật khẩu mới *</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" id="txt-new-pass" />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Tắt</button>
+                    <button type="button" class="btn btn-primary" id="btn-change-pass">OK đổi mật khẩu</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+
+
+    <script src="~/plugins/jquery/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.0.4/popper.js"></script>
+    <script src="~/plugins/bootstrap/js/bootstrap.js"></script>
+
+    <script src="~/js/adminlte.js"></script>
+    <script src="~/plugins/bootbox/bootbox.min.js"></script>
+    <script src="~/plugins/bootstrap3-typehead/bootstrap3-typeahead.js"></script>
+    <script src="~/app-script/helper.js"></script>
+    <script>
+        $(document).ready(function ()
+        {
+
+
+            $("#btn-open-changepass").click(function () {
+                OpenModalChangePass();
+            });
+
+            $("#btn-change-pass").click(function () {
+                let currentPass = $("#txt-current-pass").val();
+                let newPass = $("#txt-new-pass").val();
+
+                if (currentPass == null || currentPass == "") {
+                    bootbox.alert(AlertFail("Bạn chưa điền mật khẩu hiện tại"));
+                } else if (newPass == null || newPass == "") {
+                    bootbox.alert(AlertFail("Bạn chưa điền mật khẩu mới"));
+                } else {
+                    let dataPost = {
+                        "CurrentPass": currentPass,
+                        "NewPass": newPass
+                    };
+                    $.ajax({
+                        type: "POST",
+                        contentType: 'application/json; charset=utf-8',
+                        url: "/Account/ChangePass",
+                        dataType: 'json',
+                        data: JSON.stringify(dataPost),
+                        beforeSend: function () {
+
+                        },
+                        success: function (res) {
+                            if (res.code === 1) {
+                                bootbox.alert(AlertSuccess("Đổi mật khẩu thành công"), function () {
+                                    location.href = "/Home/Index";
+                                });
+                            } else {
+                                bootbox.alert(AlertFail(res.desc));
+                            }
+
+                        }
+                    });
+                }
+
+
+            });
+        });
+
+
+        function OpenModalChangePass() {
+
+            $("#modal-changepass").modal();
+        }
+ 
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,29 @@
+﻿@model List<DAL.Models.Report.SaleTicketMisaStatusModel>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Mã vé</th>
+            <th>Ký hiệu</th>
+            <th>Mẫu số</th>
+            <th style="text-align: center;">Số lượng bán</th>
+            <th style="text-align: center;">Đồng bộ biên lai thành công</th>
+            <th style="text-align: center;">Còn lại</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@(item.TicketCode)</td>
+                    <td>@(item.KyHieu)</td>
+                    <td>@(item.MauSoBienLai)</td>
+                    <td style="font-size:12pt;text-align:center;"><label class="badge badge-info">@(item.QuantiPrint.ToString("N0"))</label> </td>
+                    <td style="font-size: 12pt; text-align: center;"><label class="badge badge-success">@(item.QuantiMisa.ToString("N0"))</label> </td>
+                    <td style="font-size: 12pt; text-align: center;"><label class="badge badge-warning">@(item.QuantiRemain.ToString("N0"))</label> </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

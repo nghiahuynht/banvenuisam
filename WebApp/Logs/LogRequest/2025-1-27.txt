@@ -1,0 +1,38 @@
+1/27/2025 10:41:36 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":140,"SubNum":1,"SubOrderCode":"VE-NGAY2701250101","CreatedBy":"adminlbl","CardNum":"LBL01D2673F"}
+SubCode: {"SubId":141,"SubNum":2,"SubOrderCode":"VE-NGAY2701250102","CreatedBy":"adminlbl","CardNum":"LBL3EC4B25C"}
+SubCode: {"SubId":142,"SubNum":3,"SubOrderCode":"VE-NGAY2701250103","CreatedBy":"adminlbl","CardNum":"LBLA8B2BFA5"}
+SubCode: {"SubId":143,"SubNum":4,"SubOrderCode":"VE-NGAY2701250104","CreatedBy":"adminlbl","CardNum":"LBLDFB7B4AF"}
+SubCode: {"SubId":144,"SubNum":5,"SubOrderCode":"VE-NGAY2701250105","CreatedBy":"adminlbl","CardNum":"LBL6B63CDBE"}
+
+
+1/27/2025 10:41:50 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":145,"SubNum":1,"SubOrderCode":"VE-NGAY2701250106","CreatedBy":"adminlbl","CardNum":"LBLB6B00BB2"}
+SubCode: {"SubId":146,"SubNum":2,"SubOrderCode":"VE-NGAY2701250107","CreatedBy":"adminlbl","CardNum":"LBL900AC420"}
+SubCode: {"SubId":147,"SubNum":3,"SubOrderCode":"VE-NGAY2701250108","CreatedBy":"adminlbl","CardNum":"LBL2B7A8582"}
+SubCode: {"SubId":148,"SubNum":4,"SubOrderCode":"VE-NGAY2701250109","CreatedBy":"adminlbl","CardNum":"LBL6A9E7221"}
+SubCode: {"SubId":149,"SubNum":5,"SubOrderCode":"VE-NGAY2701250110","CreatedBy":"adminlbl","CardNum":"LBL7A5C6172"}
+SubCode: {"SubId":150,"SubNum":6,"SubOrderCode":"VE-NGAY2701250111","CreatedBy":"adminlbl","CardNum":"LBL77AA7A5D"}
+SubCode: {"SubId":151,"SubNum":7,"SubOrderCode":"VE-NGAY2701250112","CreatedBy":"adminlbl","CardNum":"LBLF3C2233E"}
+SubCode: {"SubId":152,"SubNum":8,"SubOrderCode":"VE-NGAY2701250113","CreatedBy":"adminlbl","CardNum":"LBLBCD2F9DC"}
+SubCode: {"SubId":153,"SubNum":9,"SubOrderCode":"VE-NGAY2701250114","CreatedBy":"adminlbl","CardNum":"LBL9DDD466C"}
+SubCode: {"SubId":154,"SubNum":10,"SubOrderCode":"VE-NGAY2701250115","CreatedBy":"adminlbl","CardNum":"LBLB586EA79"}
+
+
+1/27/2025 10:43:19 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":155,"SubNum":1,"SubOrderCode":"VE-NGAY2701250116","CreatedBy":"adminlbl","CardNum":"LBL75C1FF7A"}
+
+
+1/27/2025 11:03:42 AM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":156,"SubNum":1,"SubOrderCode":"VE-NGAY2701250117","CreatedBy":"adminlbl","CardNum":"LBLC451F83D"}
+SubCode: {"SubId":157,"SubNum":2,"SubOrderCode":"VE-NGAY2701250118","CreatedBy":"adminlbl","CardNum":"LBLA4759268"}
+SubCode: {"SubId":158,"SubNum":3,"SubOrderCode":"VE-NGAY2701250119","CreatedBy":"adminlbl","CardNum":"LBLA7D1B7F2"}
+SubCode: {"SubId":159,"SubNum":4,"SubOrderCode":"VE-NGAY2701250120","CreatedBy":"adminlbl","CardNum":"LBLC601008F"}
+SubCode: {"SubId":160,"SubNum":5,"SubOrderCode":"VE-NGAY2701250121","CreatedBy":"adminlbl","CardNum":"LBL4709EB4F"}
+SubCode: {"SubId":161,"SubNum":6,"SubOrderCode":"VE-NGAY2701250122","CreatedBy":"adminlbl","CardNum":"LBLC7772998"}
+
+

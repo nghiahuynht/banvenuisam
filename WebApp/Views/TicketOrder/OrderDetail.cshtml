@@ -1,0 +1,599 @@
+﻿@using DAL;
+@model DAL.Models.ConDao.OrderResultViewModel
+@{
+    ViewData["Title"] = "Thông tin mua vé";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+
+    <link href="~/plugins/datepicker/datepicker3.css" rel="stylesheet" />
+    <link href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+
+    <style>
+        .badge-status{margin-top:5px;font-weight:bold;}
+        .fa-eye{color:#0094ff;cursor:pointer;}
+    </style>
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>@(ViewData["Title"])</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item">
+                        @{
+                            if (Model.TicketOrder.PaymentStatus == 0)
+                            {
+                                <input type="button" value="Huỷ order" class="btn bg-danger" id="btn-cancel-payment" style="margin-right:5px;" />
+                                <input type="button" value="Xác nhận thanh toán" class="btn bg-success" id="btn-confirm" style="margin-right:5px;" />
+                                <!--<input type="button" value="Lấy lại thông tin thanh toán" class="btn bg-info" id="btn-get-payment" style="margin-right:5px;" />-->
+                            }
+
+
+                            if (Model.TicketOrder.OrderStatus == Contanst.OrderStatus_Completed && Model.TicketOrder.PaymentStatus == 1)
+                            {
+                                <input type="button" value="Hủy" class="btn btn-danger" id="btn-cancel-order" style="margin-right:5px;" />
+                                <input type="button" value="Gửi lại vé qua Zalo" class="btn btn-secondary" id="btn-send-noti" style="margin-right:5px;" />
+                                <input type="button" value="In vé" class="btn btn-secondary" id="btn-print-order" style="margin-right:5px;" />
+                                <input type="button" value="Xuất excel cho đối tác" class="btn btn-success" id="btn-export-suborder" style="margin-right:5px;" />
+                            }
+
+
+
+
+
+                            <a class="btn btn-default" href="/ticketorder/index">Trở lại danh sách</a>
+
+
+                        }
+
+
+                    </li>
+
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<section class="content">
+    <div class="card">
+        <div class="card-body">
+            <form class="form-horizontal" id="form-ticket-order">
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(x => x.TicketOrder.Id)
+                @Html.HiddenFor(x => x.TicketOrder.PaymentStatus)
+                <input type="hidden" id="hid-count-subcode" value="@(Model.ListSubCode.Count())" />
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Mã khách hàng *</label>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(x => x.TicketOrder.CustomerCode, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Tên khách hàng *</label>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(x => x.TicketOrder.CustomerName, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Loại KH *</label>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(x => x.TicketOrder.CustomerType, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Điện thoại *</label>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(x => x.Customer.Phone, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Email</label>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(x => x.Customer.Email, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+
+                            <label class="col-md-12 col-form-label">Thông tin lấy hoá đơn</label>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Tên công ty</label>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(x => x.Customer.AgencyName, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">MST</label>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(x => x.Customer.TaxCode, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Địa chỉ</label>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(x => x.Customer.TaxAddress, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Trạng thái</label>
+                            <div class="col-md-9">
+                                @{
+                                    if (Model.TicketOrder.OrderStatus == Contanst.OrderStatus_Completed)
+                                    {
+                                        <span class="badge badge-success badge-status">Hoàn thành</span>
+                                    }
+                                    else if (Model.TicketOrder.OrderStatus == Contanst.OrderStatus_Cancel)
+                                    {
+                                        <span class="badge badge-danger badge-status">Huỷ</span>
+                                    }
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Mã Order *</label>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(x => x.TicketOrder.Id, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Ngày Order *</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" value="@(Model.TicketOrder.CreatedDate.HasValue?Model.TicketOrder.CreatedDate.Value.ToString("dd/MM/yyyy"):string.Empty)" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Ngày thăm quan *</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" value="@(Model.TicketOrder.VisitDate.HasValue?Model.TicketOrder.VisitDate.Value.ToString("dd/MM/yyyy"):string.Empty)" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Hình thức TT *</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" value="@(Model.TicketOrder.PaymentType=="CK"?"Chuyển khoản":"Tiền mặt")" disabled="disabled" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Loại vé *</label>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(x => x.TicketOrder.TicketCode, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Đơn giá *</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" value="@(Model.TicketOrder.Price.ToString("N0"))" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Số lượng *</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" value="@(Model.TicketOrder.Quanti.ToString("N0"))" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Thành tiền *</label>
+                            <div class="col-md-9">
+                                @{
+                                    decimal Fee = Model.TicketOrder.PaymentType == Contanst.PaymentType_CK ? Contanst.PaymentFee_TrucTiep : Contanst.PaymentFee_OnePay;
+                                    decimal totalNoPayment = Model.TicketOrder.Total - Fee;
+                                }
+                                <input type="text" class="form-control" value="@(totalNoPayment.ToString("N0"))" />
+
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Đối tượng *</label>
+                            <div class="col-md-9">
+                                @(Model.TicketOrder.ObjType)
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Kiểu in</label>
+                            <div class="col-md-9">
+                                <select class="form-control" id="ddl-printtypes" readonly="true">
+                                    <option value="InLe" @(Model.TicketOrder.PrintType == "InLe" ? "selected='selected'" : string.Empty)>In lẻ</option>
+                                    <option value="InGop" @(Model.TicketOrder.PrintType == "InGop" ? "selected='selected'" : string.Empty)>In gộp</option>
+                                    <option value="InQRCode" @(Model.TicketOrder.PrintType == "InQRCode" ? "selected='selected'" : string.Empty)>In QR Code</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="col-md-12 col-form-label">KM % </label>
+                            <div class="col-md-12">
+                                <span class="badge badge-info badge-status">@(Model.TicketOrder.DiscountPercent) VNĐ</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="col-md-12 col-form-label">Tiền KM</label>
+                            <div class="col-md-12">
+                                <span class="badge badge-info badge-status">@(Model.TicketOrder.DiscountedAmount.ToString("N0")) VNĐ</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="col-md-12 col-form-label">Tổng cần thanh toán *</label>
+                            <div class="col-md-12">
+                                <span class="badge badge-info badge-status">@(Model.TicketOrder.Total.ToString("N0")) VNĐ</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="col-md-12 col-form-label">Trạng thái thanh toán*</label>
+                            <div class="col-md-12">
+                                @{
+                                    if (Model.TicketOrder.PaymentStatus == 0)
+                                    {
+                                        <span class="badge badge-warning badge-status">Chờ xác nhận thanh toán</span>
+                                    }
+                                    else if (Model.TicketOrder.PaymentStatus == 1)
+                                    {
+                                        <span class="badge badge-success badge-status">Đã xác nhận</span>
+                                    }
+                                    else if (Model.TicketOrder.PaymentStatus == 2)
+                                    {
+                                        <span class="badge badge-danger badge-status">Huỷ</span>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <hr/>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>STT/SL</th>
+                            <th>Mã soát cổng</th>
+                            <th>Mã tra GAMAN</th>
+                            <th>Số biên lai</th>
+                            <th>Mã tra cứu Misa</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            if (Model.ListSubCode.Any())
+                            {
+                                foreach (var item in Model.ListSubCode)
+                                {
+                        <tr>
+                            <td width="60px">
+                                <div class="text-center">
+                                    <span class="fa fa-eye" onclick="ViewPDf(@(item.Id))"></span>&nbsp;&nbsp;
+                                    <span class="fa fa-trash" style="color:#ff0000;" onclick="DeleteOrder(@(item.Id))"></span>
+                                </div>
+                            </td>
+                            <td>@(item.SubNum)</td>
+                            <td><span style="font-size:14pt;">@(item.Id)</span></td>
+                            <td>@(item.SubOrderCode)</td>
+                            <td>@(item.InvoiceNumber)</td>
+                            <td>@(item.InvSeries)</td>
+
+                        </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+
+
+            </form>
+
+        </div>
+    </div>
+
+
+    <input type="hidden" value="@(ViewBag.Domain)" id="hid-domain" />
+</section>
+
+@section scripts{
+    <script src="~/app-script/helper.js"></script>
+    <script>
+        $(document).ready(function ()
+        {
+            $("#btn-confirm").click(function ()
+            {
+               ChangeStatusPayment(true,1);
+            });
+
+            $("#btn-cancel-payment").click(function () {
+                ChangeStatusPayment(true,2);
+            });
+
+
+            $("#btn-cancel-order").click(function ()
+            {
+                ChangeStatusOrder("Cancel");
+            });
+
+            $("#btn-send-noti").click(function () {
+                  SendNoti();
+            });
+
+            $("#btn-export-suborder").click(function () {
+                let orderId = $("#TicketOrder_Id").val();
+                location.href = "/ticketorder/ExportExcelSubOrderByOrderId?orderId=" + orderId;
+            });
+
+            $("#btn-print-order").click(function () {
+                PrintAgain();
+            });
+
+
+            $("#btn-get-payment").click(function () {
+                let orderId = $("#TicketOrder_Id").val();
+                PayooCreatePaymentLink(orderId);
+            });
+
+
+            let paymentStatus = parseInt($("#TicketOrder_PaymentStatus").val());
+            setInterval(function ()
+            {
+                if (parseInt(paymentStatus) == 0)
+                {
+                    location.reload();
+                }
+                else
+                {
+                    let countSubCode = parseInt($("#hid-count-subcode").val());
+                    if (parseInt(paymentStatus) == 1 && countSubCode == 0)
+                    {
+                        ChangeStatusPayment(false,1);
+                    }
+                }
+
+              
+               
+            }, 8000);
+           
+
+
+         })
+
+
+
+
+    
+    function ChangeStatusPayment(isconfirm,newStatus)
+    {
+        let orderId = $("#TicketOrder_Id").val();
+
+
+        if (isconfirm == true)
+        {
+            //================ nếu confirm = true thì hiện câu thông báo confirm
+            let messageConfirm = newStatus == 1 ? "xác nhận" : "huỷ";
+            bootbox.confirm("Bạn có chắc muốn " + messageConfirm + " giao dịch mua vé này", function (confi) {
+                if (confi) {
+                    $.ajax({
+                        type: "GET",
+                        contentType: 'application/json; charset=utf-8',
+                        url: "/TicketOrder/ChangePaymentStatusOrder?orderId=" + orderId + "&newStatus=" + newStatus,
+                        success: function (result) {
+
+                            if (result.isSuccess == true) {
+                                bootbox.alert(AlertSuccess("Chuyển trạng thái thành công"), function () {
+
+                                    location.href = "/TicketOrder/OrderDetail/" + orderId;
+                                    //SendNoti();
+                                });
+
+                            } else {
+                                bootbox.alert(AlertFail("Chuyển trạng thái không thành công"), function () {
+                                    location.href = "/TicketOrder/OrderDetail/" + orderId;
+                                });
+                            }
+
+
+                        }
+                    });
+                }
+            });
+        } else {
+            // nếu isconfirm==false thì gọi chuyển trạng thái thẳng luôn
+            $.ajax({
+                type: "GET",
+                contentType: 'application/json; charset=utf-8',
+                url: "/TicketOrder/ChangePaymentStatusOrder?orderId=" + orderId + "&newStatus=" + newStatus,
+                success: function (result) {
+
+                    if (result.isSuccess == true) {
+                        location.href = "/TicketOrder/OrderDetail/" + orderId;
+
+                    } else {
+                        bootbox.alert(AlertFail("Chuyển trạng thái không thành công"), function () {
+                            location.href = "/TicketOrder/OrderDetail/" + orderId;
+                        });
+                    }
+
+
+                }
+            });
+        }
+
+
+        
+
+
+    }
+    function SendNoti() {
+        let orderId = $("#TicketOrder_Id").val();
+        let crsfToken = document?.querySelector("#form-ticket-order > input[type=hidden]:nth-child(1)")?.getAttribute('value');
+        $.ajax({
+            type: "GET",
+            contentType: 'application/json; charset=utf-8',
+            headers: { 'RequestVerificationToken': crsfToken
+            },
+            url: "/ConDao/SendNoti?id=" + orderId,
+            success: function (result)
+            {
+                debugger;
+                if (result.isSuccess == true) {
+                    bootbox.alert(AlertSuccess("Gửi zalo/email thành công"), function () {
+                        location.href = "/TicketOrder/OrderDetail/" + orderId;
+                    });
+
+                } else {
+                    bootbox.alert(AlertFail(result.desc), function () {
+                        location.href = "/TicketOrder/OrderDetail/" + orderId;
+                    });
+                }
+
+
+
+            }
+         });
+    }
+
+    function ViewPDf(subId) {
+       window.open("/ticketorder/GetPDFForPrint?subId=" + subId, 'Xem pdf');
+    }
+
+        function ChangeStatusOrder(statuscode) {
+            let orderId = $("#TicketOrder_Id").val();
+            bootbox.confirm("Bạn có chắc muốn hủy giao dịch mua vé này", function (confi) {
+                if (confi) {
+                    $.ajax({
+                        type: "GET",
+                        contentType: 'application/json; charset=utf-8',
+                        url: "/TicketOrder/ChangeStatusOrder?orderId=" + orderId + "&newStatus=" + statuscode,
+                        success: function (result) {
+
+                            if (result.isSuccess == true) {
+                                bootbox.alert(AlertSuccess("Chuyển trạng thái thành công"), function () {
+                                    location.href = "/TicketOrder/OrderDetail/" + orderId;
+                                });
+
+                            } else {
+                                bootbox.alert(AlertFail("Chuyển trạng thái không thành công"));
+                            }
+
+
+                        }
+                    });
+                }
+            });
+        }
+
+
+
+        function PrintAgain() 
+        {
+            let orderId = $("#TicketOrder_Id").val();
+            $.ajax({
+                type: "GET",
+                contentType: 'application/json; charset=utf-8',
+                url: "/TicketOrder/GetInfoPrintAgain?orderId=" + orderId,
+                beforeSend: function () {
+                    ShowWaiting();
+                },
+                success: function (res) {
+
+                    HideWaiting();
+                    if (res.lstSubCode.length > 0) {
+
+                        let printOptionVal = $("#ddl-printtypes").val();
+                        PrintOrder(printOptionVal, res.orderId, res.lstSubCode);
+
+                    } else {
+                        bootbox.alert(AlertFail("In không thành công"));
+                    }
+
+
+                }
+            });
+        }
+        function PrintOrder(printOption, orderId, lstTicketSuccess) {
+        
+            let domain = $("#hid-domain").val();
+            printPdf(domain + "/ticketorder/GetPDFForPrintV2?orderId=" + orderId);
+        }
+        function printPdf(url) {
+            var iframe = document.createElement('iframe');
+            // iframe.id = 'pdfIframe'
+            iframe.className = 'pdfIframe'
+            document.body.appendChild(iframe);
+            iframe.style.display = 'none';
+            iframe.onload = function () {
+                setTimeout(function () {
+                    iframe.focus();
+                    iframe.contentWindow.print();
+                    URL.revokeObjectURL(url)
+                    // document.body.removeChild(iframe)
+                }, 1);
+            };
+            iframe.src = url;
+            // URL.revokeObjectURL(url)
+        }
+
+        
+        function PayooCreatePaymentLink(orderIdNew) {
+
+            $.ajax({
+                type: "GET",
+                contentType: 'application/json; charset=utf-8',
+                url: "/Payoo/CreatePaymentLink?orderId=" + orderIdNew,
+                beforeSend: function () {
+                    ShowWaiting();
+                },
+                success: function (res) {
+                    location.href = "/ticketorder/orderdetail/" + orderIdNew;
+
+
+                }
+            });
+        }
+
+        function DeleteOrder(orderId) {
+            bootbox.confirm("Bạn có chắc muốn xóa mã tra cứu này?", function (confi) {
+                if (confi) {
+                    $.ajax({
+                        type: "GET",
+                        contentType: 'application/json; charset=utf-8',
+                        url: "/TicketOrder/DeleteOrder?id=" + orderId + "&deleteTye=2",
+                        success: function (result) {
+
+                            if (result.isSuccess == true) {
+                                bootbox.alert(AlertSuccess("Xóa vé thành công"), function () {
+                                   
+                                });
+
+                            } else {
+                                bootbox.alert(AlertFail("Xóa vé không thành công"));
+                            }
+
+
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+}

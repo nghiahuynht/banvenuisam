@@ -1,0 +1,433 @@
+6/23/2025 9:43:48 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\GanhDaDia\GanhDaDia_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":10011,"SubNum":1,"SubOrderCode":"BT-20-Le2306250001","CreatedBy":"admin","CardNum":"4010011"}
+SubCode: {"SubId":10012,"SubNum":2,"SubOrderCode":"BT-20-Le2306250002","CreatedBy":"admin","CardNum":"4010012"}
+
+
+6/23/2025 9:44:25 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\GanhDaDia\GanhDaDia_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":10013,"SubNum":1,"SubOrderCode":"BT-40-Doan2306250001","CreatedBy":"admin","CardNum":"4010013"}
+
+
+6/23/2025 9:51:16 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\GanhDaDia\GanhDaDia_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":10014,"SubNum":3,"SubOrderCode":"BT-40-Doan2306250002","CreatedBy":"admin","CardNum":"4010014"}
+
+
+6/23/2025 9:54:55 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\GanhDaDia\GanhDaDia_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":10015,"SubNum":1,"SubOrderCode":"BT-40-Le2306250001","CreatedBy":"admin","CardNum":"4010015"}
+SubCode: {"SubId":10016,"SubNum":2,"SubOrderCode":"BT-40-Le2306250002","CreatedBy":"admin","CardNum":"4010016"}
+
+
+6/23/2025 9:56:34 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\GanhDaDia\GanhDaDia_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":10017,"SubNum":2,"SubOrderCode":"BT-20-Doan2306250003","CreatedBy":"admin","CardNum":"4010017"}
+
+
+6/23/2025 10:03:12 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":10018,"SubNum":3,"SubOrderCode":"BT-20-Doan2306250004","CreatedBy":"admin","CardNum":"4010018"}
+
+
+6/23/2025 10:03:36 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":10019,"SubNum":1,"SubOrderCode":"BT-20-Le2306250003","CreatedBy":"admin","CardNum":"4010019"}
+SubCode: {"SubId":10020,"SubNum":2,"SubOrderCode":"BT-20-Le2306250004","CreatedBy":"admin","CardNum":"4010020"}
+SubCode: {"SubId":10021,"SubNum":3,"SubOrderCode":"BT-20-Le2306250005","CreatedBy":"admin","CardNum":"4010021"}
+
+
+6/23/2025 10:05:30 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\WebApp\wwwroot\QRCode\{0}.jpg
+
+
+6/23/2025 10:05:50 PM: /TicketOrder/ChangePaymentStatusOrder      
+QRCodeFolder: D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":10022,"SubNum":3,"SubOrderCode":"BT-20-Doan2306250005","CreatedBy":"admin","CardNum":"4010022"}
+
+
+6/23/2025 10:08:43 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\WebApp\wwwroot\QRCode\{0}.jpg
+
+
+6/23/2025 10:08:51 PM: /TicketOrder/ChangePaymentStatusOrder      
+QRCodeFolder: D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":10023,"SubNum":1,"SubOrderCode":"BT-20-Le2306250006","CreatedBy":"admin","CardNum":"4010023"}
+SubCode: {"SubId":10024,"SubNum":2,"SubOrderCode":"BT-20-Le2306250007","CreatedBy":"admin","CardNum":"4010024"}
+SubCode: {"SubId":10025,"SubNum":3,"SubOrderCode":"BT-20-Le2306250008","CreatedBy":"admin","CardNum":"4010025"}
+
+
+6/23/2025 10:11:24 PM: /condao/SaveOrder      
+{"OrderId":0,"FullName":"Trần Văn Sâm","PhoneNumber":"0977019146","Email":"","Quantity":1,"TicketCode":"BT-40-Doan","AgencyName":null,"TaxCode":null,"TaxAddress":null,"VisitDate":"2025-06-23T00:00:00","GateCode":null}
+
+6/23/2025 10:11:25 PM: /condao/SaveOrder      
+{"Id":0,"TicketCode":"BT-40-Doan","CustomerCode":"ONLKHN517B8G","CustomerName":"Trần Văn Sâm","Price":40000.00,"Quanti":1,"Total":40000.00,"CreatedDate":null,"CreatedBy":null,"MaHDDT":null,"CustomerType":"Ve_Doan","BienSoXe":null,"SaleChannelId":1,"PaymentStatus":0,"PaymentType":"CK","PaymentDate":null,"PaymentValue":null,"PaymentId":0,"UpdatedDate":null,"UpdatedBy":null,"PaymentFee":0.0,"VisitDate":"2025-06-23T00:00:00","GateName":"VÉ THĂM QUAN BẢO TÀNG","ObjType":"NguoiLon","OrderStatus":null,"PrintType":null,"DiscountedAmount":0.0,"TotalAfterDiscounted":0.0,"DiscountPercent":0.0,"IsFree":false}
+
+6/23/2025 10:11:25 PM: /condao/SaveOrder      
+RequestURL: /ConDao/SaveOrder
+Input: {"OrderId":0,"FullName":"Trần Văn Sâm","PhoneNumber":"0977019146","Email":"","Quantity":1,"TicketCode":"BT-40-Doan","AgencyName":null,"TaxCode":null,"TaxAddress":null,"VisitDate":"2025-06-23T00:00:00","GateCode":null}
+
+
+6/23/2025 10:11:46 PM: /TicketOrder/ChangePaymentStatusOrder      
+QRCodeFolder: D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":10026,"SubNum":1,"SubOrderCode":"BT-40-Doan2306250003","CreatedBy":"Online","CardNum":"4010026"}
+
+
+6/23/2025 10:11:51 PM: /condao/GetUrlPayment      
+Header: Authorization = Basic WkYzclZVN1hOVTB3VjFrb0Z5bHJWR3V2cXo0YTpvTlVEUWJkNWRHSDc3TUdWNG9JcFAwclJ3Qklh
+Header: Content-Type = application/x-www-form-urlencoded
+Request to: https://uat-apim.vib.com.vn//token
+Exception: System.Net.Http.HttpRequestException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.CreateConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.WaitForCreatedConnectionAsync(ValueTask`1 creationTask)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.FinishSendAsyncBuffered(Task`1 sendTask, HttpRequestMessage request, CancellationTokenSource cts, Boolean disposeCts)
+   at WebApp.Infrastructure.Utilities.CoreHttpClient.PostAsyncFormUrlEncoded[T](String baseAddress, String uri, Dictionary`2 headers, IEnumerable`1 reqObj) in D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\WebApp.Infrastructure\Utilities\CoreHttpClient.cs:line 189
+
+
+6/23/2025 10:11:51 PM: /condao/GetUrlPayment      
+[GenerateQRCodeVIB][Get Token] [Exception]: System.Net.Http.HttpRequestException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.CreateConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.WaitForCreatedConnectionAsync(ValueTask`1 creationTask)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.FinishSendAsyncBuffered(Task`1 sendTask, HttpRequestMessage request, CancellationTokenSource cts, Boolean disposeCts)
+   at WebApp.Infrastructure.Utilities.CoreHttpClient.PostAsyncFormUrlEncoded[T](String baseAddress, String uri, Dictionary`2 headers, IEnumerable`1 reqObj) in D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\WebApp.Infrastructure\Utilities\CoreHttpClient.cs:line 189
+   at DAL.Service.VIBService.GenerateQRCodeVIB(VirtualAccountModel model) in D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\DAL\Service\VIBService.cs:line 56
+
+6/23/2025 10:11:54 PM: /ConDao/SendNoti      
+Before call api url: /gm/api/v1.0/zns/get-token
+Input: {"OAId":859331931254348594,"AppId":4534628161010948186}
+RequestUri: https://oauth.gamanjsc.com/gm/api/v1.0/zns/get-token
+ResponseCode: OK
+Response: {"Code":200,"Message":{"Message":"Thành công","ExMessage":null},"Data":{"AccessToken":"zMq0HFEKza_-Q017-vJmH_fX0KRvWgiOcmGO4k-6w5YNCbisy9dGOu4iMpR4aSvRY1LZ5jUj-qEOCa4qdeVERF5vKMFtWSS8e1LEHlxXoYc8Ps1NtzF_2zfTImJT_RzIkc8JCyRxWNA6U7KXoz_tIOz_Hn_vm-rvz5v1CflLjZgTBrjKXQF9A_CiGq6SqBiDyKGMLup3kIpJEnicg9oPAzGK0rcmheiNxmW8QgdqYJceLZXatlQN7gnFBt3JqQL_lsmJChdAda_8OJqWjzIeUxPg2J35wvv_l6yJ3DRhdK-XQp4Os9R4PxqQMoVEdSuea0HROUI_gIoQG2rlwyQECOvPTt_2sz4bfavEM_har0pyHq4OWz_KUDv1LXIZvlXxrKKEDQpZaJZf72jFc-EPEvaR26YTeVaGpGrrVZNDm3dqZlH8","ExpireIn":86400,"ExpireDate":"24/06/2025 08:25:06"},"IsSuccess":true,"IsNotFound":false,"IsNoContent":false,"IsConflict":false}
+
+
+6/23/2025 10:11:55 PM: /ConDao/SendNoti      
+Before call api url: /message/template
+Input: {"mode":null,"phone":"84977019146","template_id":"328629","template_data":{"company_name":"BẢO TÀNG - THƯ VIỆN TỈNH BÀ RỊA - VŨNG TÀU","customer_name":"Trần Văn Sâm","ticket_code":"BT-40-Doan2306250003","price":"40,000","quantity":"1","total":"40,000","order_date":"23/06/2025","visit_date":"23/06/2025","qr":"10026","code":"thuvienvt","place_visit":"Nhà Bảo Tàng"},"tracking_id":"wA5aDg7Y6NKK3RAKwjY0fxSI5fWwbi1PdXX8MbJsCso"}
+access_token: zMq0HFEKza_-Q017-vJmH_fX0KRvWgiOcmGO4k-6w5YNCbisy9dGOu4iMpR4aSvRY1LZ5jUj-qEOCa4qdeVERF5vKMFtWSS8e1LEHlxXoYc8Ps1NtzF_2zfTImJT_RzIkc8JCyRxWNA6U7KXoz_tIOz_Hn_vm-rvz5v1CflLjZgTBrjKXQF9A_CiGq6SqBiDyKGMLup3kIpJEnicg9oPAzGK0rcmheiNxmW8QgdqYJceLZXatlQN7gnFBt3JqQL_lsmJChdAda_8OJqWjzIeUxPg2J35wvv_l6yJ3DRhdK-XQp4Os9R4PxqQMoVEdSuea0HROUI_gIoQG2rlwyQECOvPTt_2sz4bfavEM_har0pyHq4OWz_KUDv1LXIZvlXxrKKEDQpZaJZf72jFc-EPEvaR26YTeVaGpGrrVZNDm3dqZlH8
+RequestUri: https://business.openapi.zalo.me/message/template
+response: StatusCode: 200, ReasonPhrase: 'OK', Version: 1.1, Content: System.Net.Http.HttpConnection+HttpConnectionResponseContent, Headers:
+{
+  Date: Mon, 23 Jun 2025 15:11:48 GMT
+  Connection: keep-alive
+  Access-Control-Allow-Origin: *
+  Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, access_token, token, journey_token
+  Access-Control-Allow-Credentials: *
+  Server: za-ngx-srv
+  Strict-Transport-Security: max-age=86400
+  Content-Type: application/json; charset=utf-8
+  Content-Length: 75
+}
+ResponseCode: OK
+Response: {"error":-133,"message":"This template cannot be sent at night (10PM-6AM)"}
+
+
+6/23/2025 10:25:16 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\WebApp\wwwroot\QRCode\{0}.jpg
+
+
+6/23/2025 10:25:38 PM: /TicketOrder/SaleOrderAction      
+Header: Authorization = Basic WkYzclZVN1hOVTB3VjFrb0Z5bHJWR3V2cXo0YTpvTlVEUWJkNWRHSDc3TUdWNG9JcFAwclJ3Qklh
+Header: Content-Type = application/x-www-form-urlencoded
+Request to: https://uat-apim.vib.com.vn//token
+Exception: System.Net.Http.HttpRequestException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.CreateConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.WaitForCreatedConnectionAsync(ValueTask`1 creationTask)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.FinishSendAsyncBuffered(Task`1 sendTask, HttpRequestMessage request, CancellationTokenSource cts, Boolean disposeCts)
+   at WebApp.Infrastructure.Utilities.CoreHttpClient.PostAsyncFormUrlEncoded[T](String baseAddress, String uri, Dictionary`2 headers, IEnumerable`1 reqObj) in D:\GM\ThuVienVungTau\WebApp.Infrastructure\Utilities\CoreHttpClient.cs:line 189
+
+
+6/23/2025 10:25:38 PM: /TicketOrder/SaleOrderAction      
+[GenerateQRCodeVIB][Get Token] [Exception]: System.Net.Http.HttpRequestException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.CreateConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.WaitForCreatedConnectionAsync(ValueTask`1 creationTask)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.FinishSendAsyncBuffered(Task`1 sendTask, HttpRequestMessage request, CancellationTokenSource cts, Boolean disposeCts)
+   at WebApp.Infrastructure.Utilities.CoreHttpClient.PostAsyncFormUrlEncoded[T](String baseAddress, String uri, Dictionary`2 headers, IEnumerable`1 reqObj) in D:\GM\ThuVienVungTau\WebApp.Infrastructure\Utilities\CoreHttpClient.cs:line 189
+   at DAL.Service.VIBService.GenerateQRCodeVIB(VirtualAccountModel model) in D:\GM\ThuVienVungTau\DAL\Service\VIBService.cs:line 56
+
+6/23/2025 10:31:48 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\GM\ThuVienVungTau\WebApp\wwwroot\QRCode\{0}.jpg
+
+
+6/23/2025 10:32:09 PM: /TicketOrder/SaleOrderAction      
+Header: Authorization = Basic WkYzclZVN1hOVTB3VjFrb0Z5bHJWR3V2cXo0YTpvTlVEUWJkNWRHSDc3TUdWNG9JcFAwclJ3Qklh
+Header: Content-Type = application/x-www-form-urlencoded
+Request to: https://uat-apim.vib.com.vn//token
+Exception: System.Net.Http.HttpRequestException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.CreateConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.WaitForCreatedConnectionAsync(ValueTask`1 creationTask)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.FinishSendAsyncBuffered(Task`1 sendTask, HttpRequestMessage request, CancellationTokenSource cts, Boolean disposeCts)
+   at WebApp.Infrastructure.Utilities.CoreHttpClient.PostAsyncFormUrlEncoded[T](String baseAddress, String uri, Dictionary`2 headers, IEnumerable`1 reqObj) in D:\GM\ThuVienVungTau\WebApp.Infrastructure\Utilities\CoreHttpClient.cs:line 189
+
+
+6/23/2025 10:32:09 PM: /TicketOrder/SaleOrderAction      
+[GenerateQRCodeVIB][Get Token] [Exception]: System.Net.Http.HttpRequestException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.CreateConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.WaitForCreatedConnectionAsync(ValueTask`1 creationTask)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.FinishSendAsyncBuffered(Task`1 sendTask, HttpRequestMessage request, CancellationTokenSource cts, Boolean disposeCts)
+   at WebApp.Infrastructure.Utilities.CoreHttpClient.PostAsyncFormUrlEncoded[T](String baseAddress, String uri, Dictionary`2 headers, IEnumerable`1 reqObj) in D:\GM\ThuVienVungTau\WebApp.Infrastructure\Utilities\CoreHttpClient.cs:line 189
+   at DAL.Service.VIBService.GenerateQRCodeVIB(VirtualAccountModel model) in D:\GM\ThuVienVungTau\DAL\Service\VIBService.cs:line 56
+
+6/23/2025 10:34:23 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\GM\ThuVienVungTau\WebApp\wwwroot\QRCode\{0}.jpg
+
+
+6/23/2025 10:34:48 PM: /TicketOrder/SaleOrderAction      
+Header: Authorization = Basic WkYzclZVN1hOVTB3VjFrb0Z5bHJWR3V2cXo0YTpvTlVEUWJkNWRHSDc3TUdWNG9JcFAwclJ3Qklh
+Header: Content-Type = application/x-www-form-urlencoded
+Request to: https://uat-apim.vib.com.vn//token
+Exception: System.Net.Http.HttpRequestException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.CreateConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.WaitForCreatedConnectionAsync(ValueTask`1 creationTask)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.FinishSendAsyncBuffered(Task`1 sendTask, HttpRequestMessage request, CancellationTokenSource cts, Boolean disposeCts)
+   at WebApp.Infrastructure.Utilities.CoreHttpClient.PostAsyncFormUrlEncoded[T](String baseAddress, String uri, Dictionary`2 headers, IEnumerable`1 reqObj) in D:\GM\ThuVienVungTau\WebApp.Infrastructure\Utilities\CoreHttpClient.cs:line 189
+
+
+6/23/2025 10:34:48 PM: /TicketOrder/SaleOrderAction      
+[GenerateQRCodeVIB][Get Token] [Exception]: System.Net.Http.HttpRequestException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.CreateConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.WaitForCreatedConnectionAsync(ValueTask`1 creationTask)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.FinishSendAsyncBuffered(Task`1 sendTask, HttpRequestMessage request, CancellationTokenSource cts, Boolean disposeCts)
+   at WebApp.Infrastructure.Utilities.CoreHttpClient.PostAsyncFormUrlEncoded[T](String baseAddress, String uri, Dictionary`2 headers, IEnumerable`1 reqObj) in D:\GM\ThuVienVungTau\WebApp.Infrastructure\Utilities\CoreHttpClient.cs:line 189
+   at DAL.Service.VIBService.GenerateQRCodeVIB(VirtualAccountModel model) in D:\GM\ThuVienVungTau\DAL\Service\VIBService.cs:line 56
+
+6/23/2025 10:35:53 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\GM\ThuVienVungTau\WebApp\wwwroot\QRCode\{0}.jpg
+
+
+6/23/2025 10:37:31 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\GM\ThuVienVungTau\WebApp\wwwroot\QRCode\{0}.jpg
+
+
+6/23/2025 10:37:52 PM: /TicketOrder/SaleOrderAction      
+Header: Authorization = Basic WkYzclZVN1hOVTB3VjFrb0Z5bHJWR3V2cXo0YTpvTlVEUWJkNWRHSDc3TUdWNG9JcFAwclJ3Qklh
+Header: Content-Type = application/x-www-form-urlencoded
+Request to: https://uat-apim.vib.com.vn//token
+Exception: System.Net.Http.HttpRequestException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.CreateConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.WaitForCreatedConnectionAsync(ValueTask`1 creationTask)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.FinishSendAsyncBuffered(Task`1 sendTask, HttpRequestMessage request, CancellationTokenSource cts, Boolean disposeCts)
+   at WebApp.Infrastructure.Utilities.CoreHttpClient.PostAsyncFormUrlEncoded[T](String baseAddress, String uri, Dictionary`2 headers, IEnumerable`1 reqObj) in D:\GM\ThuVienVungTau\WebApp.Infrastructure\Utilities\CoreHttpClient.cs:line 189
+
+
+6/23/2025 10:37:52 PM: /TicketOrder/SaleOrderAction      
+[GenerateQRCodeVIB][Get Token] [Exception]: System.Net.Http.HttpRequestException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.CreateConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.WaitForCreatedConnectionAsync(ValueTask`1 creationTask)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.FinishSendAsyncBuffered(Task`1 sendTask, HttpRequestMessage request, CancellationTokenSource cts, Boolean disposeCts)
+   at WebApp.Infrastructure.Utilities.CoreHttpClient.PostAsyncFormUrlEncoded[T](String baseAddress, String uri, Dictionary`2 headers, IEnumerable`1 reqObj) in D:\GM\ThuVienVungTau\WebApp.Infrastructure\Utilities\CoreHttpClient.cs:line 189
+   at DAL.Service.VIBService.GenerateQRCodeVIB(VirtualAccountModel model) in D:\GM\ThuVienVungTau\DAL\Service\VIBService.cs:line 56
+
+6/23/2025 10:40:26 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\GM\ThuVienVungTau\WebApp\wwwroot\QRCode\{0}.jpg
+
+
+6/23/2025 10:40:48 PM: /TicketOrder/SaleOrderAction      
+Header: Authorization = Basic WkYzclZVN1hOVTB3VjFrb0Z5bHJWR3V2cXo0YTpvTlVEUWJkNWRHSDc3TUdWNG9JcFAwclJ3Qklh
+Header: Content-Type = application/x-www-form-urlencoded
+Request to: https://uat-apim.vib.com.vn//token
+Exception: System.Net.Http.HttpRequestException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.CreateConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.WaitForCreatedConnectionAsync(ValueTask`1 creationTask)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.FinishSendAsyncBuffered(Task`1 sendTask, HttpRequestMessage request, CancellationTokenSource cts, Boolean disposeCts)
+   at WebApp.Infrastructure.Utilities.CoreHttpClient.PostAsyncFormUrlEncoded[T](String baseAddress, String uri, Dictionary`2 headers, IEnumerable`1 reqObj) in D:\GM\ThuVienVungTau\WebApp.Infrastructure\Utilities\CoreHttpClient.cs:line 189
+
+
+6/23/2025 10:40:48 PM: /TicketOrder/SaleOrderAction      
+[GenerateQRCodeVIB][Get Token] [Exception]: System.Net.Http.HttpRequestException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.CreateConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.WaitForCreatedConnectionAsync(ValueTask`1 creationTask)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.FinishSendAsyncBuffered(Task`1 sendTask, HttpRequestMessage request, CancellationTokenSource cts, Boolean disposeCts)
+   at WebApp.Infrastructure.Utilities.CoreHttpClient.PostAsyncFormUrlEncoded[T](String baseAddress, String uri, Dictionary`2 headers, IEnumerable`1 reqObj) in D:\GM\ThuVienVungTau\WebApp.Infrastructure\Utilities\CoreHttpClient.cs:line 189
+   at DAL.Service.VIBService.GenerateQRCodeVIB(VirtualAccountModel model) in D:\GM\ThuVienVungTau\DAL\Service\VIBService.cs:line 56
+
+6/23/2025 10:41:32 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\GM\ThuVienVungTau\WebApp\wwwroot\QRCode\{0}.jpg
+
+
+6/23/2025 10:41:53 PM: /TicketOrder/SaleOrderAction      
+Header: Authorization = Basic WkYzclZVN1hOVTB3VjFrb0Z5bHJWR3V2cXo0YTpvTlVEUWJkNWRHSDc3TUdWNG9JcFAwclJ3Qklh
+Header: Content-Type = application/x-www-form-urlencoded
+Request to: https://uat-apim.vib.com.vn//token
+Exception: System.Net.Http.HttpRequestException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.CreateConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.WaitForCreatedConnectionAsync(ValueTask`1 creationTask)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.FinishSendAsyncBuffered(Task`1 sendTask, HttpRequestMessage request, CancellationTokenSource cts, Boolean disposeCts)
+   at WebApp.Infrastructure.Utilities.CoreHttpClient.PostAsyncFormUrlEncoded[T](String baseAddress, String uri, Dictionary`2 headers, IEnumerable`1 reqObj) in D:\GM\ThuVienVungTau\WebApp.Infrastructure\Utilities\CoreHttpClient.cs:line 189
+
+
+6/23/2025 10:41:53 PM: /TicketOrder/SaleOrderAction      
+[GenerateQRCodeVIB][Get Token] [Exception]: System.Net.Http.HttpRequestException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.CreateConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.WaitForCreatedConnectionAsync(ValueTask`1 creationTask)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.FinishSendAsyncBuffered(Task`1 sendTask, HttpRequestMessage request, CancellationTokenSource cts, Boolean disposeCts)
+   at WebApp.Infrastructure.Utilities.CoreHttpClient.PostAsyncFormUrlEncoded[T](String baseAddress, String uri, Dictionary`2 headers, IEnumerable`1 reqObj) in D:\GM\ThuVienVungTau\WebApp.Infrastructure\Utilities\CoreHttpClient.cs:line 189
+   at DAL.Service.VIBService.GenerateQRCodeVIB(VirtualAccountModel model) in D:\GM\ThuVienVungTau\DAL\Service\VIBService.cs:line 56
+
+6/23/2025 10:43:24 PM: /TicketOrder/ChangePaymentStatusOrder      
+QRCodeFolder: D:\GM\ThuVienVungTau\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":10027,"SubNum":1,"SubOrderCode":"BT-40-Doan2306250004","CreatedBy":"admin","CardNum":"4010027"}
+
+
+6/23/2025 10:51:17 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\GM\ThuVienVungTau\WebApp\wwwroot\QRCode\{0}.jpg
+
+
+6/23/2025 10:51:38 PM: /TicketOrder/SaleOrderAction      
+Header: Authorization = Basic WkYzclZVN1hOVTB3VjFrb0Z5bHJWR3V2cXo0YTpvTlVEUWJkNWRHSDc3TUdWNG9JcFAwclJ3Qklh
+Header: Content-Type = application/x-www-form-urlencoded
+Request to: https://uat-apim.vib.com.vn//token
+Exception: System.Net.Http.HttpRequestException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.CreateConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.WaitForCreatedConnectionAsync(ValueTask`1 creationTask)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.FinishSendAsyncBuffered(Task`1 sendTask, HttpRequestMessage request, CancellationTokenSource cts, Boolean disposeCts)
+   at WebApp.Infrastructure.Utilities.CoreHttpClient.PostAsyncFormUrlEncoded[T](String baseAddress, String uri, Dictionary`2 headers, IEnumerable`1 reqObj) in D:\GM\ThuVienVungTau\WebApp.Infrastructure\Utilities\CoreHttpClient.cs:line 189
+
+
+6/23/2025 10:51:39 PM: /TicketOrder/SaleOrderAction      
+[GenerateQRCodeVIB][Get Token] [Exception]: System.Net.Http.HttpRequestException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.CreateConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.WaitForCreatedConnectionAsync(ValueTask`1 creationTask)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.FinishSendAsyncBuffered(Task`1 sendTask, HttpRequestMessage request, CancellationTokenSource cts, Boolean disposeCts)
+   at WebApp.Infrastructure.Utilities.CoreHttpClient.PostAsyncFormUrlEncoded[T](String baseAddress, String uri, Dictionary`2 headers, IEnumerable`1 reqObj) in D:\GM\ThuVienVungTau\WebApp.Infrastructure\Utilities\CoreHttpClient.cs:line 189
+   at DAL.Service.VIBService.GenerateQRCodeVIB(VirtualAccountModel model) in D:\GM\ThuVienVungTau\DAL\Service\VIBService.cs:line 56
+
+6/23/2025 10:52:00 PM: /TicketOrder/ChangePaymentStatusOrder      
+QRCodeFolder: D:\GM\ThuVienVungTau\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":10028,"SubNum":1,"SubOrderCode":"BT-40-Le2306250003","CreatedBy":"admin","CardNum":"4010028"}
+SubCode: {"SubId":10029,"SubNum":2,"SubOrderCode":"BT-40-Le2306250004","CreatedBy":"admin","CardNum":"4010029"}
+SubCode: {"SubId":10030,"SubNum":3,"SubOrderCode":"BT-40-Le2306250005","CreatedBy":"admin","CardNum":"4010030"}
+
+
+6/23/2025 10:54:17 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\GM\ThuVienVungTau\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":10031,"SubNum":1,"SubOrderCode":"BT-20-Le2306250009","CreatedBy":"admin","CardNum":"4010031"}
+
+

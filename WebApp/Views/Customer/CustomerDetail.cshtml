@@ -1,0 +1,179 @@
+﻿@model DAL.Models.Customer.CustomerViewModel
+@{
+    ViewData["Title"] = "Thông tin khách hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>@(ViewData["Title"])</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item">
+                        <input type="button" value="Lưu" class="btn bg-primary" id="btn-save" />
+                    </li>
+
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+    <div class="card">
+        <div class="card-body">
+            <form class="form-horizontal" id="form-customer">
+                @Html.HiddenFor(x => x.Customer.Id)
+                @Html.HiddenFor(x => x.Customer.CreatedBy)
+                @Html.HiddenFor(x => x.Customer.CreatedDate)
+                @Html.HiddenFor(x => x.Customer.UpdatedBy)
+                @Html.HiddenFor(x => x.Customer.UpdatedDate)
+                @Html.HiddenFor(x => x.Customer.IsDeleted)
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label">Mã khách hàng <strong style="color:red">*</strong></label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.Customer.CustomerCode, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label">Tên khách hàng <strong style="color:red">*</strong></label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.Customer.CustomerName, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label">Điện thoại </label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.Customer.Phone, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label">Email</label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.Customer.Email, new { @class = "form-control" })
+                            </div>
+                        </div>
+                       
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label">Người đại diện</label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.Customer.ContactName, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label">Mã số thuế <strong style="color:red">*</strong></label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.Customer.TaxCode, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label">Đia chỉ <strong style="color:red">*</strong></label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.Customer.TaxAddress, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label">Loại khách hàng *</label>
+                            <div class="col-md-8">
+                                <select class="form-control" id="Customer_CustomerType" name="Customer.CustomerType">
+                                    <option value=""></option>
+                                    @{
+                                        foreach (var item in Model.ListCustType)
+                                        {
+                                            string selected = item.Code == Model.Customer.CustomerType ? "selected='selected'" : string.Empty;
+                                            <option value="@item.Code" @(selected)>@item.Name</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+            </form>
+
+        </div>
+    </div>
+
+
+
+</section>
+
+@section scripts{
+    <script src="~/js/jquery.validate.js"></script>
+    <script>
+        $(document).ready(function () {
+
+          
+
+            $("#btn-save").click(function () {
+                SaveCustomer();
+            });
+
+
+
+        })
+        function ValidCustomer() {
+            var resutlValid = $("#form-customer").validate({
+                rules: {
+                    "Customer.CustomerName": "required",
+                    "Customer.CustomerType": "required",
+                },
+                messages: {
+                    "Customer.CustomerName": "Thông tin bắt buộc!",
+                    "Customer.CustomerType": "Thông tin bắt buộc!",
+                }
+            }).form();
+            return resutlValid;
+        }
+        function SaveCustomer() {
+            var valid = ValidCustomer();
+            if (valid) {
+                var saveData = FormToObject("#form-customer", "Customer.");
+
+                $.ajax({
+                    type: "POST",
+                    contentType: 'application/json; charset=utf-8',
+                    url: "/Customer/SaveCustomer",
+                    dataType: 'json',
+                    data: JSON.stringify(saveData),
+                    beforeSend: function () {
+
+                    },
+                    success: function (res) {
+                        if (res.isSuccess === true) {
+                            bootbox.alert(AlertSuccess("Lưu dữ liệu thành công"), function () {
+                                location.href = "/customer/customerdetail/" + res.valueReturn;
+                            });
+                        } else {
+                            bootbox.alert(AlertFail(res.errorMessage));
+                        }
+
+                    }
+                });
+
+
+            }
+
+
+
+        }
+    </script>
+}

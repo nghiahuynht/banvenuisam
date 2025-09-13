@@ -1,0 +1,33 @@
+9/12/2025 11:25:14 AM: /condao/SaveOrder      
+{"OrderId":0,"FullName":"Nghĩa Huỳnh 2","PhoneNumber":"0977019146","Email":"","Quantity":90,"TicketCode":"BT-40-Doan","AgencyName":null,"TaxCode":"","TaxAddress":"","VisitDate":"2025-09-12T00:00:00","GateCode":null}
+
+9/12/2025 11:25:15 AM: /condao/SaveOrder      
+{"Id":0,"TicketCode":"BT-40-Doan","CustomerCode":"ONLKKF42Z69L","CustomerName":"Nghĩa Huỳnh 2","Price":40000.00,"Quanti":90,"Total":3600000.00,"CreatedDate":null,"CreatedBy":null,"MaHDDT":null,"CustomerType":"Ve_Doan","BienSoXe":null,"SaleChannelId":1,"PaymentStatus":0,"PaymentType":"CK","PaymentDate":null,"PaymentValue":null,"PaymentId":0,"UpdatedDate":null,"UpdatedBy":null,"PaymentFee":0.0,"VisitDate":"2025-09-12T00:00:00","GateName":"VÉ THĂM QUAN BẢO TÀNG","ObjType":"NguoiLon","OrderStatus":null,"PrintType":null,"DiscountedAmount":0.0,"TotalAfterDiscounted":0.0,"DiscountPercent":0.0,"IsFree":false}
+
+9/12/2025 11:25:15 AM: /condao/SaveOrder      
+RequestURL: /ConDao/SaveOrder
+Input: {"OrderId":0,"FullName":"Nghĩa Huỳnh 2","PhoneNumber":"0977019146","Email":"","Quantity":90,"TicketCode":"BT-40-Doan","AgencyName":null,"TaxCode":"","TaxAddress":"","VisitDate":"2025-09-12T00:00:00","GateCode":null}
+
+
+9/12/2025 11:25:16 AM: /condao/SaveOrder      
+{"OrderId":0,"FullName":"Nghĩa Huỳnh 2","PhoneNumber":"0977019146","Email":"","Quantity":90,"TicketCode":"BT-40-Doan","AgencyName":null,"TaxCode":"","TaxAddress":"","VisitDate":"2025-09-12T00:00:00","GateCode":null}
+
+9/12/2025 11:25:16 AM: /condao/SaveOrder      
+{"Id":0,"TicketCode":"BT-40-Doan","CustomerCode":"ONLKKF42Z9X6","CustomerName":"Nghĩa Huỳnh 2","Price":40000.00,"Quanti":90,"Total":3600000.00,"CreatedDate":null,"CreatedBy":null,"MaHDDT":null,"CustomerType":"Ve_Doan","BienSoXe":null,"SaleChannelId":1,"PaymentStatus":0,"PaymentType":"CK","PaymentDate":null,"PaymentValue":null,"PaymentId":0,"UpdatedDate":null,"UpdatedBy":null,"PaymentFee":0.0,"VisitDate":"2025-09-12T00:00:00","GateName":"VÉ THĂM QUAN BẢO TÀNG","ObjType":"NguoiLon","OrderStatus":null,"PrintType":null,"DiscountedAmount":0.0,"TotalAfterDiscounted":0.0,"DiscountPercent":0.0,"IsFree":false}
+
+9/12/2025 11:25:16 AM: /condao/SaveOrder      
+RequestURL: /ConDao/SaveOrder
+Input: {"OrderId":0,"FullName":"Nghĩa Huỳnh 2","PhoneNumber":"0977019146","Email":"","Quantity":90,"TicketCode":"BT-40-Doan","AgencyName":null,"TaxCode":"","TaxAddress":"","VisitDate":"2025-09-12T00:00:00","GateCode":null}
+
+
+9/12/2025 11:27:05 AM: /condao/SaveOrder      
+{"OrderId":0,"FullName":"Nghĩa Huỳnh","PhoneNumber":"0977019146","Email":"","Quantity":90,"TicketCode":"BT-40-Doan","AgencyName":null,"TaxCode":"","TaxAddress":"","VisitDate":"2025-09-12T00:00:00","GateCode":null}
+
+9/12/2025 11:27:05 AM: /condao/SaveOrder      
+{"Id":0,"TicketCode":"BT-40-Doan","CustomerCode":"ONLKKF426VDC","CustomerName":"Nghĩa Huỳnh","Price":40000.00,"Quanti":90,"Total":3600000.00,"CreatedDate":null,"CreatedBy":null,"MaHDDT":null,"CustomerType":"Ve_Doan","BienSoXe":null,"SaleChannelId":1,"PaymentStatus":0,"PaymentType":"CK","PaymentDate":null,"PaymentValue":null,"PaymentId":0,"UpdatedDate":null,"UpdatedBy":null,"PaymentFee":0.0,"VisitDate":"2025-09-12T00:00:00","GateName":"VÉ THĂM QUAN BẢO TÀNG","ObjType":"NguoiLon","OrderStatus":null,"PrintType":null,"DiscountedAmount":0.0,"TotalAfterDiscounted":0.0,"DiscountPercent":0.0,"IsFree":false}
+
+9/12/2025 11:27:06 AM: /condao/SaveOrder      
+RequestURL: /ConDao/SaveOrder
+Input: {"OrderId":0,"FullName":"Nghĩa Huỳnh","PhoneNumber":"0977019146","Email":"","Quantity":90,"TicketCode":"BT-40-Doan","AgencyName":null,"TaxCode":"","TaxAddress":"","VisitDate":"2025-09-12T00:00:00","GateCode":null}
+
+

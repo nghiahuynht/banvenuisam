@@ -1,0 +1,9 @@
+1/19/2025 3:21:59 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\LangBianSytem\Langbiang_Web\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":12,"SubNum":1,"SubOrderCode":"VE-NGAY1901250001","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":13,"SubNum":2,"SubOrderCode":"VE-NGAY1901250002","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":14,"SubNum":3,"SubOrderCode":"VE-NGAY1901250003","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":15,"SubNum":4,"SubOrderCode":"VE-NGAY1901250004","CreatedBy":"admin","CardNum":null}
+SubCode: {"SubId":16,"SubNum":5,"SubOrderCode":"VE-NGAY1901250005","CreatedBy":"admin","CardNum":null}
+
+

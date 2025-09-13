@@ -1,0 +1,285 @@
+﻿@using DAL;
+@model DAL.Models.partner.PartnerModelViewModel
+@{
+    ViewData["Title"] = "Thông tin đối tác";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+
+    <link href="~/plugins/datepicker/datepicker3.css" rel="stylesheet" />
+    <link href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+
+    <style>
+        .badge-status {
+            margin-top: 5px;
+            font-weight: bold;
+        }
+
+        .fa-eye {
+            color: #0094ff;
+            cursor: pointer;
+        }
+    </style>
+}
+@Html.HiddenFor(x => x.Id)
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>@(ViewData["Title"])</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item">
+                        @{
+                            if (Model.Status == 0)
+                            {
+                                <input type="button" value="Không Duyệt" class="btn bg-danger" id="btn-cancel" onclick="OpenModalCancelApproval()" style="margin-right:5px;" />
+                            }
+                            if (Model.Status == 0)
+                            {
+                                <input type="button" value="Duyệt" class="btn bg-success" id="btn-confirm" onclick="ApprovalPartner(@Model.Id)" style="margin-right:5px;" />
+                            }
+
+                            <a class="btn btn-default" href="/partner/index">Trở lại danh sách</a>
+                        }
+
+
+                    </li>
+
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<section class="content">
+    <div class="card">
+        <div class="card-body">
+            <form class="form-horizontal" id="form-ticket-order">
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(x => x.Id)
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Mã đối tác *</label>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(x => x.PartnerCode, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Tên đối tác *</label>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(x => x.PartnerName, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Điện thoại *</label>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Địa chỉ</label>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(x => x.Address, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Trạng thái</label>
+                            <div class="col-md-9">
+                                @{
+                                    string trangthai = "Mới tạo";
+                                    if (Model.Status == 1)
+                                    {
+                                        trangthai = "Đã duyệt";
+                                    }
+
+                                    if (Model.Status == 2)
+                                    {
+                                        trangthai = "Không duyệt";
+                                    }
+                                }
+                                @Html.TextBox("ApprovalDate", trangthai, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Tài khoản ngân hàng *</label>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(x => x.BankAccount, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Ngân hàng *</label>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(x => x.BankName, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Ngày đăng ký *</label>
+                            <div class="col-md-9">
+
+                                @Html.TextBox("CreateDate", Model.CreateDate.ToString("dd/MM/yyyy"), new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                        </div>
+                        @if (Model.Status == 1 || Model.Status == 0)
+                        {
+                            <div class="form-group row">
+                                <label class="col-md-3 col-form-label">Ngày duyệt *</label>
+                                <div class="col-md-9">
+                                    @Html.TextBox("ApprovalDate", Model.ApprovalDate.HasValue ? Model.ApprovalDate.Value.ToString("dd/MM/yyyy") : "", new { @class = "form-control", @readonly = "readonly" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-3 col-form-label">Người duyệt *</label>
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(x => x.ApprovalBy, new { @class = "form-control", @readonly = "readonly" })
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-group row">
+                                <label class="col-md-3 col-form-label">Ngày hủy duyệt *</label>
+                                <div class="col-md-9">
+                                    @Html.TextBox("ApprovalDate", Model.ApprovalDate.HasValue ? Model.ApprovalDate.Value.ToString("dd/MM/yyyy") : "", new { @class = "form-control", @readonly = "readonly" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-3 col-form-label">Người hủy duyệt *</label>
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(x => x.ApprovalBy, new { @class = "form-control", @readonly = "readonly" })
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-3 col-form-label">Lý do *</label>
+                                <div class="col-md-9">
+                                    @Html.TextAreaFor(x => x.Note, new { @class = "form-control", @readonly = "readonly" })
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="col-md-12 row">
+                        <div class=" col-md-6 ">
+                            <label class="col-md-3 col-form-label">Ảnh mặt trước</label>
+                            <div class="col-md-9">
+
+                                <img width="300" height="300" src="@Model.FrontUrl" />
+                            </div>
+                        </div>
+
+                        <div class=" col-md-6">
+                            <label class="col-md-3 col-form-label">Ảnh mặt sau *</label>
+                            <div class="col-md-9">
+                                <img width="300" height="300" src="@Model.BackUrl" />
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <hr />
+
+
+            </form>
+
+        </div>
+    </div>
+
+
+
+</section>
+
+<div class="modal fade" id="modal-CancelApproval" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Bạn có chắc không duyệt đối tác này?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Lý do:</label>
+                    <textarea class="form-control" id="CancelNote"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn bg-danger" onclick="CancelApproval()">Không duyệt</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/app-script/helper.js"></script>
+    <script>
+        function ApprovalPartner(partnerId) {
+            bootbox.confirm("Bạn có chắc muốn duyệt đối tác này?", function (confi) {
+                if (confi) {
+                    $.ajax({
+                        type: "GET",
+                        contentType: 'application/json; charset=utf-8',
+                        url: "/Partner/ApprovalPartner/" + partnerId,
+                        headers: {
+                            'RequestVerificationToken': TokenHeaderValue()
+                        },
+                        success: function (res) {
+                            if (res.isSuccess === true) {
+                                bootbox.alert(AlertSuccess("Duyệt thành công"), function () {
+                                    window.location.href = "/Partner/Index";
+                                });
+
+                            } else {
+                                bootbox.alert(AlertFail(res.errorMessage));
+                            }
+
+                        }
+                    });
+                }
+            });
+        }
+
+        function OpenModalCancelApproval() {
+            $("#modal-CancelApproval").modal("show");
+        }
+
+        function CancelApproval() {
+            $.ajax({
+                type: "GET",
+                contentType: 'application/json; charset=utf-8',
+                url: "/Partner/CancelApproval",
+                data: {
+                    id: $('#Id').val(),
+                    note: $('#CancelNote').val()
+                },
+                headers: {
+                    'RequestVerificationToken': TokenHeaderValue()
+                },
+                success: function (res) {
+                    
+                    if (res.isSuccess === true) {
+                        bootbox.alert(AlertSuccess("Duyệt thành công"), function () {
+                            $("#modal-CancelApproval").modal("hide");
+                            window.location.href = "/Partner/Index";
+                        });
+
+                    } else {
+                        bootbox.alert(AlertFail(res.errorMessage));
+                    }
+
+                }
+            });
+        }
+    </script>
+}

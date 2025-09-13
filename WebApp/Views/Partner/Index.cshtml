@@ -1,0 +1,305 @@
+﻿@{
+    ViewData["Title"] = "Danh sách đối tác";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using DAL.Entities
+@section styles{
+
+    <link href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="~/plugins/datatables-fixedcolumns/css/fixedColumns.bootstrap4.css" rel="stylesheet" />
+
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>@(ViewData["Title"])</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/Home">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">@(ViewData["Title"])</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<section class="content">
+    @Html.AntiForgeryToken()
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+
+                <div class="col-sm-4">
+                    <label>Tìm theo mã đối tác</label>
+                    <input type="text" class="form-control" id="txtParnerCode" />
+                </div>
+                <div class="col-sm-2">
+                    <input type="button" value="Tìm" class="btn btn-primary btn-filter" id="btn-search" />
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-right">
+                        <a class="btn btn-sm btn-primary btn-filter" href="/Ticket/TicketDetail"><i class="fa fa-plus-circle"></i>&nbsp;Thêm mới</a>
+                        <button class="btn btn-sm btn-success btn-filter"><i class="fa fa-download"></i>&nbsp;Export excel</button>
+                        <button class="btn btn-sm btn-success btn-filter"><i class="fa fa-upload"></i>&nbsp;Import excel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body ">
+
+
+            <table class="table table-bordered table-hover dataTable" id="table-partner" width="100%">
+                <thead>
+                    <tr>
+
+                        <th width="10%">Mã đối tác</th>
+                        <th width="15%">Tên đối tác</th>
+                        <th width="10%">Số điện thoại</th>
+                        <th width="25%">Địa chỉ</th>
+                        <th width="10%">Trạng thái</th>
+                        <th width="15%">Ngày tham gia</th>
+                        <th width="15%"></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade show" id="modal-info-partner" aria-modal="true" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Thông tin QR code đối tác</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-6 text-center">
+                        <h5>Mã QR code</h5>
+                        <img id="imgQRCodePartner" class="img img-bordered " style="max-width:60%;" src="~/img/QRThanhToan-ConDao.jpg" />
+                        <div style="margin-top: 10px; max-width: 60%; margin:5px auto; ">
+                            <a class="btn btn-outline-info" style="display:block" id="download-qrcode-partner">
+                                <i class="fa fa-download"></i>&nbsp; Tải ảnh về
+                            </a>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-6">
+                        <h5>Thông tin đối tác</h5>
+                        <br />
+                        <div style="font-size:14pt;margin-bottom:5px;"><strong>Tên:</strong>&nbsp; <span id="PartnerName"></span></div>
+                        <div style="font-size:14pt;margin-bottom:5px;"><strong>SĐT:</strong>&nbsp; <span id="PartnerPhone"></span></div>
+                        <div style="font-size:14pt;margin-bottom:5px;"><strong>Địa chỉ:</strong>&nbsp; <span id="PartnerAdress"></span></div>
+                        <div style="font-size:14pt;margin-bottom:5px;"><strong>STK:</strong>&nbsp; <span id="PartnerBankNum"></span></div>
+                        <div style="font-size:14pt;margin-bottom:5px;"><strong>Ngân hàng:</strong>&nbsp; <span id="PartnerBankName"></span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-success">Đóng</a>
+
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+@section scripts{
+    <script src="~/plugins/datatable/jquery.datatable.js"></script>
+    <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+    <script src="~/plugins/datatables-fixedcolumns/js/dataTables.fixedColumns.js"></script>
+
+
+    <script>
+        var tableId = "#table-partner";
+        var ajaxURL = "/partner/SearchPartner";
+        var columnData = [
+
+            { "data": "partnerCode" },
+            { "data": "partnerName" },
+            { "data": "partnerPhone" },
+            { "data": "partnerAddress" },
+            {
+                "data": "status", "render": function (data, type, row, meta) {
+                    return RenderStatus(data);
+                }
+            },
+            {
+                "data": "createdDate", "render": function (data, type, row, meta) {
+                    return RenderDateComlumnGrid(data);
+                }
+            },
+           // { "data": "createdDate" },
+            {
+                "data": "id", "render": function (data, type, row, meta) {
+                    return RenderTableAction(data, row.status);
+                }
+            },
+
+
+        ];
+        $(document).ready(function () {
+
+            SearchPartner();
+            $("#btn-search").click(function () {
+                SearchPartner();
+            });
+
+            $("#download-qrcode-partner").click(function () {
+                dowloadQRCode();
+            });
+        });
+        function RenderTableAction(Id, status) {
+            if (status == 0 || status == 2) {
+                var html = "<div class='div-table-action'>" +
+                    "<i class='fa fa-edit' onclick='GotoParterDetail(" + Id + ")'></i>&nbsp;" +
+                    "<i class='fa fa-trash' onclick='DeletePartner(" + Id + ")'></i>" +
+                    "</div>";
+                return html;
+            }
+            else {
+                var html = "<div class='div-table-action'>" +
+                    "<i class='fa fa-eye' onclick='openModalInfoPartner(" + Id + ")'></i>&nbsp;" +
+                    "<i class='fa fa-edit' onclick='GotoParterDetail(" + Id + ")'></i>&nbsp;" +
+                    "<i class='fa fa-trash' onclick='DeletePartner(" + Id + ")'></i>" +
+                    "</div>";
+                return html;
+            }
+           
+            
+        }
+
+        function RenderStatus(status) {
+            var statusHTML = "";
+            if (status == 0) {
+                statusHTML = "<span class='badge badge-warning badge-status'>Mới tạo</span>";
+            } else if (status == 1) {
+                statusHTML = "<span class='badge badge-success badge-status'>Đã xác nhận </span>";
+            } else if (status == 2) {
+                statusHTML = "<span class='badge badge-danger badge-status'>Hủy</span>";
+            }
+            return statusHTML;
+        }
+
+        function RenderNumerFormat(data) {
+            var res = "";
+            if (data !== undefined) {
+                res = data.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+            }
+            return "<div style='width:100%;text-align:right;'>" + res + "</div>";
+        }
+
+        function GotoParterDetail(Id) {
+            location.href = "/partner/PartnerDatail/" + Id;
+        }
+
+        function SearchPartner() {
+
+            var dataSearch = {
+                ParnerCode: $("#txtParnerCode").val()
+            };
+            GenrateDataTableSearch(tableId, ajaxURL, columnData, dataSearch, 10, "vé");
+
+        }
+
+        function DeleteTicket(ticketId) {
+            bootbox.confirm("Bạn có chắc muốn xóa vé này?", function (confi) {
+                if (confi) {
+                    $.ajax({
+                        type: "POST",
+                        contentType: 'application/json; charset=utf-8',
+                        url: "/Ticket/DeleteTicket/" + ticketId,
+                        dataType: 'json',
+                        headers: {
+                            'RequestVerificationToken': TokenHeaderValue()
+                        },
+                        success: function (res) {
+                            if (res.isSuccess === true) {
+                                SearchTicket();
+                            } else {
+                                bootbox.alert(AlertFail(res.errorMessage));
+                            }
+
+                        }
+                    });
+                }
+            });
+        }
+
+        function openModalInfoPartner(id) {
+ 
+            $.ajax({
+                type: "GET",
+                contentType: 'application/json; charset=utf-8',
+                url: "/Partner/GetInfoPartner",
+               
+                data: { Id: id },
+                headers: {
+                    'RequestVerificationToken': TokenHeaderValue()
+                },
+                beforeSend: function () {
+
+                },
+                success: function (result) {
+                    debugger;
+                    if (result.isSuccess) {
+                        console.log(result)
+                        document.getElementById('imgQRCodePartner').src = "data:image/png;base64," + result.data.base64QRCode;
+                        
+                        $("#PartnerName").text(result.data.partnerName);
+                        $("#PartnerPhone").text(result.data.partnerPhone);
+                        $("#PartnerAdress").text(result.data.partnerAddress);
+                        $("#PartnerBankNum").text(result.data.partnerAddress);
+                        $("#PartnerBankName").text(result.data.partnerAddress);
+                        $("#modal-info-partner").modal();
+                    } else {
+                        bootbox.alert(AlertFail(result.desc));
+                    }
+                }
+
+            });
+        }
+
+        function dowloadQRCode() {
+            var base64Image = document.getElementById("imgQRCodePartner").src;
+
+            var a = document.createElement("a"); //Create <a>
+            a.href = base64Image; //Image Base64 Goes here
+            a.download = "Image.png"; //File name Here
+            a.click(); //Downloaded file
+        }
+
+        function DeletePartner(partnerId) {
+            bootbox.confirm("Bạn có chắc muốn xóa đối tác này?", function (confi) {
+                if (confi) {
+                    $.ajax({
+                        type: "GET",
+                        contentType: 'application/json; charset=utf-8',
+                        url: "/Partner/DeletePartner/" + partnerId,
+                        headers: {
+                            'RequestVerificationToken': TokenHeaderValue()
+                        },
+                        success: function (res) {
+                            if (res.isSuccess === true) {
+                                bootbox.alert(AlertSuccess("Xóa thành công"), function () {
+                                    SearchPartner();
+                                });
+                                
+                            } else {
+                                bootbox.alert(AlertFail(res.errorMessage));
+                            }
+
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+}

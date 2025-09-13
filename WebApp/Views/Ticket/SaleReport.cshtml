@@ -1,0 +1,336 @@
+﻿@model DAL.Models.Ticket.SaleReportFilter
+@{
+    ViewData["Title"] = "Báo cáo bán hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using DAL.Entities
+@using DAL.Models.Ticket
+@section styles{
+    <link href="~/plugins/datepicker/datepicker3.css" rel="stylesheet" />
+    <link href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="~/plugins/datatables-fixedcolumns/css/fixedColumns.bootstrap4.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
+    <style>
+        .datepicker table tr td.disabled,
+        .datepicker table tr td.disabled:hover {
+            background-color: #e6d2d2;
+        }
+    </style>
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>@(ViewData["Title"])</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">@(ViewData["Title"])</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<section class="content">
+    @Html.AntiForgeryToken()
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-sm-2">
+                    <label>Hình thức bán vé</label>
+                    <select class="form-control" id="ddl-sale-chanel">
+                        <option value="0">Tất cả</option>
+                        <option value="1">Website bán vé</option>
+                        <option value="2">Bán tại quầy</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <label>Nhân viên</label>
+                    <select class="form-control" id="ddl-employee">
+
+                        @{
+                            var lstUser = (List<UserInfo>)ViewBag.LstUser;
+                            if (lstUser.Count() > 1) // lớn hơn 1 là admin
+                            {
+                                <option value="">Tất cả</option>
+                            }
+                            foreach (var user in lstUser)
+                            {
+                                <option value="@user.UserName">@user.FullName</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <label>Từ ngày</label>
+                    <div class="input-group date" id="FromDatePK">
+                        <input type="text" id="FromDate" value="@(Model.FromDate)" class="form-control">
+                        <span class="input-group-addon group-date-icon"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label>Đến ngày</label>
+                    <div class="input-group date" id="ToDatePK">
+                        <input type="text" id="ToDate" value="@(Model.ToDate)" class="form-control">
+                        <span class="input-group-addon group-date-icon"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                </div>
+
+                <div class="col-sm-2">
+                    <label>Mã vé</label>
+                    <select class="form-control" id="TicketCode" multiple="multiple">
+                        @{
+                            var lstTicket = (List<Ticket>)ViewBag.LstAllTicket;
+                            foreach (var opt in lstTicket)
+                            {
+                                <option value="@opt.Code">@opt.Code</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <label>Hình thức</label>
+                    <div class="input-group" id="">
+                        <select class="form-control" id="PaymentType">
+                            <option value="All" selected>Tất cả</option>
+                            <option value="TM">Tiền mặt</option>
+                            <option value="CK">Chuyển khoản</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="col-sm-2">
+                    <input type="button" value="OK" class="btn btn-primary btn-filter" id="btn-search" />
+                    &nbsp;
+                    @*<button class="btn btn-sm btn-success btn-filter" id="btn-export-excel"><i class="fa fa-download"></i>&nbsp;Export excel</button>*@
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body ">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-green"><i class="fa fa-flag"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Tổng số lượng vé bán</span>
+                            <span class="info-box-number" id="counter-SL-TrenVe">0</span>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <span class="info-box-icon bg-green"><i class="fa fa-flag"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Tổng số lượng đơn hàng</span>
+                            <span class="info-box-number" id="counter-SL-InRa">0</span>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <span class="info-box-icon bg-green"><i class="fa fa-flag"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Tổng doanh số bán vé</span>
+                            <span class="info-box-number" id="counter-doanhso">0</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-9">
+                    <table class="table table-bordered table-hover dataTable" id="table-saleRP" width="100%">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên đăng nhập</th>
+                                <th>Tên người dùng</th>
+                                <th>Mã vé</th>
+                                <th>Loại vé</th>
+                                <th>Tổng SL bán</th>
+                                <th>Tổng doanh số bán</th>
+                                <th>KM giảm tiền</th>
+                                <th>Tổng sau KM</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</section>
+@section scripts{
+    <script src="~/plugins/datatable/jquery.datatable.js"></script>
+    <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+    <script src="~/plugins/datatables-fixedcolumns/js/dataTables.fixedColumns.js"></script>
+    <script src="~/plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
+    <script>
+        var tableId = "#table-saleRP";
+        var ajaxURL = "/Ticket/GetSaleReport";
+        var columnData = [
+            { "data": "id" },
+            { "data": "createdBy" },
+            { "data": "fullName" },
+            { "data": "ticketCode" },
+            { "data": "loaiIn" },
+
+            {
+                "data": "numQuanTi", "render": function (data, type, row, meta) {
+                    return RenderNumerFormat(data);
+                }
+            },
+            {
+                "data": "totalVAT", "render": function (data, type, row, meta) {
+                    return RenderNumerFormat(data);
+                }
+            },
+            {
+                "data": "discountedAmount", "render": function (data, type, row, meta) {
+                    return RenderNumerFormat(data);
+                }
+            },
+            {
+                "data": "totalAfterDiscounted", "render": function (data, type, row, meta) {
+                    return RenderNumerFormat(data);
+                }
+            },
+
+        ];
+        $(document).ready(function () {
+
+            $('#TicketCode').multiselect({
+                includeSelectAllOption: true,
+                buttonWidth: '200px',
+            });
+
+
+            $("#btn-export-excel").click(function () {
+                ExportExcel();
+            });
+            $(".date").datepicker({
+                format: "dd/mm/yyyy"
+            }).on('changeDate', function (e) {
+                $(this).datepicker('hide');
+            });
+
+
+            $(document).keypress(function (e) {
+                if (e.which == 13) {
+                    GetCounterFilter();
+                }
+            });
+            GetCounterFilter()
+            $("#btn-search").click(function () {
+                GetCounterFilter()
+            });
+
+            $("#ddl-sale-chanel").change(function () {
+                GetAllUserforDDL($(this).val());
+
+            });
+
+        });
+        function GetSaleRP() {
+
+            let ves = $("#TicketCode").val();
+
+
+            var dataSearch = {
+                SaleChanelId: $("#ddl-sale-chanel").val(),
+                GateCode: "All",//$("#ddl-gatecode").val(),
+                UserName: $("#ddl-employee").val(),
+                FromDate: ConverFormatDate($("#FromDate").val()),
+                ToDate: ConverFormatDate($("#ToDate").val()),
+                TicketCode: ves.join(","),
+                PaymentType: $("#PaymentType").val(),
+            };
+            GenrateDataTableSearch(tableId, ajaxURL, columnData, dataSearch, 50);
+
+        }
+
+        function ExportExcel() {
+            let ves = $("#TicketCode").val();
+            var dataSearch = {
+                SaleChanelId: $("#ddl-sale-chanel").val(),
+                GateCode: "All",//$("#ddl-gatecode").val(),
+                UserName: $("#ddl-employee").val(),
+                FromDate: ConverFormatDate($("#FromDate").val()),
+                ToDate: ConverFormatDate($("#ToDate").val()),
+                TicketCode: ves.join(","),
+                PaymentType: $("#PaymentType").val(),
+                IsExcel: 1
+            };
+
+            location.href = "/Ticket/ExportGetSaleRP?UserName=" + dataSearch.UserName +
+                "&FromDate=" + dataSearch.FromDate +
+                "&ToDate=" + dataSearch.ToDate +
+                "&TicketCode=" + dataSearch.TicketCode +
+                "&IsExcel=" + dataSearch.IsExcel;
+
+        }
+        function GetAllUserforDDL(chanelId) {
+            let htmlUserOption = "<option value=''>Tất cả</option>";
+
+            if (chanelId == "2") {
+                $.ajax({
+                    type: "GET",
+                    url: "/Account/GetListAllUserInfo",
+                    success: function (res) {
+
+                        if (res !== null && res.length > 0) {
+                            $.each(res, function (i, item) {
+                                htmlUserOption = htmlUserOption + "<option value='" + item.userName + "' >" + item.fullName + "</option>"
+                            });
+                            $("#ddl-employee").html(htmlUserOption);
+                        }
+
+                    }
+                });
+            } else {
+                htmlUserOption = "<option value=''>Tất cả</option>";
+                $("#ddl-employee").html(htmlUserOption);
+            }
+
+
+        }
+       
+        function GetCounterFilter() {
+            let ves = $("#TicketCode").val();
+            var counterFilter = {
+                SaleChanelId: $("#ddl-sale-chanel").val(),
+                GateCode: $("#ddl-gatecode").val(),
+                UserName: $("#ddl-employee").val(),
+                FromDate: ConverFormatDate($("#FromDate").val()),
+                ToDate: ConverFormatDate($("#ToDate").val()),
+                TicketCode: ves.join(","),
+                PaymentType: $("#PaymentType").val(),
+            };
+
+            $.ajax({
+                type: "POST",
+                contentType: 'application/json; charset=utf-8',
+                url: "/Ticket/GetSaleReportCounter",
+                dataType: 'json',
+                headers: {
+                    'RequestVerificationToken': TokenHeaderValue()
+                },
+                data: JSON.stringify(counterFilter),
+                success: function (res) {
+                    $("#counter-SL-TrenVe").html(res.totalQuantiOnTicket);
+                    $("#counter-SL-InRa").html(res.totalQuantiPrint);
+                    $("#counter-doanhso").html(res.totalVAT);
+                    GetSaleRP();
+                }
+            });
+        }
+
+
+        function RenderNumerFormat(data) {
+            var res = "";
+            if (data !== undefined) {
+                res = data.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+            }
+            return "<div style='width:100%;text-align:right;'>" + res + "</div>";
+        }
+    </script>
+}
