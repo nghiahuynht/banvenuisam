@@ -79,11 +79,11 @@ namespace WebApp
             app.UseAuthentication();
             app.UseMvc(routes =>
             {
-                routes.MapRoute(
-                   name: "system_route",
-                   template: "system/{action=index}/{id?}/{id2?}",
-                   defaults: new { controller = "condao" }
-               );
+               // routes.MapRoute(
+               //    name: "system_route",
+               //    template: "system/{action=index}/{id?}/{id2?}",
+               //    defaults: new { controller = "condao" }
+               //);
 
                 routes.MapRoute(
                     name: "default",

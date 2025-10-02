@@ -610,10 +610,10 @@ namespace WebApp.Controllers
         {
             var objOrder = ticketService.GetOrderInfo(id.Value);
 
-            var infoAppBankAndroid = paymentService.GetInfoAppBankAndroid();
-            var infoAppBankIOS = paymentService.GetInfoAppBankIOS();
-            ViewBag.LstInfoAppBankAndroid = infoAppBankAndroid.Apps;
-            ViewBag.LstInfoAppBankIOS = infoAppBankIOS.Apps;
+          //  var infoAppBankAndroid = paymentService.GetInfoAppBankAndroid();
+          //  var infoAppBankIOS = paymentService.GetInfoAppBankIOS();
+          //  ViewBag.LstInfoAppBankAndroid = infoAppBankAndroid.Apps;
+          //  ViewBag.LstInfoAppBankIOS = infoAppBankIOS.Apps;
             return View(objOrder);
         }
 

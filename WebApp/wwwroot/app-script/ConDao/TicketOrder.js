@@ -36,11 +36,7 @@
         let validTien = validTotal();
         if (validForm)
         {
-            if (validTien == "ok") {
-                SaveOrder();
-            } else {
-                bootbox.alert(AlertFail("Đơn mua vé tổng tiền phải >= 3,000,000 VNĐ"));
-            }
+            SaveOrder();
             
         }
         
@@ -91,7 +87,7 @@ function SaveOrder() {
         success: function (result) {
             if (result.isSuccess
                 && result.data > 0) {// tạo đơn hàng thành công
-                location.href = `/system/paymentorder/${result.data}`;
+                location.href = `/condao/paymentorder/${result.data}`;
             }
             else {
                 bootbox.alert(AlertFail(result.Desc));

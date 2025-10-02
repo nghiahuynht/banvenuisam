@@ -50,7 +50,7 @@
                                 <div class="feature bg-gradient rounded-3 mb-4 mt-n4"><i style="font-size:40pt;" class="fa fa-user-tag"></i></div>
                                 <strong class="fs-4 fw-bold" style="font-size:16pt;">@(ticket.Description)</strong><br />
                                 <strong class="fs-4 fw-bold" style="color:#0094ff;font-size:20pt">@(ticket.Price.ToString("#,##0")) VNĐ</strong><br />
-                                <a href="/system/ticketorder?ticketCode=@(ticket.Code)&quanti=1&visitDate=@(DateTime.Now.ToString("dd/MM/yyyy"))" class="btn btn-danger">Mua vé</a>
+                                <a href="/condao/ticketorder?ticketCode=@(ticket.Code)&quanti=1&visitDate=@(DateTime.Now.ToString("dd/MM/yyyy"))" class="btn btn-danger">Mua vé</a>
                             </div>
                         </div>
                     </div>

@@ -1,0 +1,95 @@
+9/15/2025 9:06:48 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":41,"SubNum":3,"SubOrderCode":"TE10K1509250001","CreatedBy":"admin","CardNum":"4000041"}
+
+
+9/15/2025 9:07:28 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":42,"SubNum":2,"SubOrderCode":"TE10K1509250002","CreatedBy":"admin","CardNum":"4000042"}
+
+
+9/15/2025 9:07:58 PM: /TicketOrder/ChangePaymentStatusOrder      
+QRCodeFolder: D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":43,"SubNum":3,"SubOrderCode":"TE10K1509250003","CreatedBy":"admin","CardNum":"4000043"}
+
+
+9/15/2025 9:09:04 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":44,"SubNum":3,"SubOrderCode":"TE10K1509250004","CreatedBy":"admin","CardNum":"4000044"}
+
+
+9/15/2025 9:11:03 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":45,"SubNum":2,"SubOrderCode":"TE10K1509250005","CreatedBy":"admin","CardNum":"4000045"}
+
+
+9/15/2025 9:11:44 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":46,"SubNum":0,"SubOrderCode":"CT10K1509250001","CreatedBy":"admin","CardNum":"4000046"}
+
+
+9/15/2025 9:11:53 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":47,"SubNum":0,"SubOrderCode":"NL20K1509250001","CreatedBy":"admin","CardNum":"4000047"}
+
+
+9/15/2025 9:18:03 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":48,"SubNum":3,"SubOrderCode":"TE10K1509250006","CreatedBy":"admin","CardNum":"4000048"}
+
+
+9/15/2025 9:18:26 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":49,"SubNum":2,"SubOrderCode":"NL20K1509250002","CreatedBy":"admin","CardNum":"4000049"}
+
+
+9/15/2025 9:18:33 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":50,"SubNum":2,"SubOrderCode":"TE10K1509250007","CreatedBy":"admin","CardNum":"4000050"}
+
+
+9/15/2025 9:18:37 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":51,"SubNum":1,"SubOrderCode":"CT10K1509250002","CreatedBy":"admin","CardNum":"4000051"}
+
+
+9/15/2025 9:25:31 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":52,"SubNum":35,"SubOrderCode":"TE10K1509250008","CreatedBy":"admin","CardNum":"4000052"}
+
+
+9/15/2025 9:27:49 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":53,"SubNum":3,"SubOrderCode":"NL20K1509250003","CreatedBy":"admin","CardNum":"4000053"}
+
+
+9/15/2025 9:30:27 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":54,"SubNum":3,"SubOrderCode":"TE10K1509250009","CreatedBy":"admin","CardNum":"4000054"}
+
+
+9/15/2025 9:39:25 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":55,"SubNum":3,"SubOrderCode":"TE10K1509250010","CreatedBy":"admin","CardNum":"4000055"}
+
+
+9/15/2025 9:48:44 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":56,"SubNum":3,"SubOrderCode":"TE10K1509250011","CreatedBy":"admin","CardNum":"4000056"}
+
+
+9/15/2025 9:49:00 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":57,"SubNum":6,"SubOrderCode":"TE10K1509250012","CreatedBy":"admin","CardNum":"4000057"}
+
+
+9/15/2025 9:55:59 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":58,"SubNum":2,"SubOrderCode":"TE10K1509250013","CreatedBy":"admin","CardNum":"4000058"}
+
+
+9/15/2025 9:56:09 PM: /TicketOrder/SaleOrderAction      
+QRCodeFolder: D:\Projects\OnGit\ThuVienBaoTang_VungTau_V2\WebApp_BanVe\WebApp\wwwroot\QRCode\{0}.jpg
+SubCode: {"SubId":59,"SubNum":45,"SubOrderCode":"CT10K1509250003","CreatedBy":"admin","CardNum":"4000059"}
+
+

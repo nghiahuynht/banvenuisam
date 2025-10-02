@@ -245,52 +245,7 @@
                     </div>
                 </div>*@
             </div>
-            <div class="modal-footer">
-                <p>Sử dụng <a href="#">Ứng dụng hỗ trợ</a> hoặc <b>nhấn vào logo</b> để thanh toán trực tiếp trên ứng dụng (<i>Vui lòng chọn thiết bị </i>)</p>
-                <div class="row">
-                    <div class="radio-group">
-                        <label class="radio-option">
-                            <input type="radio" name="platform" value="android" id="radio-android" />
-                            Android
-                        </label>
-                        <label class="radio-option">
-                            <input type="radio" name="platform" value="ios" id="radio-ios" />
-                            IOS
-                        </label>
-                    </div>
-
-                </div>
-
-                <div class="row" id="android-apps" style="display:none">
-                    @{
-                        var lstInfoAppBankAndroid = ViewBag.LstInfoAppBankAndroid as List<DeeplinkInfoAppBank> ?? new List<DeeplinkInfoAppBank>();
-                        foreach (var info in lstInfoAppBankAndroid)
-                        {
-                            <div class="col-4 pt-2 ">
-                                <a href="@info.Deeplink" target="_blank">
-                                    <img src="@info.AppLogo" width="100" height="100" style="cursor: pointer;" />
-                                </a>
-                            </div>
-                        }
-                    }
-                </div>
-
-                <div class="row" id="ios-apps" style="display:none">
-                    @{
-                        var lstInfoAppBankIOS = ViewBag.LstInfoAppBankIOS as List<DeeplinkInfoAppBank> ?? new List<DeeplinkInfoAppBank>();
-                        foreach (var info in lstInfoAppBankIOS)
-                        {
-                            <div class="col-4 pt-2">
-                                <a href="@info.Deeplink" target="_blank">
-                                    <img src="@info.AppLogo" width="100" height="100" style="cursor: pointer;" />
-                                </a>
-                            </div>
-                        }
-                    }
-                </div>
-                
-
-            </div>
+          
         </div>
         <!-- /.modal-content -->
     </div>
@@ -328,7 +283,7 @@
             $("#btn-back").click(function () {
                 let ticketCodeSelected = $("#TicketCode").val();
                 let quanti = parseFloat($("#Quanti").val());
-                location.href = `/system/ticketorder?ticketCode=${ticketCodeSelected}&quanti=${quanti}`;
+                location.href = `/condao/ticketorder?ticketCode=${ticketCodeSelected}&quanti=${quanti}`;
             });
 
 
