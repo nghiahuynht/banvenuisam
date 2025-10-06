@@ -305,29 +305,21 @@ namespace WebApp.Controllers
 
                     #endregion
 
-                    #region ddphuong Lấy qr code chuyển khoản Agribank
+                    #region ddphuong Lấy qr code chuyển SePay
                     string madon = Helper.GenMaDon(orderInfo.Id);
-                    //QRCodePaymentModel jsbody = new QRCodePaymentModel()
-                    //{
-                    //    accountNo = string.Concat("v", AppSettingServices.Get.GenerateQRCodeSettings.ServiceCode ?? "970405", string.Format("TVVT{0}", madon)),
-                    //    accountName = AppSettingServices.Get.GenerateQRCodeSettings.AccountName ?? "Thư viện - Bảo Tàng tỉnh Bà Rịa - Vũng Tàu",
-                    //    acqId = AppSettingServices.Get.GenerateQRCodeSettings.AcqId ?? "970405", // Agrribank
-                    //    addInfo = "Mua vé TVBT BRVT",
-                    //    amount = orderInfo.Total.ToString(),
-                    //    template = AppSettingServices.Get.GenerateQRCodeSettings.Template ?? "compact2",
-                    //};
-
-                    QRCodePaymentModel jsbody = new QRCodePaymentModel() // đoanh này Nghĩa làm tạm để thanh toán thủ công trước
+                    QRCodePaymentModel jsbody = new QRCodePaymentModel()
                     {
-                        accountNo = "6090201043889",
-                        accountName = "Bảo Tàng - Thư Viện Tỉnh Bà Rịa - Vũng Tàu",
-                        acqId = AppSettingServices.Get.GenerateQRCodeSettings.AcqId ?? "970405", // Agrribank
-                        addInfo = "BTTV" + model.OrderId,
-                        amount = objOrder.Total.ToString(),
-                        template = AppSettingServices.Get.GenerateQRCodeSettings.Template ?? "compact2",
+                        accountNo = "0181003412055",
+                        accountName = "Huynh Trong Nghia",
+                        acqId = "970436",
+                        addInfo = string.Format("NuiSam DH{0}", madon),
+                        amount = orderInfo.Total.ToString(),
+                        template = "compact2",
                     };
 
+
                     string imageBase64 = paymentService.GenerateQRCodePayment(jsbody);
+
                     if (!string.IsNullOrEmpty(imageBase64))
                     {
                         res.Desc = imageBase64;

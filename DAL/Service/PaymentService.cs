@@ -131,7 +131,7 @@ namespace DAL.Service
                 WriteLog.writeToLogFile($"[GenerateQRCodePayment][Exception]: {ex}");
                 return string.Empty;
             }
-            return result;
+
         }
 
         public DeeplinkInfoAppBankResponse GetInfoAppBankAndroid()

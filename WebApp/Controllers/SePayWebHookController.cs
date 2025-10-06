@@ -41,7 +41,7 @@ namespace WebApp.Controllers
         public async Task<SaveResultModel> PaymenTran([FromBody] WebHookReceiveModel model)
         {
             var rsNoti = new ResCommon<int>();
-            if (model != null && model.content.IndexOf("VQGCD") > -1)
+            if (model != null && model.content.IndexOf("NuiSam") > -1)
             {
 
  
@@ -110,7 +110,7 @@ namespace WebApp.Controllers
             
             Int64 orderId = 0;
             content = content.ToLower();
-            string refix = "VQGCD";
+            string refix = "NuiSam";
             try
             {
                 if (content.IndexOf(refix) > -1)
