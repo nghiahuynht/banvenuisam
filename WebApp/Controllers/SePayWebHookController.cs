@@ -16,6 +16,8 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using DAL.Models.Zalo;
 using DAL.Enum;
+using NLog;
+using NLog.Fluent;
 
 namespace WebApp.Controllers
 {
@@ -27,6 +29,7 @@ namespace WebApp.Controllers
         private readonly IZaloService zaloService;
         private readonly IZNSService znsService;
         private readonly IEmailService emailService;
+       //  protected readonly ILogger logger = LogManager.GetCurrentClassLogger();
         public SePayWebHookController(ITicketOrderService ticketOrderService, ITicketService ticketService, IZaloService zaloService, IEmailService emailService
             , IZNSService znsService)
         {
@@ -40,22 +43,28 @@ namespace WebApp.Controllers
         [HttpPost("[action]")]
         public async Task<SaveResultModel> PaymenTran([FromBody] WebHookReceiveModel model)
         {
+            var log = new StringBuilder();
             var rsNoti = new ResCommon<int>();
-            if (model != null && model.content.IndexOf("NuiSam") > -1)
+            log.AppendLine("--------------BEGIN SEPAY-------------");
+            string strJson = System.Text.Json.JsonSerializer.Serialize<WebHookReceiveModel>(model);
+            log.AppendLine("strJson :" + strJson);
+            
+            if (model != null && model.code.ToLower().IndexOf("dh") > -1)
             {
 
- 
-               var res = await ticketOrderService.SaveTranSePayWebHook(model);
+                var res = await ticketOrderService.SaveTranSePayWebHook(model);
+                log.AppendLine("Save log db :" + res.ValueReturn);
                 if (res.ValueReturn > 0 && res.IsSuccess==true)
                 {
-                    long orderId = DetachMaDon(model.content);
-                   
+                    long orderId = DetachMaDon(model.code);
+                    log.AppendLine("DetachMaDon :" + orderId);
                     var objOD = ticketService.GetOrderInfo(orderId);
 
                     if (objOD.Total == model.transferAmount)
                     {
                         int paymentStatus = (int)PaymentStatus.Paid; // đã thanh toán
                         var resStatus = ticketOrderService.ChangePaymentStatusTicketOrder(orderId, paymentStatus, "SePay");
+                        log.AppendLine("Update status ticket :" + resStatus.IsSuccess);
                         if (resStatus.IsSuccess)
                         {
                             ticketService.CreateTicketSubOrder(objOD.Id, objOD.Quanti, objOD.TicketCode, objOD.Price);
@@ -88,13 +97,17 @@ namespace WebApp.Controllers
                         }
                     }
 
-                }  
+                }
 
-
+                log.AppendLine("--------------END SEPAY-------------");
+                WriteLog.writeToLogFile(log.ToString());
                 return res;
             }
             else
             {
+                log.AppendLine("detech content fail :" );
+                log.AppendLine("--------------END SEPAY-------------");
+                WriteLog.writeToLogFile(log.ToString());
                 return new SaveResultModel
                 {
                     IsSuccess = false,
@@ -102,6 +115,7 @@ namespace WebApp.Controllers
                     ValueReturn = 0
                 };
             }
+           
         }
 
 
@@ -110,7 +124,7 @@ namespace WebApp.Controllers
             
             Int64 orderId = 0;
             content = content.ToLower();
-            string refix = "NuiSam";
+            string refix = "dh";
             try
             {
                 if (content.IndexOf(refix) > -1)
@@ -118,15 +132,26 @@ namespace WebApp.Controllers
                     int indexCut = content.IndexOf(refix);
                     string madon = content.Substring(indexCut, content.Length - indexCut);
                     string madon2 = madon.Replace(refix, string.Empty);
-                    string madon3 = madon2.Substring(0, 7);
-                    orderId = Convert.ToInt64(madon3);
+                    if (madon2.Length >= 7)
+                    {
+                        // Lấy 7 ký tự cuối cùng
+                        string madon3 = madon2.Substring(madon2.Length - 7);
+                        orderId = Convert.ToInt64(madon3);
+                    }
+                    else
+                    {
+                        // Nếu độ dài < 7, lấy toàn bộ chuỗi
+                        orderId = Convert.ToInt64(madon2);
+                    }
                 }
 
 
             }
             catch (Exception ex)
             {
-
+                var log = new StringBuilder();
+                log.AppendLine("detech mã đơn lỗi :"+ content);
+                WriteLog.writeToLogFile(log.ToString());
             }
             return orderId;
 

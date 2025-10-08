@@ -153,12 +153,12 @@ namespace WebApp.Controllers
                 string madon = Helper.GenMaDon(res.OrderId);
                 QRCodePaymentModel jsbody = new QRCodePaymentModel()
                 {
-                    accountNo = "6090201043889",
-                    accountName = "Bảo Tàng - Thư Viện Tỉnh Bà Rịa - Vũng Tàu",
-                    acqId = AppSettingServices.Get.GenerateQRCodeSettings.AcqId ?? "970405", // Agrribank
-                    addInfo = "BTTV" + res.OrderId,
+                    accountNo = "0181003412055",
+                    accountName = "Huynh Trong Nghia",
+                    acqId = "970436",
+                    addInfo = string.Format("NuiSam DH{0}", madon),
                     amount = res.Total.ToString(),
-                    template = AppSettingServices.Get.GenerateQRCodeSettings.Template ?? "compact2",
+                    template = "compact2",
                 };
                 imgQR = paymentService.GenerateQRCodePayment(jsbody);
             }
